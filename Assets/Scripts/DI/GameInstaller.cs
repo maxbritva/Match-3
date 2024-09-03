@@ -1,4 +1,5 @@
 using Game;
+using Game.Tiles;
 using UnityEngine;
 using Zenject;
 
@@ -14,6 +15,7 @@ namespace DI
             Container.Bind<Board>().FromInstance(_board).AsSingle().NonLazy();
             Container.Bind<BoardView>().FromInstance(_boardView).AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<GameDebug>().FromNew().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<TileCreator>().FromNew().AsSingle().NonLazy();
         }
     }
 }
