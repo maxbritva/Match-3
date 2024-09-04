@@ -14,5 +14,7 @@ namespace Game.Tiles
             GetComponent<SpriteRenderer>().sprite = tileType.Sprite;
         }
         public TileType GetTileType() => tileType;
+        
+    
     }
 }

@@ -8,7 +8,7 @@ namespace Game.Tiles
         private DiContainer _diContainer;
         private Tile _tilePrefab;
         private TileType[] _tileTypes;
-        private Board _board;
+        private Board.Board _board;
 
         public TileCreator()
         {
@@ -19,7 +19,7 @@ namespace Game.Tiles
                 Resources.Load<TileType>("Tiles/Green"),
                 Resources.Load<TileType>("Tiles/Purple"),
                 Resources.Load<TileType>("Tiles/White"),
-                Resources.Load<TileType>("Tiles/Yellow"),
+                Resources.Load<TileType>("Tiles/Red"),
                 Resources.Load<TileType>("Tiles/Orange"),
             };
         }
@@ -28,12 +28,10 @@ namespace Game.Tiles
         {
             Tile tile = _diContainer.InstantiatePrefabForComponent<Tile>(_tilePrefab, position, Quaternion.identity, parent);
             tile.SetType(_tileTypes[Random.Range(0, _tileTypes.Length)]);
-            var gridTile = new GridTile<Tile>(x, y, _board.Grid);
-            gridTile.SetValue(tile);
-            _board.Grid.SetValue(x,y, gridTile);
+            _board.Grid.SetValue(x,y, tile);
         }
 
-        [Inject] private void Construct(DiContainer diContainer, Board board)
+        [Inject] private void Construct(DiContainer diContainer, Board.Board board)
         {
             _diContainer = diContainer;
             _board = board;

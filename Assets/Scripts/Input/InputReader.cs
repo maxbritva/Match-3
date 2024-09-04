@@ -26,7 +26,7 @@ namespace Input
 
         private void OnDestroy() => _fireAction.performed -= OnFire;
 
-        private void OnFire(InputAction.CallbackContext context) => 
+        public void OnFire(InputAction.CallbackContext context) => 
             Fire?.Invoke();
     }
 }

@@ -148,8 +148,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbccc5e2e4bc46af861eb6582363e502, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _boardView: {fileID: 1022035555}
+  boardInteraction: {fileID: 1022035555}
   _board: {fileID: 1022035556}
+  _inputReader: {fileID: 1390613802}
 --- !u!114 &252038894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,7 +259,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
+  orthographic: 1
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
@@ -546,14 +547,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bf7222520694e838aca85761dc72105, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tilePrefab: {fileID: 4178064467529533773, guid: 7ef97f23e1df04b7593de09fd9a26c7c, type: 3}
-  _tileTypes:
-  - {fileID: 11400000, guid: 15f1a859835ac4815b90fb17e048c246, type: 2}
-  - {fileID: 11400000, guid: 2c753d5e1827448b8a5ad1d675fbf0df, type: 2}
-  - {fileID: 11400000, guid: 9efff13a093ea48f29205748b3eb8613, type: 2}
-  - {fileID: 11400000, guid: c76e48bb6d42843c28269a94d72b5a50, type: 2}
-  - {fileID: 11400000, guid: 75aec995f29c34601ae5e6d5c89789dd, type: 2}
-  - {fileID: 11400000, guid: 9e219eb4af93c49318d7e9aec127da31, type: 2}
 --- !u!4 &1022035557
 Transform:
   m_ObjectHideFlags: 0
@@ -600,7 +593,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 54ce3952ff0984b3b8e518b70e568e28, type: 3}
-  m_NotificationBehavior: 0
+  m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -611,12 +604,68 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7adf2488-5918-4203-afe1-04761832a5c3
+    m_ActionName: 'Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1fa3a962-0940-481f-9a37-7a40f01849ed
+    m_ActionName: 'Player/Look[/Mouse/delta,/Pen/delta]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 17dd875c-9cc4-4c5e-9959-f268b1770d34
+    m_ActionName: 'Player/Fire[/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1219c08c-bceb-45bf-a4e4-f25f5d17947d
+    m_ActionName: 'Player/Select[/Mouse/position,/Pen/position]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5a283df4-cfdc-42a4-8f80-cee32ebbec16
+    m_ActionName: 'UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d5ea5b02-f182-4323-91d0-2b326f23ae50
+    m_ActionName: 'UI/Submit[/Keyboard/enter]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d36db483-be50-41bc-a1fd-41a97c0bcde3
+    m_ActionName: 'UI/Cancel[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0dad7f9e-4701-4fad-a08b-5a7599d491cf
+    m_ActionName: 'UI/Point[/Mouse/position,/Pen/position]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 59d0c92d-2d71-44c1-a64a-123ebd7ff314
+    m_ActionName: 'UI/Click[/Mouse/leftButton,/Pen/tip]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b901cd18-80ed-44f6-855c-66919ca33840
+    m_ActionName: 'UI/ScrollWheel[/Mouse/scroll]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b9f4af28-bac7-4137-909d-461e267258b4
+    m_ActionName: 'UI/MiddleClick[/Mouse/middleButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 630ca333-b18a-48a3-8678-000309ebbca0
+    m_ActionName: 'UI/RightClick[/Mouse/rightButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4a151c9e-ff19-440d-99c1-0fdf36ff7248
+    m_ActionName: UI/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ae6b1308-31fe-4e18-8bac-036341aaf7fd
+    m_ActionName: UI/TrackedDeviceOrientation
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 330585545}
 --- !u!4 &1390613801
 Transform:
   m_ObjectHideFlags: 0
