@@ -23,6 +23,7 @@ namespace DI
             Container.Bind<InputReader>().FromInstance(_inputReader).AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<GameDebug>().FromNew().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<TileCreator>().FromNew().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<GameLoop>().FromNew().AsSingle().NonLazy();
         }
     }
 }

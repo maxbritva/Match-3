@@ -10,6 +10,7 @@ namespace Game.Board
     public class BoardInteraction : MonoBehaviour
     {
         private Board _board;
+        private GameLoop _gameLoop;
         private GridCoordinator _gridCoordinator;
         private InputReader _inputReader;
         private Vector2Int _selectedTile = Vector2Int.one * -1;
@@ -19,7 +20,7 @@ namespace Game.Board
         private void OnDisable() => _inputReader.Fire -= OnSelectTile;
         
 
-        private void OnSelectTile()
+        private async void OnSelectTile()
         {
             var gridPosition = _gridCoordinator.WorldToGrid(Camera.main.ScreenToWorldPoint(_inputReader.Selected), _board.CellSize, _board.OriginPosition);
             if (IsValidPosition(gridPosition) == false || IsEmptyPosition(gridPosition)) return;
@@ -34,48 +35,11 @@ namespace Game.Board
                 // audioManager.PlayClick();
             }
             else
-                StartCoroutine(SwapGems(_selectedTile, gridPosition)) ;
-               // StartCoroutine(RunGameLoop(gridPosition, gridPosition));
+                await _gameLoop.RunGameLoop(_selectedTile, gridPosition);
         }
         
         
-        IEnumerator RunGameLoop(Vector2Int gridPosA, Vector2Int gridPosB)
-        {
-            yield return StartCoroutine(SwapGems(gridPosA, gridPosB));
-            
-            // Matches?
-            // List<Vector2Int> matches = FindMatches();
-            // // TODO: Calculate score
-            // // Make Gems explode
-            // yield return StartCoroutine(ExplodeGems(matches));
-            // // Make gems fall
-            // yield return StartCoroutine(MakeGemsFall());
-            // // Fill empty spots
-            // yield return StartCoroutine(FillEmptySpots());
-            
-            // TODO: Check if game is over
-
-            DeselectGem();
-        }
-        
-        IEnumerator SwapGems(Vector2Int gridPosA, Vector2Int gridPosB) 
-        {
-            var gridObjectA = _board.Grid.GetValue(gridPosA.x, gridPosA.y);
-            var gridObjectB =  _board.Grid.GetValue(gridPosB.x, gridPosB.y);
-            Debug.Log(gridObjectA.transform.position);
-            Debug.Log(gridObjectB.transform.position);
-            gridObjectA.transform
-                .DOLocalMove( _gridCoordinator.GridToWorldCenter(gridPosB.x, gridPosB.y, _board.CellSize, _board.OriginPosition), 0.5f)
-                .SetEase(Ease.InQuad);
-            gridObjectB.transform
-                .DOLocalMove(_gridCoordinator.GridToWorldCenter(gridPosA.x, gridPosA.y,_board.CellSize, _board.OriginPosition), 0.5f)
-                .SetEase(Ease.InQuad);
-            
-            _board.Grid.SetValue(gridPosA.x, gridPosA.y, gridObjectB);
-            _board.Grid.SetValue(gridPosB.x, gridPosB.y, gridObjectA);
-            
-            yield return new WaitForSeconds(0.5f);
-        }
+       
         
         private void DeselectGem() => _selectedTile = new Vector2Int(-1, -1);
         private void SelectGem(Vector2Int gridPosition) => _selectedTile = gridPosition;
@@ -86,7 +50,7 @@ namespace Game.Board
         private bool IsValidPosition(Vector2 gridPosition) => 
             gridPosition.x >= 0 && gridPosition.x < _board.GridWidth && gridPosition.y >= 0 && gridPosition.y < _board.GridHeight;
 
-        [Inject] private void Construct(Board board, InputReader inputReader, GridCoordinator gridCoordinator)
+        [Inject] private void Construct(Board board, InputReader inputReader, GridCoordinator gridCoordinator, GameLoop gameLoop)
         {
             _board = board;
             _inputReader = inputReader;

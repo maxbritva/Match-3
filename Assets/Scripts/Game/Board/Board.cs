@@ -13,9 +13,7 @@ namespace Game.Board
 
         public int GridWidth => _gridWidth;
         public int GridHeight => _gridHeight;
-
         public float CellSize => _cellSize;
-
         public Vector3 OriginPosition => _originPosition;
 
         private int _gridWidth;
