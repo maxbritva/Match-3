@@ -2,7 +2,7 @@ using System;
 using Game.Board;
 using Game.Tiles;
 using UnityEngine;
-using VContainer;
+using Zenject;
 
 namespace Game.Grid
 {
@@ -17,18 +17,19 @@ namespace Game.Grid
         private Tile[,] _gridArray;
 
         private GridCoordinator _gridCoordinator;
-     
+        private GameDebug _gameDebug;
+        private BoardInteraction _boardInteraction;
 
-        public GridSystem(int width, int height, float cellSize, Vector3 origin, bool isDebugSession, GridCoordinator gridCoordinator)
+        public GridSystem(int width, int height, float cellSize, Vector3 origin, bool isDebugSession)
         {
             _width = width;
             _height = height;
             _CellSize = cellSize;
             _origin = origin;
             _gridArray = new Tile[width, height];
-            _gridCoordinator = gridCoordinator;
 
             // if (isDebugSession) _gameDebug.DrawDebugLines(_width, _height, cellSize, _origin);
+
         }
 
         public bool IsValid(int x, int y) => x >= 0 && y >= 0 && x < _width && y < _height;
@@ -56,6 +57,11 @@ namespace Game.Grid
 
         public Vector2Int GetXY(Vector3 worldPosition) => _gridCoordinator.WorldToGrid(worldPosition, _CellSize, _origin);
         
- 
+        [Inject] private void Construct(GridCoordinator gridCoordinator, GameDebug gameDebug, BoardInteraction boardInteraction)
+        {
+            _gridCoordinator = gridCoordinator;
+            _gameDebug = gameDebug;
+            _boardInteraction = boardInteraction;
+        }
     }
 }
