@@ -1,7 +1,7 @@
 using Game.Board;
 using TMPro;
 using UnityEngine;
-using VContainer;
+using Zenject;
 
 namespace Game.Grid
 {
@@ -9,13 +9,6 @@ namespace Game.Grid
     {
         private GridCoordinator _gridCoordinator;
         private BoardInteraction _boardInteraction;
-
-        public GameDebug(GridCoordinator gridCoordinator, BoardInteraction boardInteraction)
-        {
-            _gridCoordinator = gridCoordinator;
-            _boardInteraction = boardInteraction;
-        }
-
         public void DrawDebugLines(int width, int height, float cellSize, Vector3 origin)
         {
             for (int x = 0; x < width; x++)
@@ -40,5 +33,12 @@ namespace Game.Grid
             TMP.color = Color.white;
             TMP.alignment = TextAlignmentOptions.Center;
         }
+        
+        [Inject] private void Construct(GridCoordinator gridCoordinator, DiContainer diContainer, BoardInteraction boardInteraction)
+        {
+            _gridCoordinator = gridCoordinator;
+            _boardInteraction = boardInteraction;
+        }
+
     }
 }
