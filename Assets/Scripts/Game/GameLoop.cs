@@ -3,7 +3,6 @@ using DG.Tweening;
 using Game.Grid;
 using Input;
 using UnityEngine;
-using Zenject;
 
 namespace Game
 {
@@ -14,8 +13,9 @@ namespace Game
         
         public async UniTask RunGameLoop(Vector2Int gridPosA, Vector2Int gridPosB)
         {
-          //  UniTask.WaitUntil(await SwapTiles(gridPosA, gridPosB));
-            
+             Debug.Log(1111);
+            //  UniTask.WaitUntil(await SwapTiles(gridPosA, gridPosB));
+
             //DeselectGem();
         }
         
@@ -37,13 +37,13 @@ namespace Game
             
             //yield return new WaitForSeconds(0.5f);
         }
-
-        
-        [Inject] private void Construct(Board.Board board, GridCoordinator gridCoordinator)
-        {
-            _board = board;
-            _gridCoordinator = gridCoordinator;
-        }
+        //
+        //
+        // [Inject] private void Construct(Board.Board board, GridCoordinator gridCoordinator)
+        // {
+        //     _board = board;
+        //     _gridCoordinator = gridCoordinator;
+        // }
 
     }
 }
