@@ -1,21 +1,21 @@
-using Game.Board;
 using TMPro;
 using UnityEngine;
-using Zenject;
 
 namespace Game.Grid
 {
     public class GameDebug
     {
         private GridCoordinator _gridCoordinator;
-        private BoardInteraction _boardInteraction;
-        public void DrawDebugLines(int width, int height, float cellSize, Vector3 origin)
+
+        public GameDebug(GridCoordinator gridCoordinator) => _gridCoordinator = gridCoordinator;
+
+        public void ShowDebugGrid(int width, int height, float cellSize, Vector3 origin, Transform parent)
         {
             for (int x = 0; x < width; x++)
             {
                 for (int y = 0; y < height; y++)
                 {
-                    CreateDebugText(_boardInteraction.transform, x + "," + y,_gridCoordinator.GridToWorldCenter(x, y, cellSize, origin),
+                    CreateDebugText(parent, x + "," + y,_gridCoordinator.GridToWorldCenter(x, y, cellSize, origin),
                         _gridCoordinator.forward);
                 }
             }
@@ -29,16 +29,9 @@ namespace Game.Grid
             TMPGameObject.transform.forward = direction;
             var TMP = TMPGameObject.GetComponent<TextMeshPro>();
             TMP.text = text;
-            TMP.fontSize = 2f;
+            TMP.fontSize = 3f;
             TMP.color = Color.white;
             TMP.alignment = TextAlignmentOptions.Center;
         }
-        
-        [Inject] private void Construct(GridCoordinator gridCoordinator, DiContainer diContainer, BoardInteraction boardInteraction)
-        {
-            _gridCoordinator = gridCoordinator;
-            _boardInteraction = boardInteraction;
-        }
-
     }
 }

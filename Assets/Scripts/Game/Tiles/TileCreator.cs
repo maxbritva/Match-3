@@ -1,17 +1,19 @@
 using UnityEngine;
-using Zenject;
+using VContainer;
+using VContainer.Unity;
 
 namespace Game.Tiles
 {
     public class TileCreator
     {
-        private DiContainer _diContainer;
+        private IObjectResolver _objectResolver;
         private Tile _tilePrefab;
         private TileType[] _tileTypes;
-        private Board.Board _board;
 
-        public TileCreator()
+        public TileCreator(IObjectResolver objectResolver)
         {
+            Debug.Log("init tilecreator");
+            _objectResolver = objectResolver;
             _tilePrefab = Resources.Load<Tile>("Prefabs/TilePrefab");
             _tileTypes = new[]
             {
@@ -24,17 +26,11 @@ namespace Game.Tiles
             };
         }
 
-        public void CreateTile(int x, int y, Vector3 position, Transform parent)
+        public Tile CreateTile(int x, int y, Vector3 position, Transform parent)
         {
-            Tile tile = _diContainer.InstantiatePrefabForComponent<Tile>(_tilePrefab, position, Quaternion.identity, parent);
+            Tile tile = _objectResolver.Instantiate(_tilePrefab, position, Quaternion.identity, parent);
             tile.SetType(_tileTypes[Random.Range(0, _tileTypes.Length)]);
-            _board.Grid.SetValue(x,y, tile);
-        }
-
-        [Inject] private void Construct(DiContainer diContainer, Board.Board board)
-        {
-            _diContainer = diContainer;
-            _board = board;
+            return tile;
         }
     }
 }

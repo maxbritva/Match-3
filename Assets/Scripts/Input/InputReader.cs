@@ -4,29 +4,30 @@ using UnityEngine.InputSystem;
 
 namespace Input
 {
-    [RequireComponent(typeof(PlayerInput))]
-    public class InputReader : MonoBehaviour
+    public class InputReader : IDisposable
     {
-        private PlayerInput _playerInput;
-        private InputAction _selectAction;
+        public event Action Click;
+        
+        private readonly PlayerInput _playerInput;
+        private InputAction _positionAction;
         private InputAction _fireAction;
+        
+        private bool _isFire;
 
-        public event Action Fire;
-
-        public Vector2 Selected => _selectAction.ReadValue<Vector2>();
-
-        private void Start()
+        public InputReader(PlayerInput playerInput)
         {
-            _playerInput = GetComponent<PlayerInput>();
-            _selectAction = _playerInput.actions["Select"];
+            _playerInput = playerInput;
+            _positionAction = _playerInput.actions["Select"];
             _fireAction = _playerInput.actions["Fire"];
-
-            _fireAction.performed += OnFire;
+            _fireAction.performed += OnClick;
         }
 
-        private void OnDestroy() => _fireAction.performed -= OnFire;
+        public void Dispose() => _fireAction.performed -= OnClick;
 
-        public void OnFire(InputAction.CallbackContext context) => 
-            Fire?.Invoke();
+        public Vector2 Position => _positionAction.ReadValue<Vector2>();
+
+        private void OnClick(InputAction.CallbackContext context) => 
+            Click?.Invoke();
+        
     }
 }
