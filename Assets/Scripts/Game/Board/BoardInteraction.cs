@@ -3,7 +3,8 @@ using DG.Tweening;
 using Game.Grid;
 using Input;
 using UnityEngine;
-using Zenject;
+using VContainer;
+using VContainer;
 
 namespace Game.Board
 {
@@ -14,6 +15,14 @@ namespace Game.Board
         private GridCoordinator _gridCoordinator;
         private InputReader _inputReader;
         private Vector2Int _selectedTile = Vector2Int.one * -1;
+
+        public BoardInteraction(Board board, GameLoop gameLoop, GridCoordinator gridCoordinator, InputReader inputReader)
+        {
+            _board = board;
+            _gameLoop = gameLoop;
+            _gridCoordinator = gridCoordinator;
+            _inputReader = inputReader;
+        }
 
         private void OnEnable() => _inputReader.Fire += OnSelectTile;
 
@@ -50,11 +59,11 @@ namespace Game.Board
         private bool IsValidPosition(Vector2 gridPosition) => 
             gridPosition.x >= 0 && gridPosition.x < _board.GridWidth && gridPosition.y >= 0 && gridPosition.y < _board.GridHeight;
 
-        [Inject] private void Construct(Board board, InputReader inputReader, GridCoordinator gridCoordinator, GameLoop gameLoop)
-        {
-            _board = board;
-            _inputReader = inputReader;
-            _gridCoordinator = gridCoordinator;
-        }
+        // [Inject] private void Construct(InputReader inputReader, GridCoordinator gridCoordinator, GameLoop gameLoop, Board board)
+        // {
+        //     _board = board;
+        //     _inputReader = inputReader;
+        //     _gridCoordinator = gridCoordinator;
+        // }
     }
 }
