@@ -1,7 +1,6 @@
 using Game.Grid;
 using Game.Tiles;
 using UnityEngine;
-using Zenject;
 using GridSystem = Game.Grid.GridSystem;
 
 namespace Game.Board
@@ -10,6 +9,12 @@ namespace Game.Board
     {
         private GridSystem _grid;
         public GridSystem Grid => _grid;
+
+        public Board(GridCoordinator gridCoordinator, GameDebug gameDebug)
+        {
+            _gridCoordinator = gridCoordinator;
+            _gameDebug = gameDebug;
+        }
 
         public int GridWidth => _gridWidth;
         public int GridHeight => _gridHeight;
@@ -27,14 +32,16 @@ namespace Game.Board
 
         private void Start()
         {
+            if(_gridCoordinator == null)
+                Debug.Log(11);
             _gridWidth = 10;
             _gridHeight = 10;
             _cellSize = 1f;
             _originPosition = Vector3.zero;
             if(_isDebugging)
                 _gameDebug.DrawDebugLines(_gridWidth, _gridHeight, _cellSize, _originPosition);
-            _grid = new GridSystem(_gridWidth, _gridHeight, _cellSize, _originPosition, _isDebugging);
-           InitializeBoard();
+            _grid = new GridSystem(_gridWidth, _gridHeight, _cellSize, _originPosition, _isDebugging, _gridCoordinator);
+            InitializeBoard();
         }
 
         private void InitializeBoard()
@@ -44,13 +51,6 @@ namespace Game.Board
                 for (int y = 0; y < _gridHeight; y++) 
                     _tileCreator.CreateTile(x,y,_gridCoordinator.GridToWorldCenter(x, y, _cellSize, _originPosition), transform);
             }
-        }
-
-        [Inject] private void Construct(GridCoordinator gridCoordinator, GameDebug gameDebug, BoardInteraction boardInteraction, TileCreator tileCreator)
-        {
-            _gridCoordinator = gridCoordinator;
-            _gameDebug = gameDebug;
-            _tileCreator = tileCreator;
         }
     }
 }
