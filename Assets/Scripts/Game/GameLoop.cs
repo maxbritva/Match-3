@@ -1,8 +1,13 @@
+using System;
+using System.Collections.Generic;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Game.Grid;
-using Input;
+using Game.Tiles;
+using Unity.VisualScripting;
 using UnityEngine;
+
 
 namespace Game
 {
@@ -10,40 +15,147 @@ namespace Game
     {
         private Board.Board _board;
         private GridCoordinator _gridCoordinator;
-        
+        private CancellationTokenSource _cancellationToken;
+        private TileCreator _tileCreator;
+
+        public GameLoop(Board.Board board, GridCoordinator gridCoordinator, TileCreator tileCreator)
+        {
+            _board = board;
+            _gridCoordinator = gridCoordinator;
+            _tileCreator = tileCreator;
+        }
+
         public async UniTask RunGameLoop(Vector2Int gridPosA, Vector2Int gridPosB)
         {
-             Debug.Log(1111);
-            //  UniTask.WaitUntil(await SwapTiles(gridPosA, gridPosB));
-
-            //DeselectGem();
+            _cancellationToken = new CancellationTokenSource();
+            await SwapTiles(gridPosA, gridPosB);
+            _cancellationToken.Cancel();
+            Debug.Log("Completed");
+            List<Vector2Int> matches = FindMatches();
+            await RemoveTiles(matches);
+            await FallTiles();
+           // await FillGrid();
         }
-        
-        public async UniTask SwapTiles(Vector2Int gridPosA, Vector2Int gridPosB)
+
+        private async UniTask SwapTiles(Vector2Int gridPosA, Vector2Int gridPosB)
         {
             var gridObjectA = _board.Grid.GetValue(gridPosA.x, gridPosA.y);
             var gridObjectB =  _board.Grid.GetValue(gridPosB.x, gridPosB.y);
-            Debug.Log(gridObjectA.transform.position);
-            Debug.Log(gridObjectB.transform.position);
-            gridObjectA.transform
-                .DOLocalMove( _gridCoordinator.GridToWorldCenter(gridPosB.x, gridPosB.y, _board.CellSize, _board.OriginPosition), 0.5f)
-                .SetEase(Ease.InQuad);
-            gridObjectB.transform
-                .DOLocalMove(_gridCoordinator.GridToWorldCenter(gridPosA.x, gridPosA.y,_board.CellSize, _board.OriginPosition), 0.5f)
-                .SetEase(Ease.InQuad);
+
+             gridObjectA.transform.DOLocalMove(_gridCoordinator.GridToWorldCenter(gridPosB.x, gridPosB.y,
+                _board.CellSize, _board.OriginPosition), 0.5f).SetEase(Ease.OutCubic).ToUniTask();
+
+             gridObjectB.transform.DOLocalMove(_gridCoordinator.GridToWorldCenter(gridPosA.x, gridPosA.y,
+                    _board.CellSize, _board.OriginPosition), 0.5f)
+                .SetEase(Ease.OutCubic).ToUniTask();
             
             _board.Grid.SetValue(gridPosA.x, gridPosA.y, gridObjectB);
             _board.Grid.SetValue(gridPosB.x, gridPosB.y, gridObjectA);
-            
-            //yield return new WaitForSeconds(0.5f);
-        }
-        //
-        //
-        // [Inject] private void Construct(Board.Board board, GridCoordinator gridCoordinator)
-        // {
-        //     _board = board;
-        //     _gridCoordinator = gridCoordinator;
-        // }
 
+            await UniTask.Delay(TimeSpan.FromSeconds(0.5f), _cancellationToken.IsCancellationRequested);
+        }
+        
+       private List<Vector2Int> FindMatches() 
+       {
+           
+            HashSet<Vector2Int> matches = new HashSet<Vector2Int>();
+            
+            // Horizontal
+            for (var y = 0; y < _board.GridHeight; y++) {
+                for (var x = 0; x < _board.GridWidth - 2; x++) {
+                    var gemA = _board.Grid.GetValue(x, y);
+                    var gemB = _board.Grid.GetValue(x + 1, y);
+                    var gemC = _board.Grid.GetValue(x + 2, y);
+                    
+                    if (gemA == null || gemB == null || gemC == null) continue;
+                    
+                    if (gemA.GetTileType() == gemB.GetTileType()
+                        && gemB.GetTileType() == gemC.GetTileType()) 
+                    {
+                        matches.Add(new Vector2Int(x, y));
+                        matches.Add(new Vector2Int(x + 1, y));
+                        matches.Add(new Vector2Int(x + 2, y));
+                    }
+                }
+            }
+            
+            // Vertical
+            for (var x = 0; x < _board.GridWidth; x++) {
+                for (var y = 0; y < _board.GridHeight - 2; y++) {
+                    var gemA = _board.Grid.GetValue(x, y);
+                    var gemB = _board.Grid.GetValue(x, y + 1);
+                    var gemC = _board.Grid.GetValue(x, y + 2);
+                    
+                    if (gemA == null || gemB == null || gemC == null) continue;
+                    
+                    if (gemA.GetTileType() == gemB.GetTileType()
+                        && gemB.GetTileType() == gemC.GetTileType())
+                    {
+                        matches.Add(new Vector2Int(x, y));
+                        matches.Add(new Vector2Int(x, y + 1));
+                        matches.Add(new Vector2Int(x, y + 2));
+                    }
+                }
+            }
+
+            if (matches.Count == 0) {
+              //  audioManager.PlayNoMatch();
+            } else {
+              //  audioManager.PlayMatch();
+            }
+            return new List<Vector2Int>(matches);
+        }
+
+
+       private async UniTask RemoveTiles(List<Vector2Int> matches)
+       {
+          // audioManager.PlayPop();
+          foreach (var match in matches)
+          {
+              var gem = _board.Grid.GetValue(match.x, match.y);
+              _board.Grid.SetValue(match.x, match.y, null);
+
+            //  ExplodeVFX(match);
+                
+              await gem.transform.DOPunchScale(Vector3.one * 0.1f, 0.1f, 1, 0.5f);
+              gem.GameObject().SetActive(false);
+             // Destroy(gem.gameObject, 0.1f);
+          }
+       }
+
+       private async UniTask FallTiles()
+       {
+           for (var x = 0; x < _board.GridWidth; x++) {
+               for (var y = 0; y < _board.GridHeight; y++) {
+                   if (_board.Grid.GetValue(x, y) == null) {
+                       for (var i = y + 1; i < _board.GridHeight; i++) {
+                           if (_board.Grid.GetValue(x, i) != null) {
+                               var gem = _board.Grid.GetValue(x, i);
+                               _board.Grid.SetValue(x, y, _board.Grid.GetValue(x, i));
+                               _board.Grid.SetValue(x, i, null);
+                               gem.transform.DOLocalMove(_gridCoordinator.GridToWorldCenter(x,y, _board.CellSize, _board.OriginPosition), 0.5f).SetEase(Ease.InBack);
+                              // audioManager.PlayWoosh();
+                              break;
+                           }
+                       }
+                   }
+               }
+           }
+       }
+
+       private async UniTask FillGrid()
+       {
+           for (var x = 0; x < _board.GridWidth; x++) {
+               for (var y = 0; y < _board.GridHeight; y++) {
+                   if (_board.Grid.GetValue(x, y) == null)
+                   {
+                       _tileCreator.CreateTile(_gridCoordinator.GridToWorldCenter(x, y, _board.CellSize, _board.OriginPosition), _board.transform);
+                     //  audioManager.PlayPop();
+                      await  UniTask.Delay(TimeSpan.FromSeconds(0.1f), _cancellationToken.IsCancellationRequested);
+                   }
+               }
+           }
+       }
+  
     }
 }

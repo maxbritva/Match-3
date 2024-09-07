@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using VContainer;
 
 namespace Input
 {
@@ -8,23 +9,25 @@ namespace Input
     {
         public event Action Click;
         
-        private readonly PlayerInput _playerInput;
+        private readonly PlayerInputs _playerInputs;
         private InputAction _positionAction;
         private InputAction _fireAction;
+        private IObjectResolver _objectResolver;
         
         private bool _isFire;
 
-        public InputReader(PlayerInput playerInput)
+        public InputReader()
         {
-            _playerInput = playerInput;
-            _positionAction = _playerInput.actions["Select"];
-            _fireAction = _playerInput.actions["Fire"];
-            _fireAction.performed += OnClick;
+            _playerInputs = new PlayerInputs();
+            _playerInputs.Enable();
+          //  _positionAction = _playerInput.actions["Select"];
+           // _fireAction = _playerInput.actions["Fire"];
+           _playerInputs.Player.Fire.performed += OnClick;
         }
 
-        public void Dispose() => _fireAction.performed -= OnClick;
+        public void Dispose() => _playerInputs.Player.Fire.performed -= OnClick;
 
-        public Vector2 Position => _positionAction.ReadValue<Vector2>();
+        public Vector2 Position =>  _playerInputs.Player.Select.ReadValue<Vector2>();
 
         private void OnClick(InputAction.CallbackContext context) => 
             Click?.Invoke();

@@ -38,8 +38,7 @@ namespace Game.Board
             {
                 for (int y = 0; y < GridHeight; y++)
                 {
-                    var tile = _tileCreator.CreateTile(x,y,
-                        _gridCoordinator.GridToWorldCenter(x, y, CellSize, OriginPosition), transform);
+                    var tile = _tileCreator.CreateTile(_gridCoordinator.GridToWorldCenter(x, y, CellSize, OriginPosition), transform);
                     Grid.SetValue(x,y, tile);
                 }
             }

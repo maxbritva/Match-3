@@ -26,7 +26,7 @@ namespace Game.Tiles
             };
         }
 
-        public Tile CreateTile(int x, int y, Vector3 position, Transform parent)
+        public Tile CreateTile(Vector3 position, Transform parent)
         {
             Tile tile = _objectResolver.Instantiate(_tilePrefab, position, Quaternion.identity, parent);
             tile.SetType(_tileTypes[Random.Range(0, _tileTypes.Length)]);

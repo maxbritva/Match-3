@@ -1,14 +1,13 @@
 using Game.Grid;
 using Input;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using VContainer;
 
 namespace Game.Board
 {
     public class BoardInteraction: MonoBehaviour
     {
-        private PlayerInput _playerInput;
+        [SerializeField] private Camera _camera;
         private Board _board;
         private GameLoop _gameLoop;
         private GridCoordinator _gridCoordinator;
@@ -17,40 +16,37 @@ namespace Game.Board
 
         private void OnEnable()
         {
-            _playerInput = GetComponent<PlayerInput>();
-            _inputReader = new InputReader(_playerInput);
+            _inputReader = new InputReader();
             _inputReader.Click += OnSelectTile;
+            _board = GetComponent<Board>();
         }
 
         private void OnDisable() => _inputReader.Click -= OnSelectTile;
         
         private async void OnSelectTile()
         {
-            var gridPosition = _gridCoordinator.WorldToGrid(Camera.main.ScreenToWorldPoint(_inputReader.Position), _board.CellSize, _board.OriginPosition);
+            var gridPosition = _gridCoordinator.WorldToGrid(_camera.ScreenToWorldPoint(_inputReader.Position), _board.CellSize, _board.OriginPosition);
             if (IsValidPosition(gridPosition) == false || IsEmptyPosition(gridPosition))
             {
-                Debug.Log(11);
                 return;
             }
               
             if (_selectedTile == gridPosition) 
             {
-                Debug.Log(11);
                 DeselectTile();
                 //audioManager.PlayDeselect();
             } 
             else if (_selectedTile == Vector2Int.one * -1)
             {
-                Debug.Log(11);
                 SelectTile(gridPosition);
                 // audioManager.PlayClick();
             }
             else
             {
-                Debug.Log(11);
+                Debug.Log(44);
                 await _gameLoop.RunGameLoop(_selectedTile, gridPosition);
+                DeselectTile();
             }
-              
         }
         
         private void DeselectTile() => _selectedTile = new Vector2Int(-1, -1);
@@ -62,11 +58,10 @@ namespace Game.Board
         private bool IsValidPosition(Vector2 gridPosition) => 
             gridPosition.x >= 0 && gridPosition.x < _board.GridWidth && gridPosition.y >= 0 && gridPosition.y < _board.GridHeight;
 
-        [Inject] private void Construct(GridCoordinator gridCoordinator, GameLoop gameLoop, Board board)
+        [Inject] private void Construct(GridCoordinator gridCoordinator, GameLoop gameLoop)
         {
             _gameLoop = gameLoop;
             _gridCoordinator = gridCoordinator;
-            _board = board;
         }
     }
 }
