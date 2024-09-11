@@ -1,5 +1,6 @@
 using Game.Grid;
 using Game.Tiles;
+using Game.Utils;
 using UnityEngine;
 using VContainer;
 using GridSystem = Game.Grid.GridSystem;
@@ -19,6 +20,7 @@ namespace Game.Board
         private TileCreator _tileCreator;
         private bool _isDebugging;
         private GameDebug _gameDebug;
+        private SetupCamera _setupCamera;
 
         private void Start()
         {
@@ -30,6 +32,7 @@ namespace Game.Board
                 _gameDebug.ShowDebugGrid(GridWidth, GridHeight, CellSize, OriginPosition, transform);
             _grid = new GridSystem(GridWidth, GridHeight, CellSize, OriginPosition,_gridCoordinator);
            InitializeBoard();
+           _setupCamera = new SetupCamera(this, false);
         }
 
         private void InitializeBoard()

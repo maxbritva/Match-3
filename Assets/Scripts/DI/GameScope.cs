@@ -2,6 +2,7 @@ using Game;
 using Game.Board;
 using Game.Grid;
 using Game.Tiles;
+using Game.Utils;
 using Input;
 using UnityEngine;
 using VContainer;
@@ -22,6 +23,7 @@ namespace DI
             //builder.Register<InputReader>(Lifetime.Singleton);
             builder.Register<BoardInteraction>(Lifetime.Singleton);
             builder.Register<GameLoop>(Lifetime.Singleton);
+            builder.Register<SetupCamera>(Lifetime.Singleton);
         }
     }
 }
