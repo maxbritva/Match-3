@@ -34,7 +34,7 @@ namespace Game
             List<Vector2Int> matches = FindMatches();
             await RemoveTiles(matches);
             await FallTiles();
-           // await FillGrid();
+            await FillGrid();
         }
 
         private async UniTask SwapTiles(Vector2Int gridPosA, Vector2Int gridPosB)
@@ -118,8 +118,8 @@ namespace Game
             //  ExplodeVFX(match);
                 
               await gem.transform.DOPunchScale(Vector3.one * 0.1f, 0.1f, 1, 0.5f);
-              gem.GameObject().SetActive(false);
-             // Destroy(gem.gameObject, 0.1f);
+             // gem.GameObject().SetActive(false);
+             _board.Destroy(gem.GameObject());
           }
        }
 

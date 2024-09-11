@@ -48,7 +48,9 @@ namespace Game.Board
                 DeselectTile();
             }
         }
-        
+
+      
+
         private void DeselectTile() => _selectedTile = new Vector2Int(-1, -1);
         private void SelectTile(Vector2Int gridPosition) => _selectedTile = gridPosition;
 

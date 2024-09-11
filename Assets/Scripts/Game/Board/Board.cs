@@ -9,6 +9,8 @@ namespace Game.Board
 {
     public class Board : MonoBehaviour
     {
+
+        [SerializeField] private ArrayLayout _arrayLayout;
         public GridSystem Grid => _grid;
         public int GridWidth { get; private set; }
         public int GridHeight { get; private set; }
@@ -34,7 +36,7 @@ namespace Game.Board
            InitializeBoard();
            _setupCamera = new SetupCamera(this, false);
         }
-
+        public void Destroy(GameObject target) => Destroy(target, 0.1f);
         private void InitializeBoard()
         {
             for (int x = 0; x < GridWidth; x++)
