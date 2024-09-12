@@ -455,23 +455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bf7222520694e838aca85761dc72105, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _arrayLayout:
-    grid: {fileID: 0}
-    rows:
-    - row: 000000000000000000
-    - row: 000000000000000000
-    - row: 000000000000000000
-    - row: 000000000000000000
-    - row: 000000000000000000
-    - row: 000000000000000000
-    - row: 000000000000000000
-    - row: 000000000000000000
-    - row: 000000000000000000
-    - row: 000000000000000000
-    - row: 000000000000000000
-    - row: 000000000000000000
-    - row: 000000000000000000
-    - row: 000000000000000000
+  _levelConfiguration: {fileID: 11400000, guid: 51aba540d8ffb4c85a5f82689ac5f180, type: 2}
 --- !u!4 &1022035557
 Transform:
   m_ObjectHideFlags: 0

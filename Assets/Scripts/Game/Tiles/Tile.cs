@@ -7,6 +7,7 @@ namespace Game.Tiles
     public class Tile: MonoBehaviour
     {
         public TileType tileType;
+        private bool _isUseful;
 
         public void SetType(TileType tileType)
         {
@@ -14,7 +15,8 @@ namespace Game.Tiles
             GetComponent<SpriteRenderer>().sprite = tileType.Sprite;
         }
         public TileType GetTileType() => tileType;
-        
-    
+        public bool CanUseTile(bool value) => _isUseful = value;
+
+
     }
 }

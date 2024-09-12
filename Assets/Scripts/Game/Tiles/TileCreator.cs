@@ -9,6 +9,7 @@ namespace Game.Tiles
         private IObjectResolver _objectResolver;
         private Tile _tilePrefab;
         private TileType[] _tileTypes;
+        private TileType _blank;
 
         public TileCreator(IObjectResolver objectResolver)
         {
@@ -24,12 +25,20 @@ namespace Game.Tiles
                 Resources.Load<TileType>("Tiles/Red"),
                 Resources.Load<TileType>("Tiles/Orange"),
             };
+            _blank = Resources.Load<TileType>("Tiles/Blank");
         }
 
         public Tile CreateTile(Vector3 position, Transform parent)
         {
             Tile tile = _objectResolver.Instantiate(_tilePrefab, position, Quaternion.identity, parent);
             tile.SetType(_tileTypes[Random.Range(0, _tileTypes.Length)]);
+            return tile;
+        }
+
+        public Tile CreateBlankTile(Vector3 position, Transform parent)
+        {
+            Tile tile = _objectResolver.Instantiate(_tilePrefab, position, Quaternion.identity, parent);
+            tile.SetType(_blank);
             return tile;
         }
     }

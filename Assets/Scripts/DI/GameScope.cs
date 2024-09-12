@@ -18,6 +18,7 @@ namespace DI
             builder.Register<IObjectResolver, Container>(Lifetime.Singleton);
             builder.Register<GridCoordinator>(Lifetime.Singleton);
             builder.Register<TileCreator>(Lifetime.Scoped);
+            builder.Register<GenerateBlankTiles>(Lifetime.Singleton);
             builder.RegisterInstance(_board);
             builder.Register<GameDebug>(Lifetime.Singleton);
             //builder.Register<InputReader>(Lifetime.Singleton);
