@@ -20,8 +20,8 @@ namespace DI
             builder.RegisterInstance(gameBoard);
             builder.RegisterEntryPoint<GameEntryPoint>();
             builder.Register<GridCoordinator>(Lifetime.Singleton);
-            builder.Register<TileCreator>(Lifetime.Scoped);
-            builder.Register<GenerateBlankTiles>(Lifetime.Singleton);
+            builder.Register<TilePool>(Lifetime.Scoped);
+            builder.Register<BlankTilesLevelSetup>(Lifetime.Singleton);
          
             builder.Register<GameDebug>(Lifetime.Singleton);
             //builder.Register<InputReader>(Lifetime.Singleton);

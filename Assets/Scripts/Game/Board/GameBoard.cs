@@ -17,82 +17,67 @@ namespace Game.Board
         public GridSystem Grid => _grid;
         public int GridWidth { get; private set; }
         public int GridHeight { get; private set; }
-
+        private List<Tile> _tilesToRefill = new List<Tile>();
         private GridSystem _grid;
         private GridCoordinator _gridCoordinator;
-        private TileCreator _tileCreator;
-        private GenerateBlankTiles _generateBlankTiles;
+        private TilePool _tilePool;
+        private BlankTilesLevelSetup _blankTilesLevelSetup;
         private MatchFinder _matchFinder;
         
         private bool _isDebugging;
-       private List<Tile> _potionsToDestroy = new List<Tile>();
-      
-
-        private void Start()
-        {
-         
-        }
+        
+       
 
         public void InitializeBoard()
         {
-          
             GridWidth = _levelConfiguration.LevelGridWidth;
             GridHeight = _levelConfiguration.LevelGridHeight;;
             _grid = new GridSystem(GridWidth, GridHeight,_gridCoordinator);
-            _generateBlankTiles.Generate(_levelConfiguration);
-            Debug.Log("Grid was created");
-            CreateTiles();
-
-            while (_matchFinder.CheckBoard(this, _gridCoordinator))
-            {
-                CreateTiles();
-            }
+            _blankTilesLevelSetup.Generate(_levelConfiguration);
+         
+            FillBoard();
+            while (_matchFinder.CheckBoard(this, _gridCoordinator)) 
+                FillBoard();
         }
 
-        private void CreateTiles()
+        private void FillBoard()
         {
-            DestroyPotions();
+            RefillBoard();
             for (int x = 0; x < GridWidth; x++)
             {
                 for (int y = 0; y < GridHeight; y++)
                 {
-                    if (_generateBlankTiles.Blanks[x, y])
+                    if (_blankTilesLevelSetup.Blanks[x, y])
                     {
-                        var tile = _tileCreator.CreateBlankTile(_gridCoordinator.GridToWorld(x, y), transform);
+                        var tile = _tilePool.CreateBlankTile(_gridCoordinator.GridToWorld(x, y), transform);
                         Grid.SetValue(x, y, tile);
-                        Debug.Log("blank was created");
                     }
                     else
                     {
-                        var tile = _tileCreator.CreateTile(_gridCoordinator.GridToWorld(x, y), transform);
+                        var tile = _tilePool.GetTileFromPool(_gridCoordinator.GridToWorld(x, y), transform);
                         Grid.SetValue(x, y, tile);
-                        _potionsToDestroy.Add(tile);
-                        Debug.Log("tile was created");
+                        _tilesToRefill.Add(tile);
                     }
                 }
             }
-
-            Debug.Log("Board was created");
         }
 
-        private void DestroyPotions()
+        private void RefillBoard()
         {
-            if (_potionsToDestroy == null) return;
-            foreach (var potion in _potionsToDestroy)
+            if (_tilesToRefill == null) return;
+            foreach (var potion in _tilesToRefill)
             {
-                var value = Grid.GetValue(potion.GameObject().transform.position);
                 Grid.SetValue(potion.GameObject().transform.position, null);
-                Destroy(potion);
+                potion.GameObject().SetActive(false);
             }
-               
-            _potionsToDestroy.Clear();
+            _tilesToRefill.Clear();
         }
 
-       [Inject] private void Construct(GridCoordinator gridCoordinator, TileCreator tileCreator, GenerateBlankTiles blankTiles, MatchFinder matchFinder)
+       [Inject] private void Construct(GridCoordinator gridCoordinator, TilePool tilePool, BlankTilesLevelSetup blankTilesLevelSetup, MatchFinder matchFinder)
         {
             _gridCoordinator = gridCoordinator;
-            _generateBlankTiles = blankTiles;
-            _tileCreator = tileCreator;
+            _blankTilesLevelSetup = blankTilesLevelSetup;
+            _tilePool = tilePool;
             _matchFinder = matchFinder;
         }
     }

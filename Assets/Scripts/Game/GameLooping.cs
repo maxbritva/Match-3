@@ -16,13 +16,13 @@ namespace Game
         private Board.GameBoard _gameBoard;
         private GridCoordinator _gridCoordinator;
         private CancellationTokenSource _cancellationToken;
-        private TileCreator _tileCreator;
+        private TilePool _tilePool;
 
-        public GameLooping(Board.GameBoard gameBoard, GridCoordinator gridCoordinator, TileCreator tileCreator)
+        public GameLooping(Board.GameBoard gameBoard, GridCoordinator gridCoordinator, TilePool tilePool)
         {
             _gameBoard = gameBoard;
             _gridCoordinator = gridCoordinator;
-            _tileCreator = tileCreator;
+            _tilePool = tilePool;
         }
 
        //  public async UniTask RunGameLoop(Vector2Int gridPosA, Vector2Int gridPosB)

@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Game.Tiles
 {
    [Serializable]
-    public class BlockTile
+    public class BlankTile
     {
         [SerializeField] private int xPosition;
         [SerializeField] private int yPosition;

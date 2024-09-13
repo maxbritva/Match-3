@@ -54,12 +54,18 @@ namespace Game.GameLoop
             CheckDirection(tileGridPosition, _leftDirection, gridSystem, tile, connectedTiles); //left
 
             if (connectedTiles.Count == 3)
+            {
+                Debug.Log("3 horizontal");
                 return new MatchResult(connectedTiles, MatchDirection.Horizontal);
-
+            }
 
 
             if (connectedTiles.Count > 3)
+            {
+                Debug.Log("4 horizontal");
                 return new MatchResult(connectedTiles, MatchDirection.LongHorizontal);
+            }
+            
 
             connectedTiles.Clear();
             connectedTiles.Add(tile);
@@ -67,12 +73,20 @@ namespace Game.GameLoop
             CheckDirection(tileGridPosition, _downDirection, gridSystem, tile, connectedTiles); //down
 
             if (connectedTiles.Count == 3)
+            {
+                Debug.Log("3 vertical");
                 return new MatchResult(connectedTiles, MatchDirection.Vertical);
+            }
 
 
             if (connectedTiles.Count > 3)
+            {
+                Debug.Log("4 vertical");
                 return new MatchResult(connectedTiles, MatchDirection.LongVertical);
+            }
+             
 
+            connectedTiles.Clear();
             return new MatchResult(connectedTiles, MatchDirection.None);
         }
 
@@ -84,12 +98,11 @@ namespace Game.GameLoop
             {
                 var neighbourTile = gridSystem.GetValue(x, y);
                
-                if (neighbourTile.IsInteractable && neighbourTile.IsMatched == false && tile.GetType() == neighbourTile.GetType())
+                if (neighbourTile.IsInteractable && neighbourTile.IsMatched == false && tile.tileType == neighbourTile.tileType)
                 {
-                    connectedTiles.Add(neighbourTile);
-
-                    x += direction.x;
-                    y += direction.y;
+                        connectedTiles.Add(neighbourTile);
+                        x += direction.x;
+                        y += direction.y;
                 }
                 else
                     break;

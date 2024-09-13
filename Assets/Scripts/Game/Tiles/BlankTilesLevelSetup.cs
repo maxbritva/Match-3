@@ -2,7 +2,7 @@ using Level;
 
 namespace Game.Tiles
 {
-    public class GenerateBlankTiles
+    public class BlankTilesLevelSetup
     {
         public bool[,] Blanks { get; private set; }
         

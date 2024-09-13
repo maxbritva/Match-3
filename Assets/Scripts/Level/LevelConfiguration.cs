@@ -10,9 +10,9 @@ namespace Level
     {
         [SerializeField] private int _levelGridWidth;
         [SerializeField] private int _levelGridHeight;
-        [SerializeField] private List<BlockTile> _blockTilesLayout;
+        [SerializeField] private List<BlankTile> _blockTilesLayout;
         
-        public List<BlockTile> BlockTilesLayout => _blockTilesLayout;
+        public List<BlankTile> BlockTilesLayout => _blockTilesLayout;
 
         public int LevelGridWidth => _levelGridWidth;
         public int LevelGridHeight => _levelGridHeight;
