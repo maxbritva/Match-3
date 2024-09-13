@@ -13,12 +13,10 @@ namespace Game.Board
     public class GameBoard : MonoBehaviour
     {
         [SerializeField] private LevelConfiguration _levelConfiguration;
-        public GridSystem Grid => _grid;
-        public int GridWidth { get; private set; }
-        public int GridHeight { get; private set; }
+        // public int GridWidth { get; private set; }
+        // public int GridHeight { get; private set; }
         private List<Tile> _tilesToRefill = new List<Tile>();
         private GridSystem _grid;
-        private GridCoordinator _gridCoordinator;
         private TilePool _tilePool;
         private BlankTilesLevelSetup _blankTilesLevelSetup;
         private MatchFinder _matchFinder;
@@ -27,33 +25,32 @@ namespace Game.Board
 
         public void InitializeBoard()
         {
-            GridWidth = _levelConfiguration.LevelGridWidth;
-            GridHeight = _levelConfiguration.LevelGridHeight;;
-            _grid = new GridSystem(GridWidth, GridHeight,_gridCoordinator);
+            // GridWidth = _grid.Width;
+            // GridHeight = _grid.Height;
             _blankTilesLevelSetup.Generate(_levelConfiguration);
          
             FillBoard();
-            while (_matchFinder.CheckBoard(this, _gridCoordinator)) 
+            while (_matchFinder.CheckBoardForMatches(_grid)) 
                 FillBoard();
         }
 
         private void FillBoard()
         {
             ClearBoard();
-            for (int x = 0; x < GridWidth; x++)
+            for (int x = 0; x < _grid.Width; x++)
             {
-                for (int y = 0; y < GridHeight; y++)
+                for (int y = 0; y < _grid.Height; y++)
                 {
                     if (_blankTilesLevelSetup.Blanks[x, y])
                     {
-                        if (Grid.GetValue(x, y)) continue;
-                        var tile = _tilePool.CreateBlankTile(_gridCoordinator.GridToWorld(x, y), transform);
-                        Grid.SetValue(x, y, tile);
+                        if (_grid.GetValue(x, y)) continue;
+                        var tile = _tilePool.CreateBlankTile(_grid.GridToWorld(x, y), transform);
+                        _grid.SetValue(x, y, tile);
                     }
                     else
                     {
-                        var tile = _tilePool.GetTileFromPool(_gridCoordinator.GridToWorld(x, y), transform);
-                        Grid.SetValue(x, y, tile);
+                        var tile = _tilePool.GetTileFromPool(_grid.GridToWorld(x, y), transform);
+                        _grid.SetValue(x, y, tile);
                         _tilesToRefill.Add(tile);
                     }
                 }
@@ -65,15 +62,15 @@ namespace Game.Board
             if (_tilesToRefill == null) return;
             foreach (var potion in _tilesToRefill)
             {
-                Grid.SetValue(potion.GameObject().transform.position, null);
+                _grid.SetValue(potion.GameObject().transform.position, null);
                 potion.GameObject().SetActive(false);
             }
             _tilesToRefill.Clear();
         }
 
-       [Inject] private void Construct(GridCoordinator gridCoordinator, TilePool tilePool, BlankTilesLevelSetup blankTilesLevelSetup, MatchFinder matchFinder)
-        {
-            _gridCoordinator = gridCoordinator;
+       [Inject] private void Construct(GridSystem gridSystem, TilePool tilePool, BlankTilesLevelSetup blankTilesLevelSetup, MatchFinder matchFinder)
+       {
+            _grid = gridSystem;
             _blankTilesLevelSetup = blankTilesLevelSetup;
             _tilePool = tilePool;
             _matchFinder = matchFinder;

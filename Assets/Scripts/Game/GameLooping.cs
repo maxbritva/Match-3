@@ -14,14 +14,13 @@ namespace Game
     public class GameLooping
     {
         private Board.GameBoard _gameBoard;
-        private GridCoordinator _gridCoordinator;
         private CancellationTokenSource _cancellationToken;
         private TilePool _tilePool;
 
-        public GameLooping(Board.GameBoard gameBoard, GridCoordinator gridCoordinator, TilePool tilePool)
+        public GameLooping(Board.GameBoard gameBoard,  TilePool tilePool)
         {
             _gameBoard = gameBoard;
-            _gridCoordinator = gridCoordinator;
+           
             _tilePool = tilePool;
         }
 

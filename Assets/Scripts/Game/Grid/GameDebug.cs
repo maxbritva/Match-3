@@ -5,16 +5,15 @@ namespace Game.Grid
 {
     public class GameDebug
     {
-        private GridCoordinator _gridCoordinator;
-
-        public GameDebug(GridCoordinator gridCoordinator) => _gridCoordinator = gridCoordinator;
+        private GridSystem _grid;
+        public GameDebug(GridSystem gridCoordinator) => _grid = gridCoordinator;
 
         public void ShowDebugGrid(int width, int height, Transform parent)
         {
             for (int x = 0; x < width; x++)
             {
                 for (int y = 0; y < height; y++) 
-                    CreateDebugText(parent, x + "," + y,_gridCoordinator.GridToWorld(x, y));
+                    CreateDebugText(parent, x + "," + y,_grid.GridToWorld(x, y));
             }
         }
 

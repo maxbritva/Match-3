@@ -2,7 +2,7 @@
 using System.Linq;
 using Game.Board;
 using Game.GameStateMachine.States;
-using UnityEngine;
+using Level;
 
 namespace Game.GameStateMachine
 {
@@ -11,13 +11,15 @@ namespace Game.GameStateMachine
         private List<IState> _states;
         private IState _currentState;
         private GameBoard _gameBoard;
+        private LevelConfiguration _levelConfiguration;
 
-        public StateMachine(GameBoard gameBoard)
+        public StateMachine(GameBoard gameBoard, LevelConfiguration levelConfiguration)
         {
             _gameBoard = gameBoard;
+            _levelConfiguration = levelConfiguration;
             _states = new List<IState>()
             {
-                new PrepareState( this,_gameBoard),
+                new PrepareState( this,_gameBoard, _levelConfiguration),
                 new PlayerTurnState()
             };
             _currentState = _states[0];

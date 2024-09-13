@@ -19,7 +19,7 @@ namespace DI
             builder.Register<IObjectResolver, Container>(Lifetime.Singleton);
             builder.RegisterInstance(gameBoard);
             builder.RegisterEntryPoint<GameEntryPoint>();
-            builder.Register<GridCoordinator>(Lifetime.Singleton);
+            builder.Register<GridSystem>(Lifetime.Singleton);
             builder.Register<TilePool>(Lifetime.Scoped);
             builder.Register<BlankTilesLevelSetup>(Lifetime.Singleton);
          

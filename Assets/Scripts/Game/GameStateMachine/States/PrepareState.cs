@@ -1,6 +1,8 @@
 ﻿using Game.Board;
+using Game.Grid;
 using Game.Tiles;
 using Game.Utils;
+using Level;
 using UnityEngine;
 
 namespace Game.GameStateMachine.States
@@ -10,18 +12,21 @@ namespace Game.GameStateMachine.States
         private IStateSwitcher _stateSwitcher;
         private GameBoard _gameBoard;
         private SetupCamera _setupCamera;
+        private LevelConfiguration _levelConfiguration;
+       
 
-        public PrepareState(IStateSwitcher stateSwitcher, GameBoard gameBoard)
+        public PrepareState(IStateSwitcher stateSwitcher, GameBoard gameBoard, LevelConfiguration levelConfiguration)
         {
             _stateSwitcher = stateSwitcher;
             _gameBoard = gameBoard;
+            _levelConfiguration = levelConfiguration;
         }
 
         public void Enter()
         {
-            _gameBoard.InitializeBoard();
             _setupCamera = new SetupCamera(false);
-            _setupCamera.SetCamera(_gameBoard.GridWidth, _gameBoard.GridHeight);
+            _setupCamera.SetCamera(_levelConfiguration.LevelGridWidth, _levelConfiguration.LevelGridHeight);
+            _gameBoard.InitializeBoard();
             _stateSwitcher.SwitchState<PlayerTurnState>();
         }
 

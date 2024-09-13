@@ -16,24 +16,19 @@ namespace Game.GameLoop
     }
     public class MatchFinder
     {
-        private readonly Vector2Int _rightDirection = new Vector2Int(1,0);
-        private readonly Vector2Int _leftDirection = new Vector2Int(-1,0);
-        private readonly Vector2Int _upDirection = new Vector2Int(0,1);
-        private readonly Vector2Int _downDirection = new Vector2Int(0,-1);
-        
         private List<Tile> _potionsToRemove = new List<Tile>();
 
-        public bool CheckBoard(Board.GameBoard gameBoard, GridCoordinator coordinator)
+        public bool CheckBoardForMatches(GridSystem grid)
         {
             var hasMatches = false;
 
-            for (int x = 0; x < gameBoard.GridWidth; x++)
+            for (int x = 0; x < grid.Width; x++)
             {
-                for (int y = 0; y < gameBoard.GridHeight; y++)
+                for (int y = 0; y < grid.Height; y++)
                 {
-                    var tile = gameBoard.Grid.GetValue(x, y);
+                    var tile = grid.GetValue(x, y);
                     if (tile.IsInteractable == false && tile.IsMatched) continue;
-                    var matchTiles = IsConnected(tile, coordinator, gameBoard.Grid);
+                    var matchTiles = IsConnected(tile, grid);
                     if (matchTiles.ConnectedTiles.Count < 3) continue;
                     _potionsToRemove.AddRange(matchTiles.ConnectedTiles);
                     foreach (var connectedTile in matchTiles.ConnectedTiles) 
@@ -44,59 +39,41 @@ namespace Game.GameLoop
             return hasMatches;
         }
 
-        private MatchResult IsConnected(Tile tile, GridCoordinator coordinator, GridSystem gridSystem)
+        private MatchResult IsConnected(Tile tile, GridSystem grid)
         {
             List<Tile> connectedTiles = new List<Tile>();
             connectedTiles.Add(tile);
-            var tileGridPosition = coordinator.WorldToGrid(tile.gameObject.transform.position);
+            var tileGridPosition = grid.WorldToGrid(tile.gameObject.transform.position);
             
-            CheckDirection(tileGridPosition, _rightDirection, gridSystem, tile, connectedTiles); //right
-            CheckDirection(tileGridPosition, _leftDirection, gridSystem, tile, connectedTiles); //left
+            CheckDirection(tileGridPosition, Vector2Int.right, grid, tile, connectedTiles); 
+            CheckDirection(tileGridPosition, Vector2Int.left, grid, tile, connectedTiles);
 
             if (connectedTiles.Count == 3)
-            {
-                Debug.Log("3 horizontal");
                 return new MatchResult(connectedTiles, MatchDirection.Horizontal);
-            }
-
-
-            if (connectedTiles.Count > 3)
-            {
-                Debug.Log("4 horizontal");
-                return new MatchResult(connectedTiles, MatchDirection.LongHorizontal);
-            }
+            if (connectedTiles.Count > 3) return new MatchResult(connectedTiles, MatchDirection.LongHorizontal);
             
-
             connectedTiles.Clear();
             connectedTiles.Add(tile);
-            CheckDirection(tileGridPosition, _upDirection, gridSystem, tile, connectedTiles); //up
-            CheckDirection(tileGridPosition, _downDirection, gridSystem, tile, connectedTiles); //down
+            
+            CheckDirection(tileGridPosition, Vector2Int.up, grid, tile, connectedTiles);
+            CheckDirection(tileGridPosition, Vector2Int.down, grid, tile, connectedTiles); 
 
             if (connectedTiles.Count == 3)
-            {
-                Debug.Log("3 vertical");
                 return new MatchResult(connectedTiles, MatchDirection.Vertical);
-            }
-
-
             if (connectedTiles.Count > 3)
-            {
-                Debug.Log("4 vertical");
                 return new MatchResult(connectedTiles, MatchDirection.LongVertical);
-            }
-             
-
+            
             connectedTiles.Clear();
             return new MatchResult(connectedTiles, MatchDirection.None);
         }
 
-        private void CheckDirection(Vector2Int position, Vector2Int direction, GridSystem gridSystem, Tile  tile, List<Tile> connectedTiles)
+        private void CheckDirection(Vector2Int position, Vector2Int direction, GridSystem grid, Tile  tile, List<Tile> connectedTiles)
         {
             int x = position.x + direction.x;
             int y = position.y + direction.y;
-            while ( gridSystem.IsValid(x,y))
+            while ( grid.IsValid(x,y))
             {
-                var neighbourTile = gridSystem.GetValue(x, y);
+                var neighbourTile = grid.GetValue(x, y);
                
                 if (neighbourTile.IsInteractable && neighbourTile.IsMatched == false && tile.tileType == neighbourTile.tileType)
                 {

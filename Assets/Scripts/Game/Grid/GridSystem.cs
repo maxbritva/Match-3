@@ -7,44 +7,48 @@ namespace Game.Grid
     public class GridSystem
     {
         public event Action<int, int, Tile> OnValueChanged; 
+        public Tile[,] Grid { get; private set; }
+        public int Width { get; private set; }
+        public int Height { get; private set; }
         
-        private int _width;
-        private int _height;
-        private Tile[,] _gridArray;
-
-        private GridCoordinator _gridCoordinator;
-
-        public GridSystem(int width, int height,GridCoordinator gridCoordinator)
+        public void SetupGrid(int width, int height)
         {
-            _gridCoordinator = gridCoordinator;
-            _width = width;
-            _height = height;
-          
-            _gridArray = new Tile[width, height];
+            Width = width;
+            Height = height;
+            Grid = new Tile[width, height];
+        }
+        
+        public Vector3 GridToWorld(int x, int y) => 
+            new Vector3(x + 0.5f, y  + 0.5f, 0);
+
+        public Vector2Int WorldToGrid(Vector3 worldPosition)
+        {
+            var x = Mathf.FloorToInt(worldPosition.x);
+            var y = Mathf.FloorToInt(worldPosition.y);
+            return new Vector2Int(x,y);
         }
 
         public void SetValue(int x, int y, Tile value)
         {
             if (IsValid(x, y))
-                _gridArray[x, y] = value;
+                Grid[x, y] = value;
             OnValueChanged?.Invoke(x, y, value);
         }
         
-
         public void SetValue(Vector3 worldPosition, Tile value)
         {
-            Vector2Int position = _gridCoordinator.WorldToGrid(worldPosition);
+            Vector2Int position = WorldToGrid(worldPosition);
             SetValue(position.x,position.y,value);
         }
 
         public Tile GetValue(Vector3 worldPosition)
         {
-            Vector2Int position = _gridCoordinator.WorldToGrid(worldPosition);
+            Vector2Int position = WorldToGrid(worldPosition);
             return GetValue(position.x, position.y);
         }
         
-        public Tile GetValue(int x, int y) => IsValid(x, y) ? _gridArray[x, y] : default;
+        public Tile GetValue(int x, int y) => IsValid(x, y) ? Grid[x, y] : default;
         
-        public bool IsValid(int x, int y) => x >= 0 && y >= 0 && x < _width && y < _height;
+        public bool IsValid(int x, int y) => x >= 0 && y >= 0 && x < Width && y < Height;
     }
 }
