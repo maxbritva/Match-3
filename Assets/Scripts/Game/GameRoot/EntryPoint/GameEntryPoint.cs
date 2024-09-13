@@ -7,7 +7,6 @@ namespace Game.GameRoot.EntryPoint
     public class GameEntryPoint
     {
         private static GameEntryPoint _instance;
-        private Coroutines _coroutines;
         private UIRootView _uiRootView;
         
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]

@@ -22,7 +22,6 @@ namespace DI
             builder.Register<GridSystem>(Lifetime.Singleton);
             builder.Register<TilePool>(Lifetime.Scoped);
             builder.Register<BlankTilesLevelSetup>(Lifetime.Singleton);
-         
             builder.Register<GameDebug>(Lifetime.Singleton);
             //builder.Register<InputReader>(Lifetime.Singleton);
             builder.Register<BoardInteraction>(Lifetime.Singleton);
