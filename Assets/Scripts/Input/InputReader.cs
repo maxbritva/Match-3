@@ -19,12 +19,17 @@ namespace Input
         public InputReader()
         {
             _playerInputs = new PlayerInputs();
-            _playerInputs.Enable();
-          //  _positionAction = _playerInput.actions["Select"];
+            //  _positionAction = _playerInput.actions["Select"];
            // _fireAction = _playerInput.actions["Fire"];
            _playerInputs.Player.Fire.performed += OnClick;
         }
-
+        public void EnableInputs(bool value)
+        {
+            if(value)
+                _playerInputs. Enable();
+            else
+                _playerInputs.Disable();
+        }
         public void Dispose() => _playerInputs.Player.Fire.performed -= OnClick;
 
         public Vector2 Position =>  _playerInputs.Player.Select.ReadValue<Vector2>();
