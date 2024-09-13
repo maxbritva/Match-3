@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Game.GameLoop;
 using Game.Grid;
 using Game.Tiles;
-using Game.Utils;
 using Level;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -25,8 +24,6 @@ namespace Game.Board
         private MatchFinder _matchFinder;
         
         private bool _isDebugging;
-        
-       
 
         public void InitializeBoard()
         {
@@ -42,13 +39,14 @@ namespace Game.Board
 
         private void FillBoard()
         {
-            RefillBoard();
+            ClearBoard();
             for (int x = 0; x < GridWidth; x++)
             {
                 for (int y = 0; y < GridHeight; y++)
                 {
                     if (_blankTilesLevelSetup.Blanks[x, y])
                     {
+                        if (Grid.GetValue(x, y)) continue;
                         var tile = _tilePool.CreateBlankTile(_gridCoordinator.GridToWorld(x, y), transform);
                         Grid.SetValue(x, y, tile);
                     }
@@ -62,7 +60,7 @@ namespace Game.Board
             }
         }
 
-        private void RefillBoard()
+        private void ClearBoard()
         {
             if (_tilesToRefill == null) return;
             foreach (var potion in _tilesToRefill)

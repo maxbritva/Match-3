@@ -14,6 +14,5 @@ namespace Game.Grid
             return new Vector2Int(x,y);
         }
         
-        public Vector3 forward => Vector3.forward;
     }
 }
