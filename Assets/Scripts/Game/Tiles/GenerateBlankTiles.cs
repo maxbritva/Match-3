@@ -1,6 +1,6 @@
 using Level;
 
-namespace Game.Board
+namespace Game.Tiles
 {
     public class GenerateBlankTiles
     {

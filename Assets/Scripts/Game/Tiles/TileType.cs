@@ -15,7 +15,8 @@ namespace Game.Tiles
         [SerializeField] private Sprite _sprite;
         [SerializeField] private TileKind _tileKind;
         [SerializeField] private bool _isInteractive;
-        
+
+        public bool IsInteractive => _isInteractive;
         public TileKind TileKind => _tileKind;
         public Sprite Sprite => _sprite;
     }

@@ -636,7 +636,7 @@ MonoBehaviour:
   autoRun: 1
   autoInjectGameObjects:
   - {fileID: 1022035554}
-  _board: {fileID: 1022035556}
+  gameBoard: {fileID: 1022035556}
 --- !u!4 &1968106418
 Transform:
   m_ObjectHideFlags: 0

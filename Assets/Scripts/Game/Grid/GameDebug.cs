@@ -9,13 +9,13 @@ namespace Game.Grid
 
         public GameDebug(GridCoordinator gridCoordinator) => _gridCoordinator = gridCoordinator;
 
-        public void ShowDebugGrid(int width, int height, float cellSize, Vector3 origin, Transform parent)
+        public void ShowDebugGrid(int width, int height, Transform parent)
         {
             for (int x = 0; x < width; x++)
             {
                 for (int y = 0; y < height; y++)
                 {
-                    CreateDebugText(parent, x + "," + y,_gridCoordinator.GridToWorldCenter(x, y, cellSize, origin),
+                    CreateDebugText(parent, x + "," + y,_gridCoordinator.GridToWorld(x, y),
                         _gridCoordinator.forward);
                 }
             }

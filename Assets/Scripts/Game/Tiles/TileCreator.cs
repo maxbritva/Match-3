@@ -13,7 +13,6 @@ namespace Game.Tiles
 
         public TileCreator(IObjectResolver objectResolver)
         {
-            Debug.Log("init tilecreator");
             _objectResolver = objectResolver;
             _tilePrefab = Resources.Load<Tile>("Prefabs/TilePrefab");
             _tileTypes = new[]
