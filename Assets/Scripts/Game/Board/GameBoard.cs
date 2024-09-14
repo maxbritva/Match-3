@@ -32,6 +32,7 @@ namespace Game.Board
             FillBoard();
             while (_matchFinder.CheckBoardForMatches(_grid)) 
                 FillBoard();
+            _matchFinder.ClearTilesToRemoveList();
         }
 
         private void FillBoard()

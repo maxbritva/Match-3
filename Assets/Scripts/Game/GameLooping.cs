@@ -35,24 +35,7 @@ namespace Game
        //      await FallTiles();
        //      await FillGrid();
        //  }
-       //
-       //  // private async UniTask SwapTiles(Vector2Int gridPosA, Vector2Int gridPosB)
-       //  // {
-       //  //     var gridObjectA = _board.Grid.GetValue(gridPosA.x, gridPosA.y);
-       //  //     var gridObjectB =  _board.Grid.GetValue(gridPosB.x, gridPosB.y);
-       //  //
-       //  //      gridObjectA.transform.DOLocalMove(_gridCoordinator.GridToWorld(gridPosB.x, gridPosB.y,
-       //  //         _board.CellSize, _board.OriginPosition), 0.5f).SetEase(Ease.OutCubic).ToUniTask();
-       //  //
-       //  //      gridObjectB.transform.DOLocalMove(_gridCoordinator.GridToWorld(gridPosA.x, gridPosA.y,
-       //  //             _board.CellSize, _board.OriginPosition), 0.5f)
-       //  //         .SetEase(Ease.OutCubic).ToUniTask();
-       //  //     
-       //  //     _board.Grid.SetValue(gridPosA.x, gridPosA.y, gridObjectB);
-       //  //     _board.Grid.SetValue(gridPosB.x, gridPosB.y, gridObjectA);
-       //  //
-       //  //     await UniTask.Delay(TimeSpan.FromSeconds(0.5f), _cancellationToken.IsCancellationRequested);
-       //  // }
+
        //  
        // private List<Vector2Int> FindMatches() 
        // {
@@ -106,22 +89,7 @@ namespace Game
        //  }
        //
        //
-       // private async UniTask RemoveTiles(List<Vector2Int> matches)
-       // {
-       //    // audioManager.PlayPop();
-       //    foreach (var match in matches)
-       //    {
-       //        var gem = _board.Grid.GetValue(match.x, match.y);
-       //        _board.Grid.SetValue(match.x, match.y, null);
-       //
-       //      //  ExplodeVFX(match);
-       //          
-       //        await gem.transform.DOPunchScale(Vector3.one * 0.1f, 0.1f, 1, 0.5f);
-       //       // gem.GameObject().SetActive(false);
-       //       _board.Destroy(gem.GameObject());
-       //    }
-       // }
-       //
+
        // private async UniTask FallTiles()
        // {
        //     for (var x = 0; x < _board.GridWidth; x++) {

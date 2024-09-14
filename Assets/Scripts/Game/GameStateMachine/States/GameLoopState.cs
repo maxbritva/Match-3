@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Game.GameLoop;
 using Game.Grid;
+using Game.Tiles;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Game.GameStateMachine.States
@@ -31,6 +34,11 @@ namespace Game.GameStateMachine.States
                 await SwapTiles(_grid.TargetPosition, _grid.CurrentPosition);
                 // hod -
             }
+            else
+            {
+                RemoveTiles(_matchFinder.TilesToRemove, _grid);
+              //  _matchFinder.ClearTilesToRemoveList();
+            }
             _stateSwitcher.SwitchState<PlayerTurnState>();
         }
 
@@ -55,5 +63,17 @@ namespace Game.GameStateMachine.States
          
              await UniTask.Delay(TimeSpan.FromSeconds(0.5f), _cts.IsCancellationRequested);
          }
+
+        private async void RemoveTiles(List<Tile> tilesToRemove, GridSystem grid)
+        {
+            foreach (var tile in tilesToRemove)
+            {
+               // audioManager.PlayPop();
+               Vector2Int position = grid.WorldToGrid(tile.transform.position);
+               grid.SetValue(position.x, position.y, null);
+               await tile.transform.DOPunchScale(Vector3.one * 0.1f, 0.1f, 1, 0.5f);
+                tile.GameObject().SetActive(false);
+            }
+        }
     }
 }

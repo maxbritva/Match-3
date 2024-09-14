@@ -16,8 +16,9 @@ namespace Game.GameLoop
     }
     public class MatchFinder
     {
-        private List<Tile> _potionsToRemove = new List<Tile>();
-
+        public List<Tile> TilesToRemove { get; private set; }
+        public MatchFinder() => TilesToRemove = new List<Tile>();
+        
         public bool CheckBoardForMatches(GridSystem grid)
         {
             var hasMatches = false;
@@ -30,7 +31,7 @@ namespace Game.GameLoop
                     if (tile.IsInteractable == false && tile.IsMatched) continue;
                     var matchTiles = FindConnectedTiles(tile, grid);
                     if (matchTiles.ConnectedTiles.Count < 3) continue;
-                    _potionsToRemove.AddRange(matchTiles.ConnectedTiles);
+                    TilesToRemove.AddRange(matchTiles.ConnectedTiles);
                     foreach (var connectedTile in matchTiles.ConnectedTiles) 
                         connectedTile.SetMatch(true);
                     hasMatches = true;
@@ -100,6 +101,11 @@ namespace Game.GameLoop
                 else
                     break;
             }
+        }
+
+        public void ClearTilesToRemoveList()
+        {
+            TilesToRemove.Clear();
         }
     }
 }
