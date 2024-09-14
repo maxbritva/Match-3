@@ -30,13 +30,60 @@ namespace Game.GameLoop
                     if (tile.IsInteractable == false && tile.IsMatched) continue;
                     var matchTiles = IsConnected(tile, grid);
                     if (matchTiles.ConnectedTiles.Count < 3) continue;
-                    _potionsToRemove.AddRange(matchTiles.ConnectedTiles);
-                    foreach (var connectedTile in matchTiles.ConnectedTiles) 
+
+                    MatchResult multiMatched = MultiMatch(matchTiles, grid);
+                    
+                    _potionsToRemove.AddRange(multiMatched.ConnectedTiles);
+                    foreach (var connectedTile in multiMatched.ConnectedTiles) 
                         connectedTile.SetMatch(true);
                     hasMatches = true;
                 }
             }   
             return hasMatches;
+        }
+
+        private MatchResult MultiMatch(MatchResult matchTiles, GridSystem grid)
+        {
+            switch (matchTiles.MatchDirection)
+            {
+                case MatchDirection.Horizontal:
+                case MatchDirection.LongHorizontal:
+                {
+                    foreach (var tile in matchTiles.ConnectedTiles)
+                    {
+                        var position = tile.gameObject.transform.position;
+                        List<Tile> multiConnectedTiles = new List<Tile>();
+                        CheckDirection(grid.WorldToGrid(position), Vector2Int.up, grid, tile, multiConnectedTiles);
+                        CheckDirection(grid.WorldToGrid(position), Vector2Int.down, grid, tile, multiConnectedTiles);
+
+                        if (multiConnectedTiles.Count < 2) continue;
+                        Debug.Log("multi horizontal match");
+                        multiConnectedTiles.AddRange(matchTiles.ConnectedTiles);
+                        return new MatchResult(multiConnectedTiles, MatchDirection.Multiply);
+                    }
+                    return new MatchResult(matchTiles.ConnectedTiles, matchTiles.MatchDirection);
+                }
+                case MatchDirection.Vertical:
+                case MatchDirection.LongVertical:
+                {
+                    foreach (var tile in matchTiles.ConnectedTiles)
+                    { 
+                        List<Tile> multiConnectedTiles = new List<Tile>();
+                        var position = tile.gameObject.transform.position;
+                    
+                        CheckDirection(grid.WorldToGrid(position), Vector2Int.right, grid, tile, multiConnectedTiles);
+                        CheckDirection(grid.WorldToGrid(position), Vector2Int.left, grid, tile, multiConnectedTiles);
+
+                        if (multiConnectedTiles.Count < 2) continue;
+                        Debug.Log("multi vertical match");
+                        multiConnectedTiles.AddRange(matchTiles.ConnectedTiles);
+                        return new MatchResult(multiConnectedTiles, MatchDirection.Multiply);
+                    }
+                    return new MatchResult(matchTiles.ConnectedTiles, matchTiles.MatchDirection);
+                }
+                default:
+                    return null;
+            }
         }
 
         private MatchResult IsConnected(Tile tile, GridSystem grid)

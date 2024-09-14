@@ -24,7 +24,6 @@ namespace DI
             builder.Register<BlankTilesLevelSetup>(Lifetime.Singleton);
             builder.Register<GameDebug>(Lifetime.Singleton);
             //builder.Register<InputReader>(Lifetime.Singleton);
-            builder.Register<BoardInteractions>(Lifetime.Singleton);
             builder.Register<MatchFinder>(Lifetime.Singleton);
             builder.Register<GameLooping>(Lifetime.Singleton);
             builder.Register<SetupCamera>(Lifetime.Singleton);

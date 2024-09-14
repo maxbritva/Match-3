@@ -10,6 +10,9 @@ namespace Game.Grid
         public Tile[,] Grid { get; private set; }
         public int Width { get; private set; }
         public int Height { get; private set; }
+
+        public Vector2Int CurrentPosition { get; private set; }
+        public Vector2Int TargetPosition { get; private set; }
         
         public void SetupGrid(int width, int height)
         {
@@ -17,6 +20,9 @@ namespace Game.Grid
             Height = height;
             Grid = new Tile[width, height];
         }
+
+        public Vector2Int SetCurrentPosition(Vector2Int value) => CurrentPosition = value;
+        public Vector2Int SetTargetPosition(Vector2Int value) => TargetPosition = value;
         
         public Vector3 GridToWorld(int x, int y) => 
             new Vector3(x + 0.5f, y  + 0.5f, 0);
