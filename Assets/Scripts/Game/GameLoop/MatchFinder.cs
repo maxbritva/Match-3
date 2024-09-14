@@ -60,9 +60,9 @@ namespace Game.GameLoop
             CheckDirection(tileGridPosition, Vector2Int.down, grid, tile, connectedTiles); 
 
             if (connectedTiles.Count == 3)
-                return CheckForMultiMatch(connectedTiles, grid, Vector2Int.right, MatchDirection.Vertical);
+                return CheckForMultiMatch(connectedTiles, grid, Vector2Int.up, MatchDirection.Vertical);
             if (connectedTiles.Count > 3)
-                return CheckForMultiMatch(connectedTiles, grid, Vector2Int.right, MatchDirection.LongVertical);
+                return CheckForMultiMatch(connectedTiles, grid, Vector2Int.up, MatchDirection.LongVertical);
             
             connectedTiles.Clear();
             return new MatchResult(connectedTiles, MatchDirection.None);
