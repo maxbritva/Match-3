@@ -8,9 +8,9 @@ namespace Game.Tiles
         
         public void Generate(LevelConfiguration levelConfiguration)
         {
-            Blanks = new bool[levelConfiguration.LevelGridWidth, levelConfiguration.LevelGridWidth];
-            for (int i = 0; i < levelConfiguration.BlockTilesLayout.Count; i++) 
-                Blanks[levelConfiguration.BlockTilesLayout[i].XPos, levelConfiguration.BlockTilesLayout[i].YPos] = true;
+            Blanks = new bool[levelConfiguration.GridWidth, levelConfiguration.GridWidth];
+            for (int i = 0; i < levelConfiguration.BlankTilesLayout.Count; i++) 
+                Blanks[levelConfiguration.BlankTilesLayout[i].XPos, levelConfiguration.BlankTilesLayout[i].YPos] = true;
         }
     }
 }

@@ -25,7 +25,7 @@ namespace Game.GameStateMachine.States
         public void Enter()
         {
             _setupCamera = new SetupCamera(false);
-            _setupCamera.SetCamera(_levelConfiguration.LevelGridWidth, _levelConfiguration.LevelGridHeight);
+            _setupCamera.SetCamera(_levelConfiguration.GridWidth, _levelConfiguration.GridHeight);
             _gameBoard.InitializeBoard();
             _stateSwitcher.SwitchState<PlayerTurnState>();
         }

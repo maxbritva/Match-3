@@ -8,14 +8,21 @@ namespace Level
     [CreateAssetMenu(fileName = "LevelConfiguration", menuName = "ScriptableObjects/LevelConfiguration")]
     public class LevelConfiguration : ScriptableObject
     {
-        [SerializeField] private int _levelGridWidth;
-        [SerializeField] private int _levelGridHeight;
-        [SerializeField] private List<BlankTile> _blockTilesLayout;
+        [Header("Grid")]
+        [SerializeField] private List<BlankTile> _blankTilesLayout;
+        [SerializeField] private int _gridWidth; 
+        [SerializeField] private int _gridHeight;
         
-        public List<BlankTile> BlockTilesLayout => _blockTilesLayout;
-
-        public int LevelGridWidth => _levelGridWidth;
-        public int LevelGridHeight => _levelGridHeight;
+        [Header("level")]
+        [SerializeField] private int _goalScore;
+        [SerializeField] private int _moves;
+       
+        
+        public List<BlankTile> BlankTilesLayout => _blankTilesLayout;
+        public int GoalScore => _goalScore;
+        public int Moves => _moves;
+        public int GridWidth => _gridWidth;
+        public int GridHeight => _gridHeight;
         // graphic set
         
     }

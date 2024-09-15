@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using Game.GameLoop;
 using Game.Grid;
+using Game.MatchTiles;
 using Game.Tiles;
 using Level;
 using Unity.VisualScripting;
@@ -13,8 +13,7 @@ namespace Game.Board
     public class GameBoard : MonoBehaviour
     {
         [SerializeField] private LevelConfiguration _levelConfiguration;
-        // public int GridWidth { get; private set; }
-        // public int GridHeight { get; private set; }
+      
         private List<Tile> _tilesToRefill = new List<Tile>();
         private GridSystem _grid;
         private TilePool _tilePool;
@@ -25,17 +24,14 @@ namespace Game.Board
 
         public void InitializeBoard()
         {
-            // GridWidth = _grid.Width;
-            // GridHeight = _grid.Height;
             _blankTilesLevelSetup.Generate(_levelConfiguration);
-         
-            FillBoard();
+            CreateBoard();
             while (_matchFinder.CheckBoardForMatches(_grid)) 
-                FillBoard();
+                CreateBoard();
             _matchFinder.ClearTilesToRemoveList();
         }
 
-        private void FillBoard()
+        private void CreateBoard()
         {
             ClearBoard();
             for (int x = 0; x < _grid.Width; x++)

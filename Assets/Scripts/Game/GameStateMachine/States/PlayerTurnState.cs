@@ -34,7 +34,7 @@ namespace Game.GameStateMachine.States
 
         public void Exit() => _inputReader.EnableInputs(false);
 
-        private async void OnTileClick()
+        private void OnTileClick()
         {
             var clickPosition = _grid.WorldToGrid(_camera.ScreenToWorldPoint(_inputReader.Position));
             
@@ -54,7 +54,7 @@ namespace Game.GameStateMachine.States
             {
                 _grid.SetTargetPosition(clickPosition);
                 AnimateSelectionTile( _grid.GetValue(_grid.CurrentPosition.x, _grid.CurrentPosition.y), 1f);
-                _stateSwitcher.SwitchState<GameLoopState>();
+                _stateSwitcher.SwitchState<SwapTilesState>();
             }
             
         }

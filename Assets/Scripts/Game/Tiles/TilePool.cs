@@ -24,7 +24,7 @@ namespace Game.Tiles
                 Resources.Load<TileType>("Tiles/Green"),
                 Resources.Load<TileType>("Tiles/Purple"),
                 Resources.Load<TileType>("Tiles/White"),
-                Resources.Load<TileType>("Tiles/Red"),
+               // Resources.Load<TileType>("Tiles/Red"),
                 Resources.Load<TileType>("Tiles/Orange"),
             };
             _blank = Resources.Load<TileType>("Tiles/Blank");
@@ -36,6 +36,7 @@ namespace Game.Tiles
             {
                 if(_tilesPool[i].GameObject().activeInHierarchy) continue;
                 _tilesPool[i].SetType(_tileTypes[Random.Range(0, _tileTypes.Length)]);
+                _tilesPool[i].GameObject().transform.position = position;
                 _tilesPool[i].GameObject().SetActive(true);
                 return  _tilesPool[i];
             }

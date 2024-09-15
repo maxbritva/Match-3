@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Game.Board;
-using Game.GameLoop;
 using Game.GameStateMachine.States;
 using Game.Grid;
+using Game.MatchTiles;
+using Game.Score;
+using Game.Tiles;
 using Level;
 
 namespace Game.GameStateMachine
@@ -13,21 +15,29 @@ namespace Game.GameStateMachine
         private List<IState> _states;
         private IState _currentState;
         private GameBoard _gameBoard;
+        private TilePool _tilePool;
         private GridSystem _grid;
         private MatchFinder _matchFinder;
+        private GameProgress _gameProgress;
+        private ScoreCalculator _scoreCalculator;
         private LevelConfiguration _levelConfiguration;
 
-        public StateMachine(GameBoard gameBoard, LevelConfiguration levelConfiguration, GridSystem grid, MatchFinder matchFinder)
+        public StateMachine(GameBoard gameBoard, LevelConfiguration levelConfiguration, GridSystem grid, MatchFinder matchFinder, TilePool tilePool, GameProgress gameProgress, ScoreCalculator scoreCalculator)
         {
             _gameBoard = gameBoard;
             _grid = grid;
+            _tilePool = tilePool;
             _levelConfiguration = levelConfiguration;
             _matchFinder = matchFinder;
+            _gameProgress = gameProgress;
+            _scoreCalculator = scoreCalculator;
             _states = new List<IState>()
             {
                 new PrepareState( this,_gameBoard, _levelConfiguration),
                 new PlayerTurnState(_grid, this),
-                new GameLoopState(_grid, this, _matchFinder)
+                new RemoveTilesState(_grid, _matchFinder,this, _scoreCalculator),
+                new SwapTilesState(_grid, this, _matchFinder, _gameProgress),
+                new RefillGridState(_grid, this, _matchFinder, _tilePool, _gameBoard.transform)
             };
             _currentState = _states[0];
             _currentState.Enter();
