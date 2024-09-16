@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7de9ac6ff30d4b6b96f7137a1413ed2e, type: 3}
   m_Name: Orange
   m_EditorClassIdentifier: 
-  _sprite: {fileID: 21300000, guid: f53289f72cd7d481186a99be528a872a, type: 3}
+  _sprite: {fileID: 21300000, guid: 71b45f9961f46ee4fb1a60bd4884a599, type: 3}
   _tileKind: 0
   _isInteractive: 1

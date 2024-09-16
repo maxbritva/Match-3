@@ -13,7 +13,8 @@ namespace Game.Board
     public class GameBoard : MonoBehaviour
     {
         [SerializeField] private LevelConfiguration _levelConfiguration;
-      
+        [SerializeField] private Sprite _dark;
+        [SerializeField] private Sprite _light;
         private List<Tile> _tilesToRefill = new List<Tile>();
         private GridSystem _grid;
         private TilePool _tilePool;
@@ -63,6 +64,13 @@ namespace Game.Board
                 potion.GameObject().SetActive(false);
             }
             _tilesToRefill.Clear();
+        }
+
+        private void CreateBackground(int x, int y)
+        {
+            if (x % 2 == 1)
+            {
+            }
         }
 
        [Inject] private void Construct(GridSystem gridSystem, TilePool tilePool, BlankTilesLevelSetup blankTilesLevelSetup, MatchFinder matchFinder)

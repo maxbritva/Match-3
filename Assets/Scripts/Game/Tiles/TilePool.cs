@@ -20,11 +20,11 @@ namespace Game.Tiles
             _tilePrefab = Resources.Load<Tile>("Prefabs/TilePrefab");
             _tileTypes = new[]
             {
+                Resources.Load<TileType>("Tiles/Gray"),
                 Resources.Load<TileType>("Tiles/Blue"),
-                Resources.Load<TileType>("Tiles/Green"),
-                Resources.Load<TileType>("Tiles/Purple"),
-                Resources.Load<TileType>("Tiles/White"),
-               // Resources.Load<TileType>("Tiles/Red"),
+                Resources.Load<TileType>("Tiles/Yellow"),
+                //Resources.Load<TileType>("Tiles/White"),
+                Resources.Load<TileType>("Tiles/Red"),
                 Resources.Load<TileType>("Tiles/Orange"),
             };
             _blank = Resources.Load<TileType>("Tiles/Blank");

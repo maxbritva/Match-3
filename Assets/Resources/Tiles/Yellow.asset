@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7de9ac6ff30d4b6b96f7137a1413ed2e, type: 3}
-  m_Name: Green
+  m_Name: Yellow
   m_EditorClassIdentifier: 
-  _sprite: {fileID: 21300000, guid: f85db6e48c73e4ed987bba1224c3e86e, type: 3}
+  _sprite: {fileID: 21300000, guid: e4d90a7dcae2bbb42a10ac0db06766ba, type: 3}
   _tileKind: 0
   _isInteractive: 1
