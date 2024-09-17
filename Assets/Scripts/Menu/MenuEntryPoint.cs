@@ -1,5 +1,7 @@
+using Audio;
 using Boot.EntryPoint;
 using Data;
+using SceneLoading;
 using UnityEngine;
 using VContainer.Unity;
 
@@ -8,17 +10,20 @@ namespace Menu
     public class MenuEntryPoint: IInitializable
     {
         private GameData _gameData;
-        private BootEntryPoint _bootEntryPoint;
+        private SceneLoader _sceneLoader;
+        private AudioManager _audioManager;
 
-        public MenuEntryPoint(GameData gameData, BootEntryPoint bootEntryPoint)
+        public MenuEntryPoint(GameData gameData, SceneLoader sceneLoader, AudioManager audioManager)
         {
             _gameData = gameData;
-            _bootEntryPoint = bootEntryPoint;
+            _sceneLoader = sceneLoader;
+            _audioManager = audioManager;
         }
 
         public void Initialize()
         {
-           Debug.Log(12);
+            _audioManager.SetSoundVolume();
+         
         }
     }
 }

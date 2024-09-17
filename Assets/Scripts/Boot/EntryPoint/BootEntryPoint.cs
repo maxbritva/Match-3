@@ -21,10 +21,9 @@ namespace Boot.EntryPoint
         {
             Application.targetFrameRate = 60;
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
-            await LoadScene(Scenes.MENU);
+            await _sceneLoader.LoadAsync(Scenes.MENU);
         }
-        private async UniTask LoadScene(string sceneName) => await _sceneLoader.LoadAsync(sceneName);
-
+        
         // private async UniTask SetScreenLoadingPrefab()
         // {
         //     AsyncOperationHandle<GameObject> prefabUI = Addressables.LoadAssetAsync<GameObject>("LoadingScreenUI");

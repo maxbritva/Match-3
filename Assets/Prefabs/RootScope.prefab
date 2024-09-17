@@ -43,7 +43,7 @@ AudioSource:
   m_GameObject: {fileID: 1031759075373882751}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 06e43518d22d14002baa500d48befdaa, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
@@ -299,5 +299,6 @@ MonoBehaviour:
   parentReference:
     TypeName: 
   autoRun: 1
-  autoInjectGameObjects: []
+  autoInjectGameObjects:
+  - {fileID: 1031759075373882751}
   _audioManager: {fileID: 7033081256318922269}

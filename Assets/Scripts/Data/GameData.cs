@@ -4,6 +4,11 @@ namespace Data
 {
     public class GameData
     {
+        public GameData()
+        {
+            IsEnabledSound = true;
+        }
+
         public int CurrentLevel { get; private set; }
         public int OpenLevel { get; private set; }
         

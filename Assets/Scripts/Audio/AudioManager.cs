@@ -31,16 +31,11 @@ namespace Audio
         public void PlayWhoosh() => PlayRandomPitch(_whoosh);
         public void PlayPop() => PlayRandomPitch(_pop);
 
-        private void Start()
-        {
-            _musicSource.clip = _menuMusic;
-            SetSoundVolume();
-        }
-
         public void SetSoundVolume()
         {
             if (_gameData.IsEnabledSound)
             {
+                _musicSource.clip = _menuMusic;
                 _audioMixer.SetFloat("Volume", -6f);
                 _musicSource.Play();
             }
