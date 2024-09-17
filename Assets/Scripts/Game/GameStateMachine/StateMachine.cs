@@ -3,10 +3,10 @@ using System.Linq;
 using Game.Board;
 using Game.GameStateMachine.States;
 using Game.Grid;
+using Game.Level;
 using Game.MatchTiles;
 using Game.Score;
 using Game.Tiles;
-using Level;
 
 namespace Game.GameStateMachine
 {

@@ -6,6 +6,8 @@ namespace Data
     {
         public int CurrentLevel { get; private set; }
         public int OpenLevel { get; private set; }
+        
+        public bool IsEnabledSound { get; private set; }
 
         
         public void SetCurrentLevel(int value)
@@ -21,5 +23,7 @@ namespace Data
                 throw new ArgumentOutOfRangeException(nameof(value));
             OpenLevel = value;
         }
+
+        public bool SetSoundEnable(bool value) => IsEnabledSound = value;
     }
 }

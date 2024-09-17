@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Boot
+  m_EditorClassIdentifier: 
+  m_GroupName: Boot
+  m_GUID: 161d12cb926e8444484e1c4469455823
+  m_SerializeEntries:
+  - m_GUID: 06e43518d22d14002baa500d48befdaa
+    m_Address: Assets/Audio/Mixer.mixer
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0994c12e202f342459a4212e7287f7e8
+    m_Address: Assets/Audio/Sound/Pop.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 32d4b1811dda14a6cb9e059ee8ad17d2
+    m_Address: Assets/Audio/Sound/Click.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 348b74ce5ff094086b9a24554c26196d
+    m_Address: Assets/Prefabs/RootScope.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 35ff4a1079b77469fbebd8fdefb15257
+    m_Address: Assets/Settings/VContainerSettings.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6e8772b49f34d402a90016ed445d8a2f
+    m_Address: Assets/Audio/Sound/Match.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 724131bc8a7f34041bb9f1701f0cb58d
+    m_Address: Assets/Audio/Sound/Deselect.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b43d102aac6b145468dcaa94a5cccae1
+    m_Address: Assets/Audio/Sound/NoMatch.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d0af27e493b7b4e13a636d71aa54cfa4
+    m_Address: Assets/Audio/Music/GameMusic.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d46323e22e74e46baa241cbf48c85671
+    m_Address: Assets/Audio/Sound/Whoosh.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f294a715f7523493488f45b9a76ccba2
+    m_Address: Assets/Audio/Music/MenuMusic.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: ed31aca557b1ff943915a0d83d7fc5ae, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 1ffb94ebecf074155ab727aa6b835f91, type: 2}
+    - {fileID: 11400000, guid: 7addbc00ac21b40b9aa84db43e0b38c7, type: 2}

@@ -5,8 +5,8 @@ namespace SceneLoading
 {
     public interface IAsyncSceneLoading
     {
-        UniTask LoadAsync(Scene scene);
+        UniTask LoadAsync(string sceneName);
         
-        UniTask UnloadAsync(Scene scene);
+        UniTask UnloadAsync(string sceneName);
     }
 }

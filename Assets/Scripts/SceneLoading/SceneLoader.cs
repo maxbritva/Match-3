@@ -10,15 +10,15 @@ namespace SceneLoading
     {
         private readonly Dictionary<string, SceneInstance> _loadedScenes = new Dictionary<string, SceneInstance>();
         
-        public async UniTask LoadAsync(Scene scene)
+        public async UniTask LoadAsync(string sceneName)
         {
-            var loadedScene = await Addressables.LoadSceneAsync(scene.name, LoadSceneMode.Additive).ToUniTask();
-            _loadedScenes.Add(scene.name, loadedScene);
+            var loadedScene = await Addressables.LoadSceneAsync(sceneName, LoadSceneMode.Additive).ToUniTask();
+            _loadedScenes.Add(sceneName, loadedScene);
         }
 
-        public async UniTask UnloadAsync(Scene scene)
+        public async UniTask UnloadAsync(string sceneName)
         {
-            var sceneToUnload = _loadedScenes[scene.name];
+            var sceneToUnload = _loadedScenes[sceneName];
             await Addressables.UnloadSceneAsync(sceneToUnload).ToUniTask();
         }
     }

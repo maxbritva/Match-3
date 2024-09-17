@@ -1,7 +1,7 @@
 ﻿using Game.Board;
+using Game.Level;
 using Game.Tiles;
 using Game.Utils;
-using Level;
 using UnityEngine;
 
 namespace Game.GameStateMachine.States
