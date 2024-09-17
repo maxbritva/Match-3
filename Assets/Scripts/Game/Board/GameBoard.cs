@@ -1,8 +1,6 @@
 using System.Collections.Generic;
-using Game.Grid;
 using Game.MatchTiles;
 using Game.Tiles;
-using Level;
 using Unity.VisualScripting;
 using UnityEngine;
 using VContainer;
@@ -12,34 +10,30 @@ namespace Game.Board
 {
     public class GameBoard : MonoBehaviour
     {
-        [SerializeField] private LevelConfiguration _levelConfiguration;
-        [SerializeField] private Sprite _dark;
-        [SerializeField] private Sprite _light;
         private List<Tile> _tilesToRefill = new List<Tile>();
-        private GridSystem _grid;
-        private TilePool _tilePool;
-        private BlankTilesLevelSetup _blankTilesLevelSetup;
-        private MatchFinder _matchFinder;
         
-        private bool _isDebugging;
-
-        public void InitializeBoard()
+        private BlankTilesSetup _blankTilesSetup;
+        private MatchFinder _matchFinder;
+        private TilePool _tilePool;
+        private GridSystem _grid;
+        
+        public void CreateBoard()
         {
-            _blankTilesLevelSetup.Generate(_levelConfiguration);
-            CreateBoard();
+            FillBoard();
             while (_matchFinder.CheckBoardForMatches(_grid)) 
-                CreateBoard();
+                FillBoard();
+         
             _matchFinder.ClearTilesToRemoveList();
         }
 
-        private void CreateBoard()
+        private void FillBoard()
         {
             ClearBoard();
             for (int x = 0; x < _grid.Width; x++)
             {
                 for (int y = 0; y < _grid.Height; y++)
                 {
-                    if (_blankTilesLevelSetup.Blanks[x, y])
+                    if (_blankTilesSetup.Blanks[x, y])
                     {
                         if (_grid.GetValue(x, y)) continue;
                         var tile = _tilePool.CreateBlankTile(_grid.GridToWorld(x, y), transform);
@@ -66,19 +60,13 @@ namespace Game.Board
             _tilesToRefill.Clear();
         }
 
-        private void CreateBackground(int x, int y)
-        {
-            if (x % 2 == 1)
-            {
-            }
-        }
 
-       [Inject] private void Construct(GridSystem gridSystem, TilePool tilePool, BlankTilesLevelSetup blankTilesLevelSetup, MatchFinder matchFinder)
+       [Inject] private void Construct(GridSystem gridSystem, TilePool tilePool, BlankTilesSetup blankTilesSetup, MatchFinder matchFinder)
        {
             _grid = gridSystem;
-            _blankTilesLevelSetup = blankTilesLevelSetup;
+            _blankTilesSetup = blankTilesSetup;
             _tilePool = tilePool;
             _matchFinder = matchFinder;
-        }
+       }
     }
 }

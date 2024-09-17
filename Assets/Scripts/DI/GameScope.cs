@@ -1,4 +1,3 @@
-using Game;
 using Game.Board;
 using Game.GameManager;
 using Game.Grid;
@@ -24,7 +23,8 @@ namespace DI
             builder.Register<GridSystem>(Lifetime.Singleton);
             builder.Register<GameProgress>(Lifetime.Singleton);
             builder.Register<TilePool>(Lifetime.Scoped);
-            builder.Register<BlankTilesLevelSetup>(Lifetime.Singleton);
+            builder.Register<BlankTilesSetup>(Lifetime.Singleton);
+            builder.Register<BackgroundTilesSetup>(Lifetime.Singleton);
             builder.Register<GameDebug>(Lifetime.Singleton);
             builder.Register<MatchFinder>(Lifetime.Singleton);
             builder.Register<ScoreCalculator>(Lifetime.Singleton);

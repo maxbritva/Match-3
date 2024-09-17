@@ -21,8 +21,11 @@ namespace Game.GameStateMachine
         private GameProgress _gameProgress;
         private ScoreCalculator _scoreCalculator;
         private LevelConfiguration _levelConfiguration;
+        private BlankTilesSetup _blankTilesSetup;
+        private BackgroundTilesSetup _backgroundTilesSetup;
 
-        public StateMachine(GameBoard gameBoard, LevelConfiguration levelConfiguration, GridSystem grid, MatchFinder matchFinder, TilePool tilePool, GameProgress gameProgress, ScoreCalculator scoreCalculator)
+        public StateMachine(GameBoard gameBoard, LevelConfiguration levelConfiguration, GridSystem grid, MatchFinder matchFinder, TilePool tilePool, GameProgress gameProgress, 
+            ScoreCalculator scoreCalculator, BackgroundTilesSetup backgroundTilesSetup, BlankTilesSetup blankTilesSetup)
         {
             _gameBoard = gameBoard;
             _grid = grid;
@@ -31,9 +34,11 @@ namespace Game.GameStateMachine
             _matchFinder = matchFinder;
             _gameProgress = gameProgress;
             _scoreCalculator = scoreCalculator;
+            _blankTilesSetup = blankTilesSetup;
+            _backgroundTilesSetup = backgroundTilesSetup;
             _states = new List<IState>()
             {
-                new PrepareState( this,_gameBoard, _levelConfiguration),
+                new PrepareState( this,_gameBoard, _levelConfiguration, _blankTilesSetup, _backgroundTilesSetup),
                 new PlayerTurnState(_grid, this),
                 new RemoveTilesState(_grid, _matchFinder,this, _scoreCalculator),
                 new SwapTilesState(_grid, this, _matchFinder, _gameProgress),

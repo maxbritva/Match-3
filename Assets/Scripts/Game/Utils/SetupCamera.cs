@@ -10,14 +10,14 @@ namespace Game.Utils
 
         public void SetCamera(int width, int height)
         {
-            int xPos = width / 2;
-            int yPos = height/ 2;
+            var xPos = width / 2f;
+            var yPos = height/ 2f + 0.5f;
             Camera.main.gameObject.transform.position = new Vector3(xPos, yPos, -10f);
             Camera.main.orthographicSize = GetOrthographicSize(width, height);
         }
         
         private float GetOrthographicSize(int width, int height) =>
-            _isVertical ? (width + 2f) * Screen.height / Screen.width * 0.5f : 
-                (height + 2f) * Screen.height / Screen.width;
+            _isVertical ? (width + 1f) * Screen.height / Screen.width * 0.5f : 
+                (height + 1f) * Screen.height / Screen.width;
     }
 }

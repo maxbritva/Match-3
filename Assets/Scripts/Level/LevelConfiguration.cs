@@ -10,6 +10,7 @@ namespace Level
     {
         [Header("Grid")]
         [SerializeField] private List<BlankTile> _blankTilesLayout;
+        [SerializeField] private List<TileType> _tilesSet;
         [SerializeField] private int _gridWidth; 
         [SerializeField] private int _gridHeight;
         
@@ -23,6 +24,7 @@ namespace Level
         public int Moves => _moves;
         public int GridWidth => _gridWidth;
         public int GridHeight => _gridHeight;
+        public List<TileType> TilesSet => _tilesSet;
         // graphic set
         
     }
