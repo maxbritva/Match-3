@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using VContainer;
 
-namespace Game.Level
+namespace Game.GameProgress
 {
     public class GameProgressView : MonoBehaviour
     {

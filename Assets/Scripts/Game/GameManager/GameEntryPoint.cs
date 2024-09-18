@@ -1,10 +1,10 @@
 using Game.Board;
 using Game.GameStateMachine;
 using Game.Grid;
-using Game.Level;
 using Game.MatchTiles;
 using Game.Score;
 using Game.Tiles;
+using Level;
 using UnityEngine;
 using VContainer.Unity;
 
@@ -17,7 +17,7 @@ namespace Game.GameManager
         private readonly ScoreCalculator _scoreCalculator;
         private readonly BlankTilesSetup _blankTilesSetup;
         private StateMachine _stateMachine;
-        private readonly GameProgress _gameProgress;
+        private readonly GameProgress.GameProgress _gameProgress;
         private readonly MatchFinder _matchFinder;
         private readonly GridSystem _gridSystem;
         private readonly GameBoard _gameBoard;
@@ -27,7 +27,7 @@ namespace Game.GameManager
         private bool _isDebugging;
 
         public GameEntryPoint(GameBoard gameBoard, GameDebug gameDebug, GridSystem gridSystem, MatchFinder matchFinder, TilePool tilePool, 
-            GameProgress gameProgress, ScoreCalculator scoreCalculator,  BackgroundTilesSetup backgroundTilesSetup, BlankTilesSetup blankTilesSetup)
+            GameProgress.GameProgress gameProgress, ScoreCalculator scoreCalculator,  BackgroundTilesSetup backgroundTilesSetup, BlankTilesSetup blankTilesSetup)
         {
             _gameBoard = gameBoard;
             _gameDebug = gameDebug;

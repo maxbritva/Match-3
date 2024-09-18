@@ -1,14 +1,13 @@
-﻿using Game.Level;
-using Game.MatchTiles;
+﻿using Game.MatchTiles;
 using UnityEngine;
 
 namespace Game.Score
 {
     public class ScoreCalculator
     {
-        private GameProgress _gameProgress;
+        private GameProgress.GameProgress _gameProgress;
 
-        public ScoreCalculator(GameProgress gameProgress) => _gameProgress = gameProgress;
+        public ScoreCalculator(GameProgress.GameProgress gameProgress) => _gameProgress = gameProgress;
 
         public void CalculateScoreToAdd(MatchDirection matchDirection)
         {

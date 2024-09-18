@@ -1,4 +1,4 @@
-using Game.Level;
+using Level;
 
 namespace Game.Tiles
 {

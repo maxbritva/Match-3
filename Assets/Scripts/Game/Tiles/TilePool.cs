@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Game.Level;
+using Level;
 using Unity.VisualScripting;
 using UnityEngine;
 using VContainer;

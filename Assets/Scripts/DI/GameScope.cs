@@ -1,7 +1,7 @@
 using Game.Board;
 using Game.GameManager;
+using Game.GameProgress;
 using Game.Grid;
-using Game.Level;
 using Game.MatchTiles;
 using Game.Score;
 using Game.Tiles;

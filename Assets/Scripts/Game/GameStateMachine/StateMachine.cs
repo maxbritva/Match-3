@@ -3,10 +3,10 @@ using System.Linq;
 using Game.Board;
 using Game.GameStateMachine.States;
 using Game.Grid;
-using Game.Level;
 using Game.MatchTiles;
 using Game.Score;
 using Game.Tiles;
+using Level;
 
 namespace Game.GameStateMachine
 {
@@ -18,13 +18,13 @@ namespace Game.GameStateMachine
         private TilePool _tilePool;
         private GridSystem _grid;
         private MatchFinder _matchFinder;
-        private GameProgress _gameProgress;
+        private GameProgress.GameProgress _gameProgress;
         private ScoreCalculator _scoreCalculator;
         private LevelConfiguration _levelConfiguration;
         private BlankTilesSetup _blankTilesSetup;
         private BackgroundTilesSetup _backgroundTilesSetup;
 
-        public StateMachine(GameBoard gameBoard, LevelConfiguration levelConfiguration, GridSystem grid, MatchFinder matchFinder, TilePool tilePool, GameProgress gameProgress, 
+        public StateMachine(GameBoard gameBoard, LevelConfiguration levelConfiguration, GridSystem grid, MatchFinder matchFinder, TilePool tilePool, GameProgress.GameProgress gameProgress, 
             ScoreCalculator scoreCalculator, BackgroundTilesSetup backgroundTilesSetup, BlankTilesSetup blankTilesSetup)
         {
             _gameBoard = gameBoard;

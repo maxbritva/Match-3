@@ -3,7 +3,6 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Game.Grid;
-using Game.Level;
 using Game.MatchTiles;
 using Game.Tiles;
 using UnityEngine;
@@ -13,12 +12,12 @@ namespace Game.GameStateMachine.States
     public class SwapTilesState: IState
     {
         private readonly GridSystem _grid;
-        private readonly GameProgress _gameProgress;
+        private readonly GameProgress.GameProgress _gameProgress;
         private readonly MatchFinder _matchFinder;
         private readonly IStateSwitcher _stateSwitcher;
         private CancellationTokenSource _cts;
 
-        public SwapTilesState(GridSystem grid, IStateSwitcher stateSwitcher, MatchFinder matchFinder, GameProgress gameProgress)
+        public SwapTilesState(GridSystem grid, IStateSwitcher stateSwitcher, MatchFinder matchFinder, GameProgress.GameProgress gameProgress)
         {
             _grid = grid;
             _stateSwitcher = stateSwitcher;

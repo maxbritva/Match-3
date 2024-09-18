@@ -2,10 +2,10 @@ using System.Collections.Generic;
 using Game.Tiles;
 using UnityEngine;
 
-namespace Game.Level
+namespace Level
 {
     [CreateAssetMenu(fileName = "LevelConfiguration", menuName = "ScriptableObjects/LevelConfiguration")]
-    public class LevelConfiguration : ScriptableObject
+    public class LevelConfiguration : ScriptableObject, ILevelNumberProvider
     {
         [Header("Grid")]
         [SerializeField] private List<BlankTile> _blankTilesLayout;
@@ -16,7 +16,8 @@ namespace Game.Level
         [Header("level")]
         [SerializeField] private int _goalScore;
         [SerializeField] private int _moves;
-       
+        
+        [SerializeField] private int _levelNumber;
         
         public List<BlankTile> BlankTilesLayout => _blankTilesLayout;
         public int GoalScore => _goalScore;
@@ -25,6 +26,7 @@ namespace Game.Level
         public int GridHeight => _gridHeight;
         public List<TileType> TilesSet => _tilesSet;
         // graphic set
-        
+
+        public int Number { get; }
     }
 }

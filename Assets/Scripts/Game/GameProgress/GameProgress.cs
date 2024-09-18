@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Game.Level
+namespace Game.GameProgress
 {
     public class GameProgress
     {
