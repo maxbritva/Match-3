@@ -12,18 +12,21 @@ namespace Menu.Levels
         [SerializeField] private TMP_Text _label;
         public int Number { get; private set; }
         public TMP_Text Label => _label;
-        private Button _button;
+        [SerializeField] private Button _button;
         
         private void OnEnable()
         {
-            _button = GetComponent<Button>();
+         //   _button = GetComponent<Button>();
             _button.onClick.AddListener(StartLevelButtonClick);
+            //SetButtonInteractable(true);
         }
         private void OnDisable() => _button.onClick.RemoveListener(StartLevelButtonClick);
 
         public void SetNumber(int value) => Number = Mathf.Clamp(value,1,5);
 
         public void SetLabel() => Label.text = Number.ToString();
+
+        public void SetButtonInteractable(bool value) => _button.interactable = value;
 
         public void StartLevelButtonClick()
         {

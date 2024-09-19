@@ -9,7 +9,7 @@ namespace DI
 {
     public class MenuScope: LifetimeScope
     {
-        [SerializeField] private MenuLevelsSequenceView _levelsSequenceView;
+        [SerializeField] private LevelsSequenceView _levelsSequenceView;
         [SerializeField] private MenuAnimator _menuAnimator;
         protected override void Configure(IContainerBuilder builder)
         {

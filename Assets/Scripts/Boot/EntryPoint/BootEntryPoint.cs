@@ -1,5 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
-using Data;
+﻿using Data;
 using SceneLoading;
 using UnityEngine;
 using VContainer.Unity;
@@ -23,18 +22,5 @@ namespace Boot.EntryPoint
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
             await _sceneLoader.LoadAsync(Scenes.MENU);
         }
-        
-        // private async UniTask SetScreenLoadingPrefab()
-        // {
-        //     AsyncOperationHandle<GameObject> prefabUI = Addressables.LoadAssetAsync<GameObject>("LoadingScreenUI");
-        //     await prefabUI.ToUniTask();
-        //         if (prefabUI.Status == AsyncOperationStatus.Succeeded)
-        //         {
-        //             var prefab = Object.Instantiate(prefabUI.Result);
-        //             Object.DontDestroyOnLoad(prefab.gameObject);
-        //             _sceneLoadingView = prefab.GetComponent<SceneLoadingView>();
-        //             Addressables.Release(prefabUI);
-        //         }
-        // }
     }
 }

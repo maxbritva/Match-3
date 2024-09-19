@@ -11,12 +11,14 @@ namespace DI
     public class RootScope : LifetimeScope
     {
         [SerializeField] private AudioManager _audioManager;
+        [SerializeField] private LoadingView _loadingView;
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterEntryPoint<BootEntryPoint>();
             builder.Register<GameData>(Lifetime.Singleton);
             builder.Register<SceneLoader>(Lifetime.Singleton);
             builder.RegisterInstance(_audioManager);
+            builder.RegisterInstance(_loadingView);
         }
     }
 }

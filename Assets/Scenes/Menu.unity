@@ -459,7 +459,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentReference:
-    TypeName: DI.RootScope
+    TypeName: DI.BootScope
   autoRun: 1
   autoInjectGameObjects:
   - {fileID: 840018714}
@@ -560,7 +560,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 158925593}
   m_OnClick:
     m_PersistentCalls:
@@ -616,6 +616,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _label: {fileID: 726673871}
+  _button: {fileID: 158925592}
 --- !u!1 &282345733
 GameObject:
   m_ObjectHideFlags: 0
@@ -695,7 +696,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 282345736}
   m_OnClick:
     m_PersistentCalls:
@@ -751,6 +752,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _label: {fileID: 1765180535}
+  _button: {fileID: 282345735}
 --- !u!1 &313144291
 GameObject:
   m_ObjectHideFlags: 0
@@ -3202,7 +3204,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 1648589576}
   m_OnClick:
     m_PersistentCalls:
@@ -3258,6 +3260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _label: {fileID: 1143247223}
+  _button: {fileID: 1648589575}
 --- !u!1 &1735236638
 GameObject:
   m_ObjectHideFlags: 0
@@ -3742,6 +3745,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _label: {fileID: 1124400517}
+  _button: {fileID: 2011818712}
 --- !u!1 &2067847546
 GameObject:
   m_ObjectHideFlags: 0
@@ -3821,7 +3825,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 2067847549}
   m_OnClick:
     m_PersistentCalls:
@@ -3877,6 +3881,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _label: {fileID: 979377301}
+  _button: {fileID: 2067847548}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
