@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Level
 {
     [CreateAssetMenu(fileName = "LevelConfiguration", menuName = "ScriptableObjects/LevelConfiguration")]
-    public class LevelConfiguration : ScriptableObject, ILevelNumberProvider
+    public class LevelConfiguration : ScriptableObject
     {
         [Header("Grid")]
         [SerializeField] private List<BlankTile> _blankTilesLayout;
@@ -27,6 +27,6 @@ namespace Level
         public List<TileType> TilesSet => _tilesSet;
         // graphic set
 
-        public int Number { get; }
+        public int Number => _levelNumber;
     }
 }

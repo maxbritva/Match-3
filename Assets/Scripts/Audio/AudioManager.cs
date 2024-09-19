@@ -58,7 +58,7 @@ namespace Audio
         }
         private void PlayRandomPitch(AudioClip audioClip) 
         {
-            _soundSource.pitch = Random.Range(0.9f, 1.1f);
+            _soundSource.pitch = Random.Range(0.8f, 1.2f);
             _soundSource.PlayOneShot(audioClip);
             _soundSource.pitch = 1f;
         }

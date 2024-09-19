@@ -1,12 +1,8 @@
 using Audio;
-using Boot.EntryPoint;
-using Cysharp.Threading.Tasks;
 using Data;
 using Menu.Levels;
+using Menu.UI;
 using SceneLoading;
-using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
 using VContainer.Unity;
 
 namespace Menu
@@ -16,37 +12,29 @@ namespace Menu
         private GameData _gameData;
         private SceneLoader _sceneLoader;
         private AudioManager _audioManager;
-        public LevelsSequence CurrentLevelsSequence { get; private set; } 
-        public MenuEntryPoint(GameData gameData, SceneLoader sceneLoader, AudioManager audioManager)
+        private SetupLevelSequence _setupLevelSequence;
+        private MenuLevelsSequenceView _levelsSequenceView;
+        private MenuAnimator _menuAnimator;
+       
+        public MenuEntryPoint(GameData gameData, SceneLoader sceneLoader, AudioManager audioManager, SetupLevelSequence setupLevelSequence, 
+            MenuLevelsSequenceView menuLevelsSequenceView, MenuAnimator menuAnimator)
         {
             _gameData = gameData;
             _sceneLoader = sceneLoader;
             _audioManager = audioManager;
+            _setupLevelSequence = setupLevelSequence;
+            _levelsSequenceView = menuLevelsSequenceView;
+            _menuAnimator = menuAnimator;
         }
 
         public async void Initialize()
         {
+            await _setupLevelSequence.Setup(_gameData.CurrentLevel);
+            _levelsSequenceView.SetupButtonsView();
             _audioManager.SetSoundVolume();
-            await SetupCurentLevels();
+            await _menuAnimator.StartAnimation();
         }
 
-        private async UniTask SetupCurentLevels()
-        {
-            if (_gameData.CurrentLevel <= 5)
-                await LoadLevelsSequence("Levels1-5");
-            else
-                await LoadLevelsSequence("Levels6-10");
-        }
-        
-        private async UniTask LoadLevelsSequence(string key)
-        {
-            AsyncOperationHandle<LevelsSequence> levels = Addressables.LoadAssetAsync<LevelsSequence>(key);
-            await levels.ToUniTask();
-                if (levels.Status == AsyncOperationStatus.Succeeded)
-                {
-                    CurrentLevelsSequence = levels.Result;
-                    Addressables.Release(levels);
-                }
-        }
+     
     }
 }

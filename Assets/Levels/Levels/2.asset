@@ -73,3 +73,4 @@ MonoBehaviour:
   _gridHeight: 8
   _goalScore: 1100
   _moves: 20
+  _levelNumber: 2

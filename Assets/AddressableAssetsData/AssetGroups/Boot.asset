@@ -20,11 +20,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0994c12e202f342459a4212e7287f7e8
-    m_Address: Assets/Audio/Sound/Pop.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 32d4b1811dda14a6cb9e059ee8ad17d2
     m_Address: Assets/Audio/Sound/Click.wav
     m_ReadOnly: 0
@@ -52,6 +47,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b43d102aac6b145468dcaa94a5cccae1
     m_Address: Assets/Audio/Sound/NoMatch.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b6e2b6870d2d4e84bbd1889ea684d49e
+    m_Address: Assets/Audio/Sound/Pop.wav
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

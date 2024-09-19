@@ -6,24 +6,22 @@ using VContainer;
 
 namespace Menu.Levels
 {
-    [RequireComponent(typeof(Button))] [RequireComponent(typeof(TMP_Text))]
+    [RequireComponent(typeof(Button))] 
     public class StartLevelButton : MonoBehaviour
     {
+        [SerializeField] private TMP_Text _label;
         public int Number { get; private set; }
-        public TMP_Text Label { get; private set; }
+        public TMP_Text Label => _label;
         private Button _button;
         
-        private StartLevel _startLevel;
-
         private void OnEnable()
         {
             _button = GetComponent<Button>();
-            Label = GetComponent<TMP_Text>();
             _button.onClick.AddListener(StartLevelButtonClick);
         }
         private void OnDisable() => _button.onClick.RemoveListener(StartLevelButtonClick);
 
-        public int SetNumber(int value) => Number = Mathf.Clamp(value,1,5);
+        public void SetNumber(int value) => Number = Mathf.Clamp(value,1,5);
 
         public void SetLabel() => Label.text = Number.ToString();
 
@@ -32,6 +30,5 @@ namespace Menu.Levels
           
         }
         
-        [Inject] private void Construct(StartLevel startLevel) => _startLevel = startLevel;
     }
 }
