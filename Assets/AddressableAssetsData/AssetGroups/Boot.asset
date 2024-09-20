@@ -40,6 +40,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 70956447234d33b40b396b67314a5843
+    m_Address: Assets/Font/TMP/gomarice_rocks_yellow_outline_big.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 724131bc8a7f34041bb9f1701f0cb58d
     m_Address: Assets/Audio/Sound/Deselect.wav
     m_ReadOnly: 0
