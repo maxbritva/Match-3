@@ -16,7 +16,7 @@ namespace DI
         {
             builder.RegisterEntryPoint<BootEntryPoint>();
             builder.Register<GameData>(Lifetime.Singleton);
-            builder.Register<SceneLoader>(Lifetime.Singleton);
+            builder.Register<IAsyncSceneLoading,SceneLoader>(Lifetime.Singleton);
             builder.RegisterInstance(_audioManager);
             builder.RegisterInstance(_loadingView);
         }

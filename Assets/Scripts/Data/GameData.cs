@@ -1,25 +1,31 @@
 ﻿using System;
+using Level;
 
 namespace Data
 {
     public class GameData
     {
-        public int CurrentLevel { get; private set; }
-        
+        public LevelConfiguration CurrentLevel { get; private set; }
+        public int CurrentLevelIndex { get; private set; }
         public bool IsEnabledSound { get; private set; }
 
         public GameData()
         {
             IsEnabledSound = true;
-            CurrentLevel = 2;
+            CurrentLevelIndex = 2;
         }
         public void SetCurrentLevel(int value)
         {
             if (value < 0)
                 throw new ArgumentOutOfRangeException(nameof(value));
-            CurrentLevel = value;
+            CurrentLevelIndex = value;
         }
 
         public bool SetSoundEnable(bool value) => IsEnabledSound = value;
+
+        public void SetCurrentLevel(LevelConfiguration levelToSet)
+        {
+            if (levelToSet != null) CurrentLevel = levelToSet;
+        }
     }
 }

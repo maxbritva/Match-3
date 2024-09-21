@@ -461,11 +461,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentReference:
-    TypeName: 
+    TypeName: DI.RootScope
   autoRun: 1
   autoInjectGameObjects:
   - {fileID: 840018714}
   - {fileID: 1284989820}
+  - {fileID: 2011818710}
+  - {fileID: 2067847546}
+  - {fileID: 282345733}
+  - {fileID: 158925590}
+  - {fileID: 1648589573}
   _levelsSequenceView: {fileID: 1284989824}
   _menuAnimator: {fileID: 1284989825}
 --- !u!4 &154400343

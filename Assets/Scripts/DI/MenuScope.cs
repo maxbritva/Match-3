@@ -17,6 +17,7 @@ namespace DI
             builder.Register<SetupLevelSequence>(Lifetime.Singleton);
             builder.RegisterInstance(_levelsSequenceView);
             builder.RegisterInstance(_menuAnimator);
+            builder.Register<StartGame>(Lifetime.Singleton);
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Cysharp.Threading.Tasks;
-using UnityEngine.SceneManagement;
 
 namespace SceneLoading
 {

@@ -1,5 +1,6 @@
 using Audio;
 using Data;
+using Level;
 using Menu.Levels;
 using Menu.UI;
 using SceneLoading;
@@ -10,31 +11,31 @@ namespace Menu
     public class MenuEntryPoint: IInitializable
     {
         private GameData _gameData;
-        private SceneLoader _sceneLoader;
         private AudioManager _audioManager;
         private SetupLevelSequence _setupLevelSequence;
         private LevelsSequenceView _levelsSequenceView;
         private MenuAnimator _menuAnimator;
+        private IAsyncSceneLoading _sceneLoader;
        
-        public MenuEntryPoint(GameData gameData, SceneLoader sceneLoader, AudioManager audioManager, SetupLevelSequence setupLevelSequence, 
-            LevelsSequenceView levelsSequenceView, MenuAnimator menuAnimator)
+        public MenuEntryPoint(GameData gameData, AudioManager audioManager, SetupLevelSequence setupLevelSequence, 
+            LevelsSequenceView levelsSequenceView, MenuAnimator menuAnimator, IAsyncSceneLoading sceneLoader)
         {
             _gameData = gameData;
-            _sceneLoader = sceneLoader;
             _audioManager = audioManager;
             _setupLevelSequence = setupLevelSequence;
             _levelsSequenceView = levelsSequenceView;
             _menuAnimator = menuAnimator;
+            _sceneLoader = sceneLoader;
         }
 
         public async void Initialize()
         {
-            await _setupLevelSequence.Setup(_gameData.CurrentLevel);
-            _levelsSequenceView.SetupButtonsView(_gameData.CurrentLevel);
+            await _setupLevelSequence.Setup(_gameData.CurrentLevelIndex);
+            _levelsSequenceView.SetupButtonsView(_gameData.CurrentLevelIndex);
             _audioManager.SetSoundVolume();
             await _menuAnimator.StartAnimation();
         }
-
-     
+        
+      
     }
 }

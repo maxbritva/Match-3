@@ -1,4 +1,5 @@
 ﻿using Data;
+using Level;
 using SceneLoading;
 using UnityEngine;
 using VContainer.Unity;
@@ -7,13 +8,13 @@ namespace Boot.EntryPoint
 {
     public class BootEntryPoint: IInitializable
     {
-        public GameData GameData { get; private set; }
-        private SceneLoader _sceneLoader;
+        private GameData _gameData;
+        private IAsyncSceneLoading _sceneLoader;
        
-        private BootEntryPoint(SceneLoader sceneLoader, GameData gameData)
+        private BootEntryPoint(IAsyncSceneLoading sceneLoader, GameData gameData)
         {
             _sceneLoader = sceneLoader;
-            GameData = gameData;
+            _gameData = gameData;
         }
 
         public async void Initialize()
@@ -22,5 +23,7 @@ namespace Boot.EntryPoint
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
             await _sceneLoader.LoadAsync(Scenes.MENU);
         }
+
+      
     }
 }
