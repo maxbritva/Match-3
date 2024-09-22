@@ -1,11 +1,12 @@
+using Data;
 using Game.Board;
 using Game.GameStateMachine;
 using Game.Grid;
 using Game.MatchTiles;
 using Game.Score;
 using Game.Tiles;
+using Game.Utils;
 using Level;
-using UnityEngine;
 using VContainer.Unity;
 
 namespace Game.GameManager
@@ -23,12 +24,19 @@ namespace Game.GameManager
         private readonly GameBoard _gameBoard;
         private readonly GameDebug _gameDebug;
         private readonly TilePool _tilePool;
+        private GameData _gameData;
+        private TilesLoader _tilesLoader;
+        private SetupCamera _setupCamera;
 
         private bool _isDebugging;
 
-        public GameEntryPoint(GameBoard gameBoard, GameDebug gameDebug, GridSystem gridSystem, MatchFinder matchFinder, TilePool tilePool, 
-            GameProgress.GameProgress gameProgress, ScoreCalculator scoreCalculator,  BackgroundTilesSetup backgroundTilesSetup, BlankTilesSetup blankTilesSetup)
+        public GameEntryPoint(TilesLoader tilesLoader, GameData gameData, GameBoard gameBoard, 
+            GameDebug gameDebug, GridSystem gridSystem, MatchFinder matchFinder, TilePool tilePool, 
+            GameProgress.GameProgress gameProgress, ScoreCalculator scoreCalculator,  
+            BackgroundTilesSetup backgroundTilesSetup, BlankTilesSetup blankTilesSetup)
         {
+            _tilesLoader = tilesLoader;
+            _gameData = gameData;
             _gameBoard = gameBoard;
             _gameDebug = gameDebug;
             _gridSystem = gridSystem;
@@ -42,13 +50,17 @@ namespace Game.GameManager
 
         public void Initialize()
         {
-            _levelConfiguration = Resources.Load<LevelConfiguration>("Levels/1");
+            _levelConfiguration = _gameData.CurrentLevel;
             if(_isDebugging)
                 _gameDebug.ShowDebugGrid(_levelConfiguration.GridWidth, _levelConfiguration.GridHeight, null);
             _gridSystem.SetupGrid(_levelConfiguration.GridWidth, _levelConfiguration.GridHeight);
             _stateMachine = new StateMachine(_gameBoard, _levelConfiguration, _gridSystem, 
                 _matchFinder, _tilePool, _gameProgress, _scoreCalculator, _backgroundTilesSetup, _blankTilesSetup);
             _gameProgress.LoadLevelConfiguration(_levelConfiguration.GoalScore, _levelConfiguration.Moves);
+            _tilesLoader.Load();
+            _setupCamera = new SetupCamera(false);
+            _setupCamera.SetCamera(_levelConfiguration.GridWidth, _levelConfiguration.GridHeight);
+            _blankTilesSetup.Generate(_levelConfiguration);
         }
     }
 }

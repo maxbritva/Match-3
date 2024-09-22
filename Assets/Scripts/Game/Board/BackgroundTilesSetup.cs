@@ -1,15 +1,19 @@
-﻿using DG.Tweening;
+﻿using System;
+using System.Threading;
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
 namespace Game.Board
 {
-    public class BackgroundTilesSetup
+    public class BackgroundTilesSetup: IDisposable
     {
         private GameObject _backGroundTilePrefab;
         private Sprite _lightTile;
         private Sprite _darkTile;
+        private CancellationTokenSource _cts;
         
         private IObjectResolver _objectResolver;
         
@@ -20,8 +24,9 @@ namespace Game.Board
             _lightTile = Resources.Load<Sprite>("Sprites/Background/Light");
             _darkTile = Resources.Load<Sprite>("Sprites/Background/Dark");
         }
-        public void SetupBackground(Transform parent, bool[,] blanks, int width, int height)
+        public async UniTask SetupBackground(Transform parent, bool[,] blanks, int width, int height)
         {
+            _cts = new CancellationTokenSource();
             for (int x = 0; x < width; x++)
             {
                 for (int y = 0; y < height; y++)
@@ -33,17 +38,25 @@ namespace Game.Board
                         backgroundTile.GetComponent<SpriteRenderer>().sprite = _darkTile;
                     else
                         backgroundTile.GetComponent<SpriteRenderer>().sprite = _lightTile;
-                    AnimateBackground(backgroundTile);
+                    await AnimateBackground(backgroundTile, _cts.Token);
                 }
             }
+            _cts.Cancel();
         }
         public GameObject CreateBackgroundTile(Vector3 position, Transform parent) => 
             _objectResolver.Instantiate(_backGroundTilePrefab, position, Quaternion.identity, parent);
 
-        private void AnimateBackground(GameObject target)
+        private async UniTask AnimateBackground(GameObject target, CancellationToken cancellationToken)
         {
             target.transform.localScale = Vector3.one * 0.1f;
             target.transform.DOScale(Vector3.one, 1f).SetEase(Ease.OutBounce);
+            UniTask.Delay(TimeSpan.FromSeconds(1f), cancellationToken.IsCancellationRequested);
+        }
+
+        public void Dispose()
+        {
+            _cts?.Dispose();
+            _objectResolver?.Dispose();
         }
     }
 }

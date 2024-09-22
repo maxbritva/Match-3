@@ -18,15 +18,19 @@ namespace Level
         [SerializeField] private int _moves;
         
         [SerializeField] private int _levelNumber;
-        
+        [SerializeField] private TileSets _tileSets;
         public List<BlankTile> BlankTilesLayout => _blankTilesLayout;
         public int GoalScore => _goalScore;
         public int Moves => _moves;
         public int GridWidth => _gridWidth;
         public int GridHeight => _gridHeight;
-        public List<TileType> TilesSet => _tilesSet;
-        // graphic set
-
+        public TileSets TileSets => _tileSets;
         public int Number => _levelNumber;
+    }
+
+    public enum TileSets
+    {
+        Kingdom,
+        Gem
     }
 }
