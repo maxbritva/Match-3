@@ -7,5 +7,7 @@ namespace SceneLoading
         UniTask LoadAsync(string sceneName);
         
         UniTask UnloadAsync(string sceneName);
+
+        void LoadingIsDone(bool value);
     }
 }

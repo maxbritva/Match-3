@@ -35,14 +35,16 @@ namespace Game.Tiles
         
         public Tile CreateBlankTile(Vector3 position, Transform parent)
         {
-            var tile = _objectResolver.Instantiate(_tilesLoader.TilePrefab, position, Quaternion.identity, parent);
+            var tilePrefab = _objectResolver.Instantiate(_tilesLoader.TilePrefab, position, Quaternion.identity, parent);
+            var tile = tilePrefab.GameObject().GetComponent<Tile>();
             tile.SetType(_tilesLoader.BlankTile);
             return tile;
         }
 
         private Tile CreateTile(Vector3 position, Transform parent)
         {
-            var tile = _objectResolver.Instantiate(_tilesLoader.TilePrefab, position, Quaternion.identity, parent);
+            var tilePrefab = _objectResolver.Instantiate(_tilesLoader.TilePrefab, position, Quaternion.identity, parent);
+            var tile = tilePrefab.GameObject().GetComponent<Tile>();
             tile.SetType(GetRandomType());
             _tilesPool.Add(tile);
             return tile;

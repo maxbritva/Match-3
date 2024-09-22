@@ -22,8 +22,8 @@ namespace Menu
         {
             _gameData.SetCurrentLevel(levelToStart);
             await _sceneLoader.UnloadAsync(Scenes.MENU);
+            await _sceneLoader.LoadAsync(Scenes.GAME);
             _audioManager.PlayGameMusic();
-            await  _sceneLoader.LoadAsync(Scenes.GAME);
         }
     }
 }

@@ -21,8 +21,7 @@ namespace Boot.EntryPoint
             Application.targetFrameRate = 60;
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
             await _sceneLoader.LoadAsync(Scenes.MENU);
+            _sceneLoader.LoadingIsDone(true);
         }
-
-      
     }
 }

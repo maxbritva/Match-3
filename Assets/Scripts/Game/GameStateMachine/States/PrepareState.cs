@@ -24,9 +24,9 @@ namespace Game.GameStateMachine.States
             _backgroundTilesSetup = backgroundTilesSetup;
         }
 
-        public void Enter()
+        public async void Enter()
         {
-            _backgroundTilesSetup.SetupBackground(_gameBoard.transform, _blankTilesSetup.Blanks,
+           await _backgroundTilesSetup.SetupBackground(_gameBoard.transform, _blankTilesSetup.Blanks,
                 _levelConfiguration.GridWidth, _levelConfiguration.GridHeight);
             _gameBoard.CreateBoard();
             _stateSwitcher.SwitchState<PlayerTurnState>();

@@ -6,27 +6,24 @@ using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace Game.Board
+namespace Game.Tiles
 {
     public class BackgroundTilesSetup: IDisposable
     {
-        private GameObject _backGroundTilePrefab;
-        private Sprite _lightTile;
-        private Sprite _darkTile;
+        private readonly TilesLoader _tilesLoader;
         private CancellationTokenSource _cts;
         
         private IObjectResolver _objectResolver;
-        
-        public BackgroundTilesSetup(IObjectResolver objectResolver)
+        public BackgroundTilesSetup(IObjectResolver objectResolver, TilesLoader tilesLoader)
         {
             _objectResolver = objectResolver;
-            _backGroundTilePrefab = Resources.Load<GameObject>("Prefabs/backgroundPrefab");
-            _lightTile = Resources.Load<Sprite>("Sprites/Background/Light");
-            _darkTile = Resources.Load<Sprite>("Sprites/Background/Dark");
+            _tilesLoader = tilesLoader;
         }
         public async UniTask SetupBackground(Transform parent, bool[,] blanks, int width, int height)
         {
             _cts = new CancellationTokenSource();
+            if(_tilesLoader.BackgroundTilePrefab == null)
+                Debug.Log("null");
             for (int x = 0; x < width; x++)
             {
                 for (int y = 0; y < height; y++)
@@ -35,16 +32,16 @@ namespace Game.Board
                     var backgroundTile = CreateBackgroundTile(
                         new Vector3(x + 0.5f, y + 0.5f, 0.1f), parent);
                     if (x % 2 == 0 && y % 2 == 0 || x % 2 != 0 && y % 2 != 0)
-                        backgroundTile.GetComponent<SpriteRenderer>().sprite = _darkTile;
+                        backgroundTile.GetComponent<SpriteRenderer>().sprite = _tilesLoader.DarkTile;
                     else
-                        backgroundTile.GetComponent<SpriteRenderer>().sprite = _lightTile;
+                        backgroundTile.GetComponent<SpriteRenderer>().sprite = _tilesLoader.LightTile;
                     await AnimateBackground(backgroundTile, _cts.Token);
                 }
             }
             _cts.Cancel();
         }
         public GameObject CreateBackgroundTile(Vector3 position, Transform parent) => 
-            _objectResolver.Instantiate(_backGroundTilePrefab, position, Quaternion.identity, parent);
+            _objectResolver.Instantiate(_tilesLoader.BackgroundTilePrefab, position, Quaternion.identity, parent);
 
         private async UniTask AnimateBackground(GameObject target, CancellationToken cancellationToken)
         {

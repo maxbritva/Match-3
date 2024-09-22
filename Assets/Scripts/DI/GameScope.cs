@@ -18,6 +18,7 @@ namespace DI
         protected override void Configure(IContainerBuilder builder)
         {
             builder.Register<IObjectResolver, Container>(Lifetime.Singleton);
+            builder.Register<TilesLoader>(Lifetime.Singleton);
             builder.RegisterInstance(gameBoard);
             builder.RegisterEntryPoint<GameEntryPoint>();
             builder.Register<GridSystem>(Lifetime.Singleton);

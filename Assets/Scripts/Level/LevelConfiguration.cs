@@ -9,7 +9,6 @@ namespace Level
     {
         [Header("Grid")]
         [SerializeField] private List<BlankTile> _blankTilesLayout;
-        [SerializeField] private List<TileType> _tilesSet;
         [SerializeField] private int _gridWidth; 
         [SerializeField] private int _gridHeight;
         

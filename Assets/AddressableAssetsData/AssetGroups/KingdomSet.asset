@@ -10,33 +10,38 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: TileSet1
+  m_Name: KingdomSet
   m_EditorClassIdentifier: 
-  m_GroupName: TileSet1
+  m_GroupName: KingdomSet
   m_GUID: c1b95cac941508041ab34b4ff36d06f8
   m_SerializeEntries:
   - m_GUID: 2664ca33f723cb84d8fdf183fe73baaf
-    m_Address: Assets/Sprites/Tiles/Set1/Book.png
+    m_Address: Book
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 71b45f9961f46ee4fb1a60bd4884a599
-    m_Address: Assets/Sprites/Tiles/Set1/Sword.png
+    m_Address: Sword
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 908b2c2601b26b24c8790536c7cc14c8
-    m_Address: Assets/Sprites/Tiles/Set1/Potion.png
+    m_Address: Potion
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bc0a184b0c7c0604db6cc2af3432ba13
-    m_Address: Assets/Sprites/Tiles/Set1/Shield.png
+    m_Address: Shield
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e4d90a7dcae2bbb42a10ac0db06766ba
-    m_Address: Assets/Sprites/Tiles/Set1/Coin.png
+    m_Address: Coin
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f312af13e0799cb40952d8566c9610a4
+    m_Address: KingdomSet
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

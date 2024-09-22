@@ -15,8 +15,38 @@ MonoBehaviour:
   m_GroupName: Game
   m_GUID: 4ab3a6a5a15e98446bc9e440190513b2
   m_SerializeEntries:
+  - m_GUID: 1404e18a1893b4770b65d02038e06970
+    m_Address: Blank
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7ef97f23e1df04b7593de09fd9a26c7c
+    m_Address: TilePrefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 89c1fa16737c4ef4296b3085a6ecb858
+    m_Address: BGLightTile
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8b148f13ed6354a46b40b5da10d8e84e
+    m_Address: Assets/Sprites/ui/TopPanel.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 99c9720ab356a0642a771bea13969a05
     m_Address: Game
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a884011c5489b9d4dba1bda95670bdc9
+    m_Address: BGDarkTile
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bbdef16719777074e85424746587f37a
+    m_Address: BackgroundPrefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
