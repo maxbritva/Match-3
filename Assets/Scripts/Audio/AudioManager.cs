@@ -10,7 +10,8 @@ namespace Audio
     {
         [Header("Sources")]
         [SerializeField] private AudioSource _musicSource;
-        [SerializeField] private AudioSource _soundSource;
+        [SerializeField] private AudioSource _pitchSoundSource;
+        [SerializeField] private AudioSource _normalSoundSource;
         [SerializeField] private AudioMixer _audioMixer;
         
         [Header("Clips")]
@@ -24,10 +25,10 @@ namespace Audio
         [SerializeField] AudioClip _pop;
         private GameData _gameData;
 
-        public void PlayClick() => _soundSource.PlayOneShot(_click);
-        public void PlayDeselect() => _soundSource.PlayOneShot(_deselect);
-        public void PlayMatch() => _soundSource.PlayOneShot(_match);
-        public void PlayNoMatch() => _soundSource.PlayOneShot(_noMatch);
+        public void PlayClick() => PlayNormalPitch(_click);
+        public void PlayDeselect() => PlayNormalPitch(_deselect);
+        public void PlayMatch() => PlayNormalPitch(_match);
+        public void PlayNoMatch() => PlayNormalPitch(_noMatch);
         public void PlayWhoosh() => PlayRandomPitch(_whoosh);
         public void PlayPop() => PlayRandomPitch(_pop);
 
@@ -57,12 +58,11 @@ namespace Audio
         }
         private void PlayRandomPitch(AudioClip audioClip) 
         {
-            _soundSource.pitch = Random.Range(0.8f, 1.2f);
-            _soundSource.PlayOneShot(audioClip);
-            _soundSource.pitch = 1f;
+            _pitchSoundSource.pitch = Random.Range(0.8f, 1.2f);
+            _pitchSoundSource.PlayOneShot(audioClip);
         }
-        
+        private void PlayNormalPitch(AudioClip audioClip) => _normalSoundSource.PlayOneShot(audioClip);
+
         [Inject] private void Construct(GameData gameData) => _gameData = gameData;
-      
     }
 }

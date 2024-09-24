@@ -1,3 +1,4 @@
+using Audio;
 using Data;
 using Game.Board;
 using Game.GameStateMachine;
@@ -27,6 +28,7 @@ namespace Game.GameManager
         private readonly GameDebug _gameDebug;
         private readonly TilePool _tilePool;
         private GameData _gameData;
+        private AudioManager _audioManager;
         private TilesLoader _tilesLoader;
         private SetupCamera _setupCamera;
         private IAsyncSceneLoading _sceneLoading;
@@ -35,11 +37,12 @@ namespace Game.GameManager
 
         public GameEntryPoint(TilesLoader tilesLoader, GameData gameData, GameBoard gameBoard, 
             GameDebug gameDebug, GridSystem gridSystem, MatchFinder matchFinder, TilePool tilePool, 
-            GameProgress.GameProgress gameProgress, ScoreCalculator scoreCalculator,  
+            GameProgress.GameProgress gameProgress, ScoreCalculator scoreCalculator, AudioManager audioManager,  
             BackgroundTilesSetup backgroundTilesSetup, BlankTilesSetup blankTilesSetup, IAsyncSceneLoading asyncSceneLoading)
         {
             _tilesLoader = tilesLoader;
             _gameData = gameData;
+            _audioManager = audioManager;
             _gameBoard = gameBoard;
             _gameDebug = gameDebug;
             _gridSystem = gridSystem;
@@ -65,7 +68,8 @@ namespace Game.GameManager
             _setupCamera.SetCamera(_levelConfiguration.GridWidth, _levelConfiguration.GridHeight);
             _blankTilesSetup.Generate(_levelConfiguration);
             _stateMachine = new StateMachine(_gameBoard, _levelConfiguration, _gridSystem, 
-                _matchFinder, _tilePool, _gameProgress, _scoreCalculator, _backgroundTilesSetup, _blankTilesSetup);
+                _matchFinder, _tilePool, _gameProgress, _scoreCalculator, _backgroundTilesSetup, 
+                _blankTilesSetup,_audioManager);
             _sceneLoading.LoadingIsDone(true);
         }
     }

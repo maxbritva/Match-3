@@ -22,8 +22,6 @@ namespace Game.Tiles
         public async UniTask SetupBackground(Transform parent, bool[,] blanks, int width, int height)
         {
             _cts = new CancellationTokenSource();
-            if(_tilesLoader.BackgroundTilePrefab == null)
-                Debug.Log("null");
             for (int x = 0; x < width; x++)
             {
                 for (int y = 0; y < height; y++)
@@ -49,7 +47,6 @@ namespace Game.Tiles
             target.transform.DOScale(Vector3.one, 1f).SetEase(Ease.OutBounce);
             UniTask.Delay(TimeSpan.FromSeconds(1f), cancellationToken.IsCancellationRequested);
         }
-
         public void Dispose()
         {
             _cts?.Dispose();

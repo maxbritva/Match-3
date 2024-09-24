@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using Audio;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Game.Grid;
 using Game.MatchTiles;
 using Game.Tiles;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Game.GameStateMachine.States
@@ -19,15 +19,18 @@ namespace Game.GameStateMachine.States
         private IStateSwitcher _stateSwitcher;
         private CancellationTokenSource _cts;
         private Transform _parent;
+        private AudioManager _audioManager;
         private List<Vector2Int> _tilesToRefill = new List<Vector2Int>();
         
-        public RefillGridState(GridSystem grid, IStateSwitcher stateSwitcher, MatchFinder matchFinder, TilePool tilePool, Transform parent)
+        public RefillGridState(GridSystem grid, IStateSwitcher stateSwitcher, MatchFinder matchFinder, 
+            TilePool tilePool, Transform parent, AudioManager audioManager)
         {
             _grid = grid;
             _matchFinder = matchFinder;
             _stateSwitcher = stateSwitcher;
             _tilePool = tilePool;
             _parent = parent;
+            _audioManager = audioManager;
         }
 
         public async void Enter()
@@ -45,13 +48,16 @@ namespace Game.GameStateMachine.States
                 }
             }
             if (_matchFinder.CheckBoardForMatches(_grid))
+            {
                 _stateSwitcher.SwitchState<RemoveTilesState>();
+                _audioManager.PlayMatch();
+            }
+             
             else
             {
-                
+                _audioManager.PlayNoMatch();
                 _stateSwitcher.SwitchState<PlayerTurnState>();
             }
-           
         }
 
         public void Exit() => _cts?.Cancel();
@@ -75,10 +81,10 @@ namespace Game.GameStateMachine.States
                         _grid.SetValue(x, i, null);
                         _tilesToRefill.Add(new Vector2Int(x,i));
                         break;
-                        // audioManager.PlayWoosh();
                     }
                 }
             }
+            _audioManager.PlayWhoosh();
             await UniTask.Delay(TimeSpan.FromSeconds(0.3f), _cts.IsCancellationRequested);
             _cts.Cancel();
         }
@@ -93,7 +99,7 @@ namespace Game.GameStateMachine.States
                     _grid.SetValue(x, y, tileFromPool);
                     tileFromPool.transform.localScale = Vector3.one * 0.1f;
                     tileFromPool.transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutCubic);
-                    //  audioManager.PlayPop();
+                    _audioManager.PlayPop();
                     await UniTask.Delay(TimeSpan.FromSeconds(0.1f), _cts.IsCancellationRequested);
                 }
             }

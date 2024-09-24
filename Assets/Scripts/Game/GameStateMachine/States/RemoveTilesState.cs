@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
+using Audio;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Game.Grid;
@@ -18,12 +20,14 @@ namespace Game.GameStateMachine.States
         private ScoreCalculator _scoreCalculator;
         private IStateSwitcher _stateSwitcher;
         private CancellationTokenSource _cts;
+        private AudioManager _audioManager;
 
-
-        public RemoveTilesState(GridSystem grid, MatchFinder matchFinder, IStateSwitcher stateSwitcher, ScoreCalculator scoreCalculator)
+        public RemoveTilesState(GridSystem grid, MatchFinder matchFinder, IStateSwitcher stateSwitcher, 
+            ScoreCalculator scoreCalculator, AudioManager audioManager)
         {
             _grid = grid;
             _matchFinder = matchFinder;
+            _audioManager = audioManager;
             _stateSwitcher = stateSwitcher;
             _scoreCalculator = scoreCalculator;
         }
@@ -46,10 +50,11 @@ namespace Game.GameStateMachine.States
         {
             foreach (var tile in tilesToRemove)
             {
-                // audioManager.PlayPop();
+                _audioManager.PlayPop();
                 Vector2Int position = grid.WorldToGrid(tile.transform.position);
                 grid.SetValue(position.x, position.y, null);
-                await tile.transform.DOPunchScale(Vector3.one * 0.1f, 0.1f, 1, 0.5f);
+                tile.transform.DOPunchScale(Vector3.one * 0.1f, 3f, 1, 0.5f).SetEase(Ease.OutBounce);
+              //  await UniTask.Delay(TimeSpan.FromSeconds(0.05f), _cts.IsCancellationRequested);
                 tile.GameObject().SetActive(false);
             }
             _cts.Cancel();

@@ -20,11 +20,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 32d4b1811dda14a6cb9e059ee8ad17d2
-    m_Address: Assets/Audio/Sound/Click.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 348b74ce5ff094086b9a24554c26196d
     m_Address: Assets/Prefabs/RootScope.prefab
     m_ReadOnly: 0
@@ -35,33 +30,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6e8772b49f34d402a90016ed445d8a2f
-    m_Address: Assets/Audio/Sound/Match.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 70956447234d33b40b396b67314a5843
     m_Address: Assets/Font/TMP/gomarice_rocks_yellow_outline_big.asset
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 724131bc8a7f34041bb9f1701f0cb58d
-    m_Address: Assets/Audio/Sound/Deselect.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b43d102aac6b145468dcaa94a5cccae1
-    m_Address: Assets/Audio/Sound/NoMatch.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b6e2b6870d2d4e84bbd1889ea684d49e
-    m_Address: Assets/Audio/Sound/Pop.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d46323e22e74e46baa241cbf48c85671
-    m_Address: Assets/Audio/Sound/Whoosh.wav
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

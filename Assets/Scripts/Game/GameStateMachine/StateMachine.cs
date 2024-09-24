@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Audio;
 using Game.Board;
 using Game.GameStateMachine.States;
 using Game.Grid;
@@ -23,9 +24,10 @@ namespace Game.GameStateMachine
         private LevelConfiguration _levelConfiguration;
         private BlankTilesSetup _blankTilesSetup;
         private BackgroundTilesSetup _backgroundTilesSetup;
+        private AudioManager _audioManager;
 
         public StateMachine(GameBoard gameBoard, LevelConfiguration levelConfiguration, GridSystem grid, MatchFinder matchFinder, TilePool tilePool, GameProgress.GameProgress gameProgress, 
-            ScoreCalculator scoreCalculator, BackgroundTilesSetup backgroundTilesSetup, BlankTilesSetup blankTilesSetup)
+            ScoreCalculator scoreCalculator, BackgroundTilesSetup backgroundTilesSetup, BlankTilesSetup blankTilesSetup, AudioManager audioManager)
         {
             _gameBoard = gameBoard;
             _grid = grid;
@@ -33,16 +35,17 @@ namespace Game.GameStateMachine
             _levelConfiguration = levelConfiguration;
             _matchFinder = matchFinder;
             _gameProgress = gameProgress;
+            _audioManager = audioManager;
             _scoreCalculator = scoreCalculator;
             _blankTilesSetup = blankTilesSetup;
             _backgroundTilesSetup = backgroundTilesSetup;
             _states = new List<IState>()
             {
                 new PrepareState( this,_gameBoard, _levelConfiguration, _blankTilesSetup, _backgroundTilesSetup),
-                new PlayerTurnState(_grid, this),
-                new RemoveTilesState(_grid, _matchFinder,this, _scoreCalculator),
-                new SwapTilesState(_grid, this, _matchFinder, _gameProgress),
-                new RefillGridState(_grid, this, _matchFinder, _tilePool, _gameBoard.transform)
+                new PlayerTurnState(_grid, this, _audioManager),
+                new RemoveTilesState(_grid, _matchFinder,this, _scoreCalculator, _audioManager),
+                new SwapTilesState(_grid, this, _matchFinder, _gameProgress, _audioManager),
+                new RefillGridState(_grid, this, _matchFinder, _tilePool, _gameBoard.transform, _audioManager)
             };
             _currentState = _states[0];
             _currentState.Enter();
