@@ -50,6 +50,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d0af27e493b7b4e13a636d71aa54cfa4
+    m_Address: Assets/Audio/Music/GameMusic.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: ed31aca557b1ff943915a0d83d7fc5ae, type: 2}
   m_SchemaSet:

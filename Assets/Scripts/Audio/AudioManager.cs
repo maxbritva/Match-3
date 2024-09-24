@@ -35,7 +35,6 @@ namespace Audio
         {
             if (_gameData.IsEnabledSound)
             {
-                _musicSource.clip = _menuMusic;
                 _audioMixer.SetFloat("Volume", -6f);
                 _musicSource.Play();
             }

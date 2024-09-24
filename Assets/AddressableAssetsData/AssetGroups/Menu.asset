@@ -50,6 +50,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f294a715f7523493488f45b9a76ccba2
+    m_Address: Assets/Audio/Music/MenuMusic.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fac444679f51242f994008f6eb6e4d09
     m_Address: Assets/Levels/Levels/3.asset
     m_ReadOnly: 0

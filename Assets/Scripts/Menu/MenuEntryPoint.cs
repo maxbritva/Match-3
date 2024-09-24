@@ -32,10 +32,8 @@ namespace Menu
         {
             await _setupLevelSequence.Setup(_gameData.CurrentLevelIndex);
             _levelsSequenceView.SetupButtonsView(_gameData.CurrentLevelIndex);
-            _audioManager.SetSoundVolume();
+            _audioManager.PlayMenuMusic();
             await _menuAnimator.StartAnimation();
         }
-        
-      
     }
 }

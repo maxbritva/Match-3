@@ -60,18 +60,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d0af27e493b7b4e13a636d71aa54cfa4
-    m_Address: Assets/Audio/Music/GameMusic.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d46323e22e74e46baa241cbf48c85671
     m_Address: Assets/Audio/Sound/Whoosh.wav
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f294a715f7523493488f45b9a76ccba2
-    m_Address: Assets/Audio/Music/MenuMusic.wav
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
