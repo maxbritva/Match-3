@@ -1,4 +1,8 @@
+using System;
 using System.Collections.Generic;
+using System.Threading;
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using Game.MatchTiles;
 using Game.Tiles;
 using Unity.VisualScripting;
@@ -26,7 +30,7 @@ namespace Game.Board
             _matchFinder.ClearTilesToRemoveList();
         }
 
-        private void FillBoard()
+        private async void FillBoard()
         {
             ClearBoard();
             for (int x = 0; x < _grid.Width; x++)
@@ -43,10 +47,18 @@ namespace Game.Board
                     {
                         var tile = _tilePool.GetTileFromPool(_grid.GridToWorld(x, y), transform);
                         _grid.SetValue(x, y, tile);
+                        tile.GameObject().SetActive(true);
+                       await AnimateTile(tile.GameObject(), new CancellationToken());
                         _tilesToRefill.Add(tile);
                     }
                 }
             }
+        }
+        private async UniTask AnimateTile(GameObject target, CancellationToken cancellationToken)
+        {
+            target.transform.localScale = Vector3.one * 0.1f;
+            target.transform.DOScale(Vector3.one, 1f).SetEase(Ease.OutBounce);
+            UniTask.Delay(TimeSpan.FromSeconds(1f), cancellationToken.IsCancellationRequested);
         }
 
         private void ClearBoard()
@@ -59,8 +71,7 @@ namespace Game.Board
             }
             _tilesToRefill.Clear();
         }
-
-
+        
        [Inject] private void Construct(GridSystem gridSystem, TilePool tilePool, BlankTilesSetup blankTilesSetup, MatchFinder matchFinder)
        {
             _grid = gridSystem;

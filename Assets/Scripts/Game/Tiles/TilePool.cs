@@ -25,7 +25,6 @@ namespace Game.Tiles
                 if(_tilesPool[i].GameObject().activeInHierarchy) continue;
                 _tilesPool[i].SetType(GetRandomType());
                 _tilesPool[i].GameObject().transform.position = position;
-                _tilesPool[i].GameObject().SetActive(true);
                 return  _tilesPool[i];
             }
             var tile = CreateTile(position, parent);

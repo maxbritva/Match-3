@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
+using Animations;
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -11,7 +11,7 @@ namespace Game.Tiles
     public class BackgroundTilesSetup: IDisposable
     {
         private readonly TilesLoader _tilesLoader;
-        private CancellationTokenSource _cts;
+        private CancellationTokenSource _сts;
         
         private IObjectResolver _objectResolver;
         public BackgroundTilesSetup(IObjectResolver objectResolver, TilesLoader tilesLoader)
@@ -19,9 +19,9 @@ namespace Game.Tiles
             _objectResolver = objectResolver;
             _tilesLoader = tilesLoader;
         }
-        public async UniTask SetupBackground(Transform parent, bool[,] blanks, int width, int height)
+        public async UniTask SetupBackground(Transform parent, bool[,] blanks, int width, int height, IAnimation animationManager)
         {
-            _cts = new CancellationTokenSource();
+            _сts = new CancellationTokenSource();
             for (int x = 0; x < width; x++)
             {
                 for (int y = 0; y < height; y++)
@@ -33,23 +33,17 @@ namespace Game.Tiles
                         backgroundTile.GetComponent<SpriteRenderer>().sprite = _tilesLoader.DarkTile;
                     else
                         backgroundTile.GetComponent<SpriteRenderer>().sprite = _tilesLoader.LightTile;
-                    await AnimateBackground(backgroundTile, _cts.Token);
+                    await animationManager.Reveal(backgroundTile);
                 }
             }
-            _cts.Cancel();
+            _сts.Cancel();
         }
         public GameObject CreateBackgroundTile(Vector3 position, Transform parent) => 
             _objectResolver.Instantiate(_tilesLoader.BackgroundTilePrefab, position, Quaternion.identity, parent);
-
-        private async UniTask AnimateBackground(GameObject target, CancellationToken cancellationToken)
-        {
-            target.transform.localScale = Vector3.one * 0.1f;
-            target.transform.DOScale(Vector3.one, 1f).SetEase(Ease.OutBounce);
-            UniTask.Delay(TimeSpan.FromSeconds(1f), cancellationToken.IsCancellationRequested);
-        }
+        
         public void Dispose()
         {
-            _cts?.Dispose();
+            _сts?.Dispose();
             _objectResolver?.Dispose();
         }
     }

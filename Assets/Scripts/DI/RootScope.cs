@@ -1,3 +1,4 @@
+using Animations;
 using Audio;
 using Boot.EntryPoint;
 using Data;
@@ -17,6 +18,7 @@ namespace DI
             builder.RegisterEntryPoint<BootEntryPoint>();
             builder.Register<GameData>(Lifetime.Singleton);
             builder.Register<IAsyncSceneLoading,SceneLoader>(Lifetime.Singleton);
+            builder.Register<IAnimation, AnimationManager>(Lifetime.Singleton);
             builder.RegisterInstance(_audioManager);
             builder.RegisterInstance(_loadingView);
         }

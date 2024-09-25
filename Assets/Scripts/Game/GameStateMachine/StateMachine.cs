@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Animations;
 using Audio;
 using Game.Board;
 using Game.GameStateMachine.States;
@@ -25,9 +26,10 @@ namespace Game.GameStateMachine
         private BlankTilesSetup _blankTilesSetup;
         private BackgroundTilesSetup _backgroundTilesSetup;
         private AudioManager _audioManager;
+        private IAnimation _animation;
 
         public StateMachine(GameBoard gameBoard, LevelConfiguration levelConfiguration, GridSystem grid, MatchFinder matchFinder, TilePool tilePool, GameProgress.GameProgress gameProgress, 
-            ScoreCalculator scoreCalculator, BackgroundTilesSetup backgroundTilesSetup, BlankTilesSetup blankTilesSetup, AudioManager audioManager)
+            ScoreCalculator scoreCalculator, BackgroundTilesSetup backgroundTilesSetup, BlankTilesSetup blankTilesSetup, AudioManager audioManager, IAnimation animation)
         {
             _gameBoard = gameBoard;
             _grid = grid;
@@ -39,9 +41,10 @@ namespace Game.GameStateMachine
             _scoreCalculator = scoreCalculator;
             _blankTilesSetup = blankTilesSetup;
             _backgroundTilesSetup = backgroundTilesSetup;
+            _animation = animation;
             _states = new List<IState>()
             {
-                new PrepareState( this,_gameBoard, _levelConfiguration, _blankTilesSetup, _backgroundTilesSetup),
+                new PrepareState( this,_gameBoard, _levelConfiguration, _blankTilesSetup, _backgroundTilesSetup, _animation),
                 new PlayerTurnState(_grid, this, _audioManager),
                 new RemoveTilesState(_grid, _matchFinder,this, _scoreCalculator, _audioManager),
                 new SwapTilesState(_grid, this, _matchFinder, _gameProgress, _audioManager),

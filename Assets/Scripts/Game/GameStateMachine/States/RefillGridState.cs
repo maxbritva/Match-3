@@ -7,6 +7,7 @@ using DG.Tweening;
 using Game.Grid;
 using Game.MatchTiles;
 using Game.Tiles;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Game.GameStateMachine.States
@@ -61,7 +62,6 @@ namespace Game.GameStateMachine.States
         }
 
         public void Exit() => _cts?.Cancel();
-        
        
         private async UniTask FallTiles()
         {
@@ -96,6 +96,7 @@ namespace Game.GameStateMachine.States
                 {
                     if (_grid.Grid.GetValue(x, y) != null) continue;
                     var tileFromPool = _tilePool.GetTileFromPool(_grid.GridToWorld(x, y), _parent);
+                    tileFromPool.GameObject().SetActive(true);
                     _grid.SetValue(x, y, tileFromPool);
                     tileFromPool.transform.localScale = Vector3.one * 0.1f;
                     tileFromPool.transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutCubic);
