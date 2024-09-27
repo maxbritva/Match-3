@@ -146,7 +146,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.7
+  m_Volume: 0.522
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -243,7 +243,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.7
+  m_Volume: 0.515
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -351,6 +351,7 @@ MonoBehaviour:
   _noMatch: {fileID: 8300000, guid: b43d102aac6b145468dcaa94a5cccae1, type: 3}
   _whoosh: {fileID: 8300000, guid: d46323e22e74e46baa241cbf48c85671, type: 3}
   _pop: {fileID: 8300000, guid: b6e2b6870d2d4e84bbd1889ea684d49e, type: 3}
+  _stopMusic: {fileID: 8300000, guid: bbf884f0eacc43b4d8ce307633d6449e, type: 3}
 --- !u!81 &6561378704969303175
 AudioListener:
   m_ObjectHideFlags: 0

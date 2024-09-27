@@ -23,6 +23,7 @@ namespace Audio
         [SerializeField] AudioClip _noMatch;
         [SerializeField] AudioClip _whoosh;
         [SerializeField] AudioClip _pop;
+        [SerializeField] AudioClip _stopMusic;
         private GameData _gameData;
 
         public void PlayClick() => PlayNormalPitch(_click);
@@ -31,6 +32,8 @@ namespace Audio
         public void PlayNoMatch() => PlayNormalPitch(_noMatch);
         public void PlayWhoosh() => PlayRandomPitch(_whoosh);
         public void PlayPop() => PlayRandomPitch(_pop);
+        
+        private void PlayStopMusic() => PlayNormalPitch(_stopMusic);
 
         public void SetSoundVolume()
         {
@@ -55,6 +58,12 @@ namespace Audio
             _musicSource.Stop();
             _musicSource.clip = _menuMusic;
             SetSoundVolume();
+        }
+
+        public void StopMusic()
+        {
+            _musicSource.Stop();
+            PlayStopMusic();
         }
         private void PlayRandomPitch(AudioClip audioClip) 
         {

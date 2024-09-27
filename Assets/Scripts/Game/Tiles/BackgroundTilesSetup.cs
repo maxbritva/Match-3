@@ -33,9 +33,10 @@ namespace Game.Tiles
                         backgroundTile.GetComponent<SpriteRenderer>().sprite = _tilesLoader.DarkTile;
                     else
                         backgroundTile.GetComponent<SpriteRenderer>().sprite = _tilesLoader.LightTile;
-                    await animationManager.Reveal(backgroundTile);
+                    animationManager.Reveal(backgroundTile, 1f);
                 }
             }
+            await UniTask.Delay(TimeSpan.FromSeconds(0.3f), _сts.IsCancellationRequested);
             _сts.Cancel();
         }
         public GameObject CreateBackgroundTile(Vector3 position, Transform parent) => 

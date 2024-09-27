@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Animations;
 using Audio;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -7,7 +8,7 @@ using VContainer;
 
 namespace Menu.UI
 {
-    public class MenuAnimator : MonoBehaviour
+    public class MenuView : MonoBehaviour
     {
         [SerializeField] private GameObject _leftTower;
         [SerializeField] private GameObject _rightTower;
@@ -16,28 +17,32 @@ namespace Menu.UI
         [SerializeField] private List<GameObject> _levelButtons = new List<GameObject>();
 
         private AudioManager _audioManager;
+        private IAnimation _animationManager;
         public async UniTask StartAnimation()
         {
-            var cancellationTokenOnDestroy = this.GetCancellationTokenOnDestroy();
             _audioManager.PlayWhoosh();
             _leftTower.SetActive(true);
-            await _leftTower.transform.DOMove(new Vector3(-13f, -0.74f, 0), 0.2f).From().SetEase(Ease.InOutBack);
-            _rightTower.SetActive(true);
-            await _rightTower.transform.DOMove(new Vector3(13f, -0.74f, 0), 0.3f).From().SetEase(Ease.InOutBack);
+            await _animationManager.Move(_leftTower, new Vector3(-13f, -0.74f, 0), 0.2f, Ease.InOutBack);
+           _rightTower.SetActive(true);
+           await _animationManager.Move(_rightTower, new Vector3(13f, -0.74f, 0), 0.3f, Ease.InOutBack);
            _wall.SetActive(true);
            _audioManager.PlayWhoosh();
-           await _wall.transform.DOMove(new Vector3(0.2f, -8f, 0), 0.3f).From().SetEase(Ease.InSine).WithCancellation(cancellationTokenOnDestroy);
+           await _animationManager.Move(_wall, new Vector3(0.2f, -8f, 0), 0.3f, Ease.InOutBack);
            _logo.SetActive(true);
            _audioManager.PlayWhoosh();
-           await _logo.transform.DOMove(new Vector3(-1.32f, -5f, 0), 0.7f).From().SetEase(Ease.OutBounce).WithCancellation(cancellationTokenOnDestroy);
+           await _animationManager.Move(_logo, new Vector3(-1.32f, -5f, 0), 0.7f, Ease.OutBounce);
            foreach (var button in _levelButtons)
            {
                _audioManager.PlayPop();
                button.SetActive(true);
-               await button.transform.DOScale(Vector3.zero, 0.1f).From().SetEase(Ease.InOutBack).WithCancellation(cancellationTokenOnDestroy);
+               await _animationManager.Reveal(button, 0.1f);
            }
         }
 
-        [Inject] private void Construct(AudioManager audioManager) => _audioManager = audioManager;
+        [Inject] private void Construct(AudioManager audioManager, IAnimation animationManager)
+        {
+            _audioManager = audioManager;
+            _animationManager = animationManager;
+        }
     }
 }

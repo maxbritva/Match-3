@@ -14,17 +14,17 @@ namespace Menu
         private AudioManager _audioManager;
         private SetupLevelSequence _setupLevelSequence;
         private LevelsSequenceView _levelsSequenceView;
-        private MenuAnimator _menuAnimator;
+        private MenuView _menuView;
         private IAsyncSceneLoading _sceneLoader;
        
         public MenuEntryPoint(GameData gameData, AudioManager audioManager, SetupLevelSequence setupLevelSequence, 
-            LevelsSequenceView levelsSequenceView, MenuAnimator menuAnimator, IAsyncSceneLoading sceneLoader)
+            LevelsSequenceView levelsSequenceView, MenuView menuView, IAsyncSceneLoading sceneLoader)
         {
             _gameData = gameData;
             _audioManager = audioManager;
             _setupLevelSequence = setupLevelSequence;
             _levelsSequenceView = levelsSequenceView;
-            _menuAnimator = menuAnimator;
+            _menuView = menuView;
             _sceneLoader = sceneLoader;
         }
 
@@ -33,7 +33,7 @@ namespace Menu
             await _setupLevelSequence.Setup(_gameData.CurrentLevelIndex);
             _levelsSequenceView.SetupButtonsView(_gameData.CurrentLevelIndex);
             _audioManager.PlayMenuMusic();
-            await _menuAnimator.StartAnimation();
+            await _menuView.StartAnimation();
         }
     }
 }

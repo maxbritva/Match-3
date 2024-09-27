@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using Animations;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Game.MatchTiles;
@@ -20,6 +21,7 @@ namespace Game.Board
         private MatchFinder _matchFinder;
         private TilePool _tilePool;
         private GridSystem _grid;
+        private IAnimation _animationManager;
         
         public void CreateBoard()
         {
@@ -28,9 +30,10 @@ namespace Game.Board
                 FillBoard();
          
             _matchFinder.ClearTilesToRemoveList();
+            RevealTiles();
         }
 
-        private async void FillBoard()
+        private void FillBoard()
         {
             ClearBoard();
             for (int x = 0; x < _grid.Width; x++)
@@ -48,17 +51,18 @@ namespace Game.Board
                         var tile = _tilePool.GetTileFromPool(_grid.GridToWorld(x, y), transform);
                         _grid.SetValue(x, y, tile);
                         tile.GameObject().SetActive(true);
-                       await AnimateTile(tile.GameObject(), new CancellationToken());
                         _tilesToRefill.Add(tile);
                     }
                 }
             }
         }
-        private async UniTask AnimateTile(GameObject target, CancellationToken cancellationToken)
+        private void RevealTiles()
         {
-            target.transform.localScale = Vector3.one * 0.1f;
-            target.transform.DOScale(Vector3.one, 1f).SetEase(Ease.OutBounce);
-            UniTask.Delay(TimeSpan.FromSeconds(1f), cancellationToken.IsCancellationRequested);
+            foreach (var tile in _tilesToRefill)
+            {
+                var target = tile.GameObject();
+                _animationManager.Reveal(target, 1f);
+            }
         }
 
         private void ClearBoard()
@@ -72,12 +76,13 @@ namespace Game.Board
             _tilesToRefill.Clear();
         }
         
-       [Inject] private void Construct(GridSystem gridSystem, TilePool tilePool, BlankTilesSetup blankTilesSetup, MatchFinder matchFinder)
+       [Inject] private void Construct(GridSystem gridSystem, TilePool tilePool, BlankTilesSetup blankTilesSetup, MatchFinder matchFinder, IAnimation animationManager)
        {
             _grid = gridSystem;
             _blankTilesSetup = blankTilesSetup;
             _tilePool = tilePool;
             _matchFinder = matchFinder;
+            _animationManager = animationManager;
        }
     }
 }

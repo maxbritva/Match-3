@@ -1,4 +1,5 @@
 using Game.Board;
+using Game.FX;
 using Game.GameManager;
 using Game.GameProgress;
 using Game.Grid;
@@ -30,6 +31,7 @@ namespace DI
             builder.Register<MatchFinder>(Lifetime.Singleton);
             builder.Register<ScoreCalculator>(Lifetime.Singleton);
             builder.Register<SetupCamera>(Lifetime.Singleton);
+            builder.Register<FXPool>(Lifetime.Scoped);
         }
     }
 }

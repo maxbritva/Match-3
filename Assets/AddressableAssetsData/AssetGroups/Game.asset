@@ -50,6 +50,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a647692b728101640aa68fc65974e761
+    m_Address: FXPrefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a884011c5489b9d4dba1bda95670bdc9
     m_Address: BGDarkTile
     m_ReadOnly: 0

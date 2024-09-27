@@ -1,4 +1,5 @@
 ﻿using Data;
+using DG.Tweening;
 using SceneLoading;
 using UnityEngine;
 using VContainer.Unity;
@@ -20,6 +21,7 @@ namespace Boot.EntryPoint
         {
             Application.targetFrameRate = 60;
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
+            DOTween.SetTweensCapacity(5000, 100);
             await _sceneLoader.LoadAsync(Scenes.MENU);
             _sceneLoader.LoadingIsDone(true);
         }

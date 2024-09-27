@@ -21,6 +21,7 @@ namespace Menu
         public async void Start(LevelConfiguration levelToStart)
         {
             _gameData.SetCurrentLevel(levelToStart);
+            _audioManager.StopMusic();
             await _sceneLoader.UnloadAsync(Scenes.MENU);
             await _sceneLoader.LoadAsync(Scenes.GAME);
             _audioManager.PlayGameMusic();

@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using Audio;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using Game.FX;
 using Game.Grid;
 using Game.MatchTiles;
 using Game.Score;
@@ -21,11 +21,13 @@ namespace Game.GameStateMachine.States
         private IStateSwitcher _stateSwitcher;
         private CancellationTokenSource _cts;
         private AudioManager _audioManager;
+        private FXPool _fxPool;
 
         public RemoveTilesState(GridSystem grid, MatchFinder matchFinder, IStateSwitcher stateSwitcher, 
-            ScoreCalculator scoreCalculator, AudioManager audioManager)
+            ScoreCalculator scoreCalculator, AudioManager audioManager, FXPool fxPool)
         {
             _grid = grid;
+            _fxPool = fxPool;
             _matchFinder = matchFinder;
             _audioManager = audioManager;
             _stateSwitcher = stateSwitcher;
@@ -54,6 +56,8 @@ namespace Game.GameStateMachine.States
                 Vector2Int position = grid.WorldToGrid(tile.transform.position);
                 grid.SetValue(position.x, position.y, null);
                 tile.transform.DOPunchScale(Vector3.one * 0.1f, 3f, 1, 0.5f).SetEase(Ease.OutBounce);
+                await _fxPool.LoadFXPrefab();
+                _fxPool.GetFXFromPool(tile.GameObject().transform.position, null);
               //  await UniTask.Delay(TimeSpan.FromSeconds(0.05f), _cts.IsCancellationRequested);
                 tile.GameObject().SetActive(false);
             }

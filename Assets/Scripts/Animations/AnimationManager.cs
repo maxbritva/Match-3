@@ -10,14 +10,18 @@ namespace Animations
     {
         private CancellationTokenSource _сts;
         
-        public async UniTask Reveal(GameObject target)
+        public async UniTask Reveal(GameObject target, float delay)
         {
             _сts = new CancellationTokenSource();
             target.transform.localScale = Vector3.one * 0.1f;
-            target.transform.DOScale(Vector3.one, 1f).SetEase(Ease.OutBounce);
-            UniTask.Delay(TimeSpan.FromSeconds(1f), _сts.IsCancellationRequested);
+            target.transform.DOScale(Vector3.one, delay).SetEase(Ease.OutBounce);
+           await UniTask.Delay(TimeSpan.FromSeconds(delay), _сts.IsCancellationRequested);
             _сts.Cancel();
         }
+
+        public async UniTask Move(GameObject target, Vector3 position, float duration, Ease ease) => 
+            await target.transform.DOMove(position, duration).From().SetEase(ease);
+
 
         public void Dispose() => _сts?.Dispose();
     }
