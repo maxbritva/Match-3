@@ -9,10 +9,10 @@ namespace Game.FX
 {
     public class FXPool
     {
-        private List<GameObject> _FXPool = new List<GameObject>();
+        private readonly List<GameObject> _FXPool = new List<GameObject>();
         private GameObject _prefabFX;
-        private  IObjectResolver _objectResolver;
-        private GameResourcesLoader _gameResourcesLoader;
+        private readonly IObjectResolver _objectResolver;
+        private readonly GameResourcesLoader _gameResourcesLoader;
         
         public FXPool(IObjectResolver objectResolver, GameResourcesLoader gameResourcesLoader)
         {

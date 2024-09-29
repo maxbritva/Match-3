@@ -10,10 +10,10 @@ namespace Menu.UI
 {
     public class MenuView : MonoBehaviour
     {
-        [SerializeField] private GameObject _leftTower;
-        [SerializeField] private GameObject _rightTower;
-        [SerializeField] private GameObject _wall;
-        [SerializeField] private GameObject _logo;
+        [SerializeField] private RectTransform _leftTower;
+        [SerializeField] private RectTransform _rightTower;
+        [SerializeField] private RectTransform _wall;
+        [SerializeField] private RectTransform _logo;
         [SerializeField] private List<GameObject> _levelButtons = new List<GameObject>();
 
         private AudioManager _audioManager;
@@ -21,16 +21,12 @@ namespace Menu.UI
         public async UniTask StartAnimation()
         {
             _audioManager.PlayWhoosh();
-            _leftTower.SetActive(true);
-            await _animationManager.Move(_leftTower, new Vector3(-13f, -0.74f, 0), 0.2f, Ease.InOutBack);
-           _rightTower.SetActive(true);
-           await _animationManager.Move(_rightTower, new Vector3(13f, -0.74f, 0), 0.3f, Ease.InOutBack);
-           _wall.SetActive(true);
+            await _animationManager.MoveUI(_leftTower, new Vector3(-23.5f, -116f, 0), 0.2f, Ease.InOutBack);
+            await _animationManager.MoveUI(_rightTower, new Vector3(-433f, -83f, 0), 0.3f, Ease.InOutBack);
+            _audioManager.PlayWhoosh();
+           await _animationManager.MoveUI(_wall, new Vector3(0f, -48f, 0), 0.3f, Ease.InOutBack);
            _audioManager.PlayWhoosh();
-           await _animationManager.Move(_wall, new Vector3(0.2f, -8f, 0), 0.3f, Ease.InOutBack);
-           _logo.SetActive(true);
-           _audioManager.PlayWhoosh();
-           await _animationManager.Move(_logo, new Vector3(-1.32f, -5f, 0), 0.7f, Ease.OutBounce);
+           await _animationManager.MoveUI(_logo, new Vector3(-106f, 84f, 0), 0.7f, Ease.OutBounce);
            foreach (var button in _levelButtons)
            {
                _audioManager.PlayPop();

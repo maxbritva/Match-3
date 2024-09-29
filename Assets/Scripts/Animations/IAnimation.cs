@@ -7,7 +7,7 @@ namespace Animations
     public interface IAnimation
     {
         UniTask Reveal(GameObject target, float delay);
-        UniTask Move(GameObject target, Vector3 position, float duration, Ease ease);
+        void DoPunchAnimate(GameObject target, Vector3 scale, float duration);
         UniTask MoveUI(RectTransform target, Vector3 position, float duration, Ease ease);
     }
 }

@@ -1,9 +1,5 @@
-using System;
 using System.Collections.Generic;
-using System.Threading;
 using Animations;
-using Cysharp.Threading.Tasks;
-using DG.Tweening;
 using Game.MatchTiles;
 using Game.Tiles;
 using Unity.VisualScripting;
@@ -15,7 +11,7 @@ namespace Game.Board
 {
     public class GameBoard : MonoBehaviour
     {
-        private List<Tile> _tilesToRefill = new List<Tile>();
+        private readonly List<Tile> _tilesToRefill = new List<Tile>();
         
         private BlankTilesSetup _blankTilesSetup;
         private MatchFinder _matchFinder;

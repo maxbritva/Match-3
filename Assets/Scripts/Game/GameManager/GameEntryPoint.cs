@@ -11,7 +11,6 @@ using Game.Tiles;
 using Game.Utils;
 using Level;
 using SceneLoading;
-using UnityEngine;
 using VContainer.Unity;
 
 namespace Game.GameManager

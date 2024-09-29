@@ -6,9 +6,9 @@ namespace Game.GameProgress
 {
     public class EndGame
     {
-        private GameData _gameData;
-        private AudioManager _audioManager;
-        private IAsyncSceneLoading _sceneLoader;
+        private readonly GameData _gameData;
+        private readonly AudioManager _audioManager;
+        private readonly IAsyncSceneLoading _sceneLoader;
 
         public EndGame(GameData gameData, IAsyncSceneLoading sceneLoader, AudioManager audioManager)
         {

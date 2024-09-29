@@ -1,5 +1,6 @@
-﻿using DG.Tweening;
+﻿using Animations;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using VContainer;
 
@@ -12,6 +13,7 @@ namespace Game.GameProgress
         [SerializeField] private TMP_Text _moves;
         
         private GameProgress _gameProgress;
+        private IAnimation _animationManager;
         private void OnEnable()
         {
             _gameProgress.OnScoreChanged += UpdateScore;
@@ -33,17 +35,22 @@ namespace Game.GameProgress
         private void UpdateScore()
         {
             _score.text = _gameProgress.Score.ToString();
-            AnimateText(_score);
+            AnimateText(_score.GameObject());
         }
 
         private void UpdateMoves()
         {
             _moves.text = _gameProgress.Moves.ToString();
-           AnimateText(_moves);
+           AnimateText(_moves.GameObject());
         }
 
-        private void AnimateText(TMP_Text text) => text.transform.DOPunchScale(Vector3.one * 0.3f, 0.3f, 1, 0.5f);
-
-        [Inject] private void Construct(GameProgress gameProgress) => _gameProgress = gameProgress;
+        private void AnimateText(GameObject text) =>
+            _animationManager.DoPunchAnimate(text, Vector3.one * 0.3f, 0.3f);
+        
+        [Inject] private void Construct(GameProgress gameProgress, IAnimation animationManager)
+        {
+            _gameProgress = gameProgress;
+            _animationManager = animationManager;
+        }
     }
 }
