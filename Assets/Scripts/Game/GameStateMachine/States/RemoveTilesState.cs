@@ -21,10 +21,11 @@ namespace Game.GameStateMachine.States
         private IStateSwitcher _stateSwitcher;
         private CancellationTokenSource _cts;
         private AudioManager _audioManager;
+        private Transform _parent;
         private FXPool _fxPool;
 
         public RemoveTilesState(GridSystem grid, MatchFinder matchFinder, IStateSwitcher stateSwitcher, 
-            ScoreCalculator scoreCalculator, AudioManager audioManager, FXPool fxPool)
+            ScoreCalculator scoreCalculator, AudioManager audioManager, FXPool fxPool, Transform parent)
         {
             _grid = grid;
             _fxPool = fxPool;
@@ -32,6 +33,7 @@ namespace Game.GameStateMachine.States
             _audioManager = audioManager;
             _stateSwitcher = stateSwitcher;
             _scoreCalculator = scoreCalculator;
+            _parent = parent;
         }
 
         public async void Enter()
@@ -52,14 +54,13 @@ namespace Game.GameStateMachine.States
         {
             foreach (var tile in tilesToRemove)
             {
-                _audioManager.PlayPop();
+                _audioManager.PlayRemove();
                 Vector2Int position = grid.WorldToGrid(tile.transform.position);
                 grid.SetValue(position.x, position.y, null);
-                tile.transform.DOPunchScale(Vector3.one * 0.1f, 3f, 1, 0.5f).SetEase(Ease.OutBounce);
-                await _fxPool.LoadFXPrefab();
-                _fxPool.GetFXFromPool(tile.GameObject().transform.position, null);
-              //  await UniTask.Delay(TimeSpan.FromSeconds(0.05f), _cts.IsCancellationRequested);
+                await tile.transform.DOScale(Vector3.zero, 0.05f).SetEase(Ease.OutBounce);
+                _fxPool.GetFXFromPool(tile.GameObject().transform.position, _parent);
                 tile.GameObject().SetActive(false);
+                tile.transform.localScale = Vector3.one;
             }
             _cts.Cancel();
         }

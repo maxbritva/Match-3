@@ -352,6 +352,9 @@ MonoBehaviour:
   _whoosh: {fileID: 8300000, guid: d46323e22e74e46baa241cbf48c85671, type: 3}
   _pop: {fileID: 8300000, guid: b6e2b6870d2d4e84bbd1889ea684d49e, type: 3}
   _stopMusic: {fileID: 8300000, guid: bbf884f0eacc43b4d8ce307633d6449e, type: 3}
+  _remove: {fileID: 8300000, guid: 08911dc4474ce0447b655c784c6e8d3d, type: 3}
+  _win: {fileID: 8300000, guid: 35e8aade7839abf40a9f7888781ffe37, type: 3}
+  _loose: {fileID: 8300000, guid: 220ee277e1875e046befea5b3b15f421, type: 3}
 --- !u!81 &6561378704969303175
 AudioListener:
   m_ObjectHideFlags: 0

@@ -15,12 +15,14 @@ namespace DI
 {
     public class GameScope: LifetimeScope
     {
-       [SerializeField] private GameBoard gameBoard;
+       [SerializeField] private GameBoard _gameBoard;
+       [SerializeField] private EndGamePanelView _endGamePanelView;
         protected override void Configure(IContainerBuilder builder)
         {
             builder.Register<IObjectResolver, Container>(Lifetime.Singleton);
-            builder.Register<TilesLoader>(Lifetime.Singleton);
-            builder.RegisterInstance(gameBoard);
+            builder.Register<GameResourcesLoader>(Lifetime.Singleton);
+            builder.RegisterInstance(_gameBoard);
+            builder.RegisterInstance(_endGamePanelView);
             builder.RegisterEntryPoint<GameEntryPoint>();
             builder.Register<GridSystem>(Lifetime.Singleton);
             builder.Register<GameProgress>(Lifetime.Singleton);
@@ -32,6 +34,7 @@ namespace DI
             builder.Register<ScoreCalculator>(Lifetime.Singleton);
             builder.Register<SetupCamera>(Lifetime.Singleton);
             builder.Register<FXPool>(Lifetime.Scoped);
+            builder.Register<EndGame>(Lifetime.Scoped);
         }
     }
 }

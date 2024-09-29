@@ -8,9 +8,9 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Game.Tiles
 {
-    public class TilesLoader
+    public class GameResourcesLoader
     {
-        public TilesLoader(GameData gameData) => _gameData = gameData;
+        public GameResourcesLoader(GameData gameData) => _gameData = gameData;
 
         public GameObject TilePrefab { get; private set; }
         
@@ -19,6 +19,8 @@ namespace Game.Tiles
         
         public Sprite LightTile { get; private set; }
         public Sprite DarkTile { get; private set; }
+        
+        public GameObject FX { get; private set; }
         public List<TileType> CurrentTilesSet { get; private set; }
         private GameData _gameData;
 
@@ -47,14 +49,18 @@ namespace Game.Tiles
         {
             var tile = Addressables.LoadAssetAsync<GameObject>("TilePrefab");
             var backgroundTile = Addressables.LoadAssetAsync<GameObject>("BackgroundPrefab");
+            var fxPrefab = Addressables.LoadAssetAsync<GameObject>("FXPrefab");
             await tile.ToUniTask();
             await backgroundTile.ToUniTask();
-            if (tile.Status == AsyncOperationStatus.Succeeded && backgroundTile.Status == AsyncOperationStatus.Succeeded)
+            await fxPrefab.ToUniTask();
+            if (tile.Status == AsyncOperationStatus.Succeeded && backgroundTile.Status == AsyncOperationStatus.Succeeded && fxPrefab.Status == AsyncOperationStatus.Succeeded)
             {
                 TilePrefab = tile.Result;
                 BackgroundTilePrefab = backgroundTile.Result;
+                FX = fxPrefab.Result;
                 Addressables.Release(tile);
                 Addressables.Release(backgroundTile);
+                Addressables.Release(fxPrefab);
             } 
         }
         private async UniTask LoadBlankTile()

@@ -14,12 +14,14 @@ namespace Data
             IsEnabledSound = true;
             CurrentLevelIndex = 2;
         }
-        public void SetCurrentLevel(int value)
+        public void SetCurrentLevelIndex(int value)
         {
             if (value < 0)
                 throw new ArgumentOutOfRangeException(nameof(value));
             CurrentLevelIndex = value;
         }
+
+        public void OpenNextLevel() => CurrentLevelIndex++;
 
         public bool SetSoundEnable(bool value) => IsEnabledSound = value;
 

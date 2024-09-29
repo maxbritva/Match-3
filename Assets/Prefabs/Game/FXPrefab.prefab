@@ -14841,6 +14841,7 @@ GameObject:
   - component: {fileID: 223767956318549992}
   - component: {fileID: 8606991403447526743}
   - component: {fileID: 3982517062933633820}
+  - component: {fileID: 659110037676285221}
   m_Layer: 0
   m_Name: FXPrefab
   m_TagString: Untagged
@@ -19584,3 +19585,15 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &659110037676285221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7834839563654822937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb9b7664c5584320bfff05a0c23facb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

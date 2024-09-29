@@ -22,6 +22,7 @@ namespace Menu
         {
             _gameData.SetCurrentLevel(levelToStart);
             _audioManager.StopMusic();
+            _audioManager.PlayStopMusic();
             await _sceneLoader.UnloadAsync(Scenes.MENU);
             await _sceneLoader.LoadAsync(Scenes.GAME);
             _audioManager.PlayGameMusic();

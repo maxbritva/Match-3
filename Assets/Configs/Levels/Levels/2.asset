@@ -15,62 +15,15 @@ MonoBehaviour:
   _blankTilesLayout:
   - xPosition: 0
     yPosition: 0
-  - xPosition: 1
-    yPosition: 0
+  - xPosition: 5
+    yPosition: 5
   - xPosition: 0
-    yPosition: 1
-  - xPosition: 4
-    yPosition: 0
+    yPosition: 5
   - xPosition: 5
     yPosition: 0
-  - xPosition: 6
-    yPosition: 0
-  - xPosition: 5
-    yPosition: 1
-  - xPosition: 9
-    yPosition: 0
-  - xPosition: 10
-    yPosition: 0
-  - xPosition: 10
-    yPosition: 1
-  - xPosition: 10
-    yPosition: 3
-  - xPosition: 10
-    yPosition: 4
-  - xPosition: 10
-    yPosition: 6
-  - xPosition: 10
-    yPosition: 7
-  - xPosition: 10
-    yPosition: 6
-  - xPosition: 6
-    yPosition: 7
-  - xPosition: 5
-    yPosition: 7
-  - xPosition: 5
-    yPosition: 6
-  - xPosition: 4
-    yPosition: 7
-  - xPosition: 1
-    yPosition: 7
-  - xPosition: 0
-    yPosition: 7
-  - xPosition: 0
-    yPosition: 6
-  - xPosition: 0
-    yPosition: 4
-  - xPosition: 0
-    yPosition: 3
-  - xPosition: 9
-    yPosition: 7
-  _tilesSet:
-  - {fileID: 11400000, guid: 2c753d5e1827448b8a5ad1d675fbf0df, type: 2}
-  - {fileID: 11400000, guid: c76e48bb6d42843c28269a94d72b5a50, type: 2}
-  - {fileID: 11400000, guid: 9e219eb4af93c49318d7e9aec127da31, type: 2}
-  - {fileID: 11400000, guid: 15f1a859835ac4815b90fb17e048c246, type: 2}
-  - {fileID: 11400000, guid: 9efff13a093ea48f29205748b3eb8613, type: 2}
-  _gridWidth: 11
-  _gridHeight: 8
+  _gridWidth: 6
+  _gridHeight: 6
   _goalScore: 1100
   _moves: 20
   _levelNumber: 2
+  _tileSets: 1

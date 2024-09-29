@@ -32,20 +32,21 @@ namespace Game.GameManager
         private GameData _gameData;
         private AudioManager _audioManager;
         private IAnimation _animation;
-        private TilesLoader _tilesLoader;
+        private GameResourcesLoader _gameResourcesLoader;
         private SetupCamera _setupCamera;
         private FXPool _fxPool;
         private IAsyncSceneLoading _sceneLoading;
+        private EndGamePanelView _endGamePanelView;
 
         private bool _isDebugging;
 
-        public GameEntryPoint(TilesLoader tilesLoader, GameData gameData, GameBoard gameBoard, 
+        public GameEntryPoint(GameResourcesLoader gameResourcesLoader, GameData gameData, GameBoard gameBoard, 
             GameDebug gameDebug, GridSystem gridSystem, MatchFinder matchFinder, TilePool tilePool, 
             GameProgress.GameProgress gameProgress, ScoreCalculator scoreCalculator, AudioManager audioManager,  
             BackgroundTilesSetup backgroundTilesSetup, BlankTilesSetup blankTilesSetup, 
-            IAsyncSceneLoading asyncSceneLoading, IAnimation animation, FXPool fxPool)
+            IAsyncSceneLoading asyncSceneLoading, IAnimation animation, FXPool fxPool, EndGamePanelView endGamePanelView)
         {
-            _tilesLoader = tilesLoader;
+            _gameResourcesLoader = gameResourcesLoader;
             _gameData = gameData;
             _animation = animation;
             _audioManager = audioManager;
@@ -60,23 +61,23 @@ namespace Game.GameManager
             _blankTilesSetup = blankTilesSetup;
             _backgroundTilesSetup = backgroundTilesSetup;
             _sceneLoading = asyncSceneLoading;
+            _endGamePanelView = endGamePanelView;
         }
 
         public async void Initialize()
         {
             _levelConfiguration = _gameData.CurrentLevel;
-            Debug.Log(_gameData.CurrentLevel.TileSets);
             if(_isDebugging)
                 _gameDebug.ShowDebugGrid(_levelConfiguration.GridWidth, _levelConfiguration.GridHeight, null);
             _gridSystem.SetupGrid(_levelConfiguration.GridWidth, _levelConfiguration.GridHeight);
             _gameProgress.LoadLevelConfiguration(_levelConfiguration.GoalScore, _levelConfiguration.Moves);
-             await _tilesLoader.Load();
+             await _gameResourcesLoader.Load();
             _setupCamera = new SetupCamera(false);
             _setupCamera.SetCamera(_levelConfiguration.GridWidth, _levelConfiguration.GridHeight);
             _blankTilesSetup.Generate(_levelConfiguration);
             _stateMachine = new StateMachine(_gameBoard, _levelConfiguration, _gridSystem, 
                 _matchFinder, _tilePool, _gameProgress, _scoreCalculator, _backgroundTilesSetup, 
-                _blankTilesSetup,_audioManager, _animation, _fxPool);
+                _blankTilesSetup,_audioManager, _animation, _fxPool, _endGamePanelView);
             _sceneLoading.LoadingIsDone(true);
         }
     }

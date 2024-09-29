@@ -10,14 +10,14 @@ namespace Game.Tiles
 {
     public class BackgroundTilesSetup: IDisposable
     {
-        private readonly TilesLoader _tilesLoader;
+        private readonly GameResourcesLoader _gameResourcesLoader;
         private CancellationTokenSource _сts;
         
         private IObjectResolver _objectResolver;
-        public BackgroundTilesSetup(IObjectResolver objectResolver, TilesLoader tilesLoader)
+        public BackgroundTilesSetup(IObjectResolver objectResolver, GameResourcesLoader gameResourcesLoader)
         {
             _objectResolver = objectResolver;
-            _tilesLoader = tilesLoader;
+            _gameResourcesLoader = gameResourcesLoader;
         }
         public async UniTask SetupBackground(Transform parent, bool[,] blanks, int width, int height, IAnimation animationManager)
         {
@@ -30,9 +30,9 @@ namespace Game.Tiles
                     var backgroundTile = CreateBackgroundTile(
                         new Vector3(x + 0.5f, y + 0.5f, 0.1f), parent);
                     if (x % 2 == 0 && y % 2 == 0 || x % 2 != 0 && y % 2 != 0)
-                        backgroundTile.GetComponent<SpriteRenderer>().sprite = _tilesLoader.DarkTile;
+                        backgroundTile.GetComponent<SpriteRenderer>().sprite = _gameResourcesLoader.DarkTile;
                     else
-                        backgroundTile.GetComponent<SpriteRenderer>().sprite = _tilesLoader.LightTile;
+                        backgroundTile.GetComponent<SpriteRenderer>().sprite = _gameResourcesLoader.LightTile;
                     animationManager.Reveal(backgroundTile, 1f);
                 }
             }
@@ -40,7 +40,7 @@ namespace Game.Tiles
             _сts.Cancel();
         }
         public GameObject CreateBackgroundTile(Vector3 position, Transform parent) => 
-            _objectResolver.Instantiate(_tilesLoader.BackgroundTilePrefab, position, Quaternion.identity, parent);
+            _objectResolver.Instantiate(_gameResourcesLoader.BackgroundTilePrefab, position, Quaternion.identity, parent);
         
         public void Dispose()
         {

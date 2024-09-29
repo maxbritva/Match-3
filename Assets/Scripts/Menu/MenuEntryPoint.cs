@@ -33,6 +33,7 @@ namespace Menu
             await _setupLevelSequence.Setup(_gameData.CurrentLevelIndex);
             _levelsSequenceView.SetupButtonsView(_gameData.CurrentLevelIndex);
             _audioManager.PlayMenuMusic();
+            _sceneLoader.LoadingIsDone(true);
             await _menuView.StartAnimation();
         }
     }

@@ -16,6 +16,7 @@ namespace Game.GameStateMachine.States
     {
         private GridSystem _grid;
         private TilePool _tilePool;
+        private GameProgress.GameProgress _gameProgress;
         private MatchFinder _matchFinder;
         private IStateSwitcher _stateSwitcher;
         private CancellationTokenSource _cts;
@@ -24,7 +25,7 @@ namespace Game.GameStateMachine.States
         private List<Vector2Int> _tilesToRefill = new List<Vector2Int>();
         
         public RefillGridState(GridSystem grid, IStateSwitcher stateSwitcher, MatchFinder matchFinder, 
-            TilePool tilePool, Transform parent, AudioManager audioManager)
+            TilePool tilePool, Transform parent, AudioManager audioManager, GameProgress.GameProgress gameProgress)
         {
             _grid = grid;
             _matchFinder = matchFinder;
@@ -32,6 +33,7 @@ namespace Game.GameStateMachine.States
             _tilePool = tilePool;
             _parent = parent;
             _audioManager = audioManager;
+            _gameProgress = gameProgress;
         }
 
         public async void Enter()
@@ -57,7 +59,7 @@ namespace Game.GameStateMachine.States
             else
             {
                 _audioManager.PlayNoMatch();
-                _stateSwitcher.SwitchState<PlayerTurnState>();
+                CheckEndGame();
             }
         }
 
@@ -106,5 +108,16 @@ namespace Game.GameStateMachine.States
             }
             _cts.Cancel();
         }
+
+        private void CheckEndGame()
+        {
+            if (_gameProgress.CheckGoalScore())
+                _stateSwitcher.SwitchState<WinState>();
+            else if (_gameProgress.Moves <= 0)
+                _stateSwitcher.SwitchState<LooseState>();
+            else
+                _stateSwitcher.SwitchState<PlayerTurnState>();
+        }
+        
     }
 }

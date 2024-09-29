@@ -22,7 +22,8 @@ namespace SceneLoading
             await UniTask.Delay(TimeSpan.FromSeconds(2f), _cts.IsCancellationRequested);
             var loadedScene = await Addressables.LoadSceneAsync(sceneName, LoadSceneMode.Additive).WithCancellation(_cts.Token);
             SceneManager.SetActiveScene(loadedScene.Scene);
-            _loadedScenes.Add(sceneName, loadedScene);
+           if (_loadedScenes.ContainsKey(sceneName) == false)
+                _loadedScenes.Add(sceneName, loadedScene);
             _cts.Cancel();
         }
 
@@ -31,6 +32,7 @@ namespace SceneLoading
             _cts = new CancellationTokenSource();
             var sceneToUnload = _loadedScenes[sceneName];
             await Addressables.UnloadSceneAsync(sceneToUnload).WithCancellation(_cts.Token).AsUniTask();
+            _loadedScenes.Remove(sceneName);
             _cts.Cancel();
         }
 

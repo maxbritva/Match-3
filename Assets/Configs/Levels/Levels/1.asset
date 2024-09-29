@@ -63,14 +63,9 @@ MonoBehaviour:
     yPosition: 3
   - xPosition: 9
     yPosition: 7
-  _tilesSet:
-  - {fileID: 11400000, guid: 2c753d5e1827448b8a5ad1d675fbf0df, type: 2}
-  - {fileID: 11400000, guid: c76e48bb6d42843c28269a94d72b5a50, type: 2}
-  - {fileID: 11400000, guid: 9e219eb4af93c49318d7e9aec127da31, type: 2}
-  - {fileID: 11400000, guid: 15f1a859835ac4815b90fb17e048c246, type: 2}
-  - {fileID: 11400000, guid: 9efff13a093ea48f29205748b3eb8613, type: 2}
   _gridWidth: 11
   _gridHeight: 8
-  _goalScore: 1100
+  _goalScore: 100
   _moves: 20
   _levelNumber: 1
+  _tileSets: 0

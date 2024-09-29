@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: GemSet
+  m_EditorClassIdentifier: 
+  m_GroupName: GemSet
+  m_GUID: 3f6d0d0b5fc6932408012f8db43fecce
+  m_SerializeEntries:
+  - m_GUID: 3804f030e38fa274284a97ad122d6851
+    m_Address: PurpleGem
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 77b5d8a2ee1a68848a3ef2952eaae2f4
+    m_Address: YellowGem
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8e660b6529d8ec747aa5fd0d0e22636d
+    m_Address: BlueGem
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b9ebfbd255f9cb149928c5fdc32f7a1c
+    m_Address: RedGem
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c114652407ddfd542b55682bccd50ddb
+    m_Address: OrangeGem
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c12ead12dd4b81b40a67f17dcaf047e3
+    m_Address: GemSet
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: ed31aca557b1ff943915a0d83d7fc5ae, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: fd0296c7b2655ce47be692b32f8718ee, type: 2}
+    - {fileID: 11400000, guid: f84469d9ddcb07043ad6e48efef6c3bc, type: 2}

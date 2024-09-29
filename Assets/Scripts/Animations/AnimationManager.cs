@@ -21,8 +21,8 @@ namespace Animations
 
         public async UniTask Move(GameObject target, Vector3 position, float duration, Ease ease) => 
             await target.transform.DOMove(position, duration).From().SetEase(ease);
-
-
+        public async UniTask MoveUI(RectTransform target, Vector3 position, float duration, Ease ease) =>
+            await target.DOAnchorPos(position, duration).SetEase(ease);
         public void Dispose() => _сts?.Dispose();
     }
 }

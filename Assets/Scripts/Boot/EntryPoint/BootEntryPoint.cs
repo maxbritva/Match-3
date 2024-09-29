@@ -23,7 +23,6 @@ namespace Boot.EntryPoint
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
             DOTween.SetTweensCapacity(5000, 100);
             await _sceneLoader.LoadAsync(Scenes.MENU);
-            _sceneLoader.LoadingIsDone(true);
         }
     }
 }

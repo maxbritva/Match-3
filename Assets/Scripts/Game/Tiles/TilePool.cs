@@ -10,11 +10,11 @@ namespace Game.Tiles
     {
         private List<Tile> _tilesPool = new List<Tile>();
         private IObjectResolver _objectResolver;
-        private TilesLoader _tilesLoader;
+        private GameResourcesLoader _gameResourcesLoader;
 
-        public TilePool(IObjectResolver objectResolver, TilesLoader tilesLoader)
+        public TilePool(IObjectResolver objectResolver, GameResourcesLoader gameResourcesLoader)
         {
-            _tilesLoader = tilesLoader;
+            _gameResourcesLoader = gameResourcesLoader;
             _objectResolver = objectResolver;
         }
 
@@ -34,20 +34,20 @@ namespace Game.Tiles
         
         public Tile CreateBlankTile(Vector3 position, Transform parent)
         {
-            var tilePrefab = _objectResolver.Instantiate(_tilesLoader.TilePrefab, position, Quaternion.identity, parent);
+            var tilePrefab = _objectResolver.Instantiate(_gameResourcesLoader.TilePrefab, position, Quaternion.identity, parent);
             var tile = tilePrefab.GameObject().GetComponent<Tile>();
-            tile.SetType(_tilesLoader.BlankTile);
+            tile.SetType(_gameResourcesLoader.BlankTile);
             return tile;
         }
 
         private Tile CreateTile(Vector3 position, Transform parent)
         {
-            var tilePrefab = _objectResolver.Instantiate(_tilesLoader.TilePrefab, position, Quaternion.identity, parent);
+            var tilePrefab = _objectResolver.Instantiate(_gameResourcesLoader.TilePrefab, position, Quaternion.identity, parent);
             var tile = tilePrefab.GameObject().GetComponent<Tile>();
             tile.SetType(GetRandomType());
             _tilesPool.Add(tile);
             return tile;
         }
-        private TileType GetRandomType() => _tilesLoader.CurrentTilesSet[Random.Range(0, _tilesLoader.CurrentTilesSet.Count)];
+        private TileType GetRandomType() => _gameResourcesLoader.CurrentTilesSet[Random.Range(0, _gameResourcesLoader.CurrentTilesSet.Count)];
     }
 }

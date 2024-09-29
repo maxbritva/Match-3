@@ -44,15 +44,12 @@ namespace Game.GameStateMachine.States
             else
             {
                 _audioManager.PlayMatch();
+                _gameProgress.SpendMove();
                 _stateSwitcher.SwitchState<RemoveTilesState>();
             }
         }
 
-        public void Exit()
-        {
-            _cts?.Cancel();
-            _gameProgress.SpendMove();
-        }
+        public void Exit() => _cts?.Cancel();
 
         private async UniTask SwapTiles(Vector2Int current, Vector2Int target)
          {

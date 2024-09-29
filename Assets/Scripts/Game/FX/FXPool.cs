@@ -1,32 +1,24 @@
 ﻿using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
+using Game.Tiles;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
 using VContainer;
 using VContainer.Unity;
-using IInitializable = VContainer.Unity.IInitializable;
 
 namespace Game.FX
 {
-    public class FXPool: IInitializable
+    public class FXPool
     {
         private List<GameObject> _FXPool = new List<GameObject>();
         private GameObject _prefabFX;
         private  IObjectResolver _objectResolver;
+        private GameResourcesLoader _gameResourcesLoader;
         
-        public FXPool(IObjectResolver objectResolver) => _objectResolver = objectResolver;
-        public async void Initialize()
+        public FXPool(IObjectResolver objectResolver, GameResourcesLoader gameResourcesLoader)
         {
-            await LoadFXPrefab();
-            if(_prefabFX == null)
-                Debug.Log("FX is null");
-            if(_objectResolver == null)
-                Debug.Log("resolver null");
+            _gameResourcesLoader = gameResourcesLoader;
+            _objectResolver = objectResolver;
         }
-        
-        
 
         public GameObject GetFXFromPool(Vector3 position, Transform parent)
         {
@@ -34,6 +26,7 @@ namespace Game.FX
             {
                 if(_FXPool[i].activeInHierarchy) continue;
                 _FXPool[i].GameObject().transform.position = position;
+                _FXPool[i].GameObject().SetActive(true);
                 return  _FXPool[i];
             }
             var fx = CreateFX(position, parent);
@@ -42,24 +35,10 @@ namespace Game.FX
         }
         private GameObject CreateFX(Vector3 position, Transform parent)
         {
-            var fxPrefab = _objectResolver.Instantiate(_prefabFX, position + new Vector3(0,0,1f), Quaternion.identity);
+            var fxPrefab = _objectResolver.Instantiate(_gameResourcesLoader.FX, position + Vector3.forward, Quaternion.identity);
+            fxPrefab.transform.SetParent(parent);
             _FXPool.Add(fxPrefab);
             return fxPrefab;
-        }
-        
-        public async UniTask LoadFXPrefab()
-        {
-            var fx = Addressables.LoadAssetAsync<GameObject>("FXPrefab");
-            await fx.ToUniTask();
-            if (fx.Status == AsyncOperationStatus.Succeeded)
-            {
-                _prefabFX = fx.Result;
-                Addressables.Release(fx);
-            }
-            else
-            {
-                Debug.Log("FX is null");
-            }
         }
     }
 }

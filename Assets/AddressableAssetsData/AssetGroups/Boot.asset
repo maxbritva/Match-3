@@ -20,6 +20,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 08911dc4474ce0447b655c784c6e8d3d
+    m_Address: Remove
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 348b74ce5ff094086b9a24554c26196d
     m_Address: Assets/Prefabs/RootScope.prefab
     m_ReadOnly: 0
