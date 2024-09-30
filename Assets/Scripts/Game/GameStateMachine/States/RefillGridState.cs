@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using Animations;
 using Audio;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
@@ -14,48 +15,39 @@ namespace Game.GameStateMachine.States
 {
     public class RefillGridState: IState
     {
-        private GridSystem _grid;
-        private TilePool _tilePool;
-        private GameProgress.GameProgress _gameProgress;
-        private MatchFinder _matchFinder;
-        private IStateSwitcher _stateSwitcher;
+        private readonly GridSystem _grid;
+        private readonly TilePool _tilePool;
+        private readonly GameProgress.GameProgress _gameProgress;
+        private readonly MatchFinder _matchFinder;
+        private readonly IStateSwitcher _stateSwitcher;
         private CancellationTokenSource _cts;
-        private Transform _parent;
-        private AudioManager _audioManager;
-        private List<Vector2Int> _tilesToRefill = new List<Vector2Int>();
+        private readonly Transform _parent;
+        private readonly AudioManager _audioManager;
+        private IAnimation _animation;
+        private readonly List<Vector2Int> _tilesToRefill = new List<Vector2Int>();
         
-        public RefillGridState(GridSystem grid, IStateSwitcher stateSwitcher, MatchFinder matchFinder, 
-            TilePool tilePool, Transform parent, AudioManager audioManager, GameProgress.GameProgress gameProgress)
+        public RefillGridState(GridSystem grid, IStateSwitcher stateSwitcher, MatchFinder matchFinder, TilePool tilePool, 
+            Transform parent, AudioManager audioManager, GameProgress.GameProgress gameProgress, IAnimation animation)
         {
             _grid = grid;
             _matchFinder = matchFinder;
             _stateSwitcher = stateSwitcher;
             _tilePool = tilePool;
             _parent = parent;
+            _animation = animation;
             _audioManager = audioManager;
             _gameProgress = gameProgress;
         }
 
         public async void Enter()
         {
-         
             await FallTiles();
             await RefillGrid();
-
-            for (int i = 0; i < _grid.Width; i++)
-            {
-                for (int j = 0; j < _grid.Height; j++)
-                {
-                    if (_grid.GetValue(i, j) == null)
-                        Debug.Log(_grid.GridToWorld(i, j));
-                }
-            }
             if (_matchFinder.CheckBoardForMatches(_grid))
             {
                 _stateSwitcher.SwitchState<RemoveTilesState>();
                 _audioManager.PlayMatch();
             }
-             
             else
             {
                 _audioManager.PlayNoMatch();
@@ -79,7 +71,7 @@ namespace Game.GameStateMachine.States
                         if (_grid.GetValue(x, i).IsInteractable == false) continue;
                         var tile = _grid.GetValue(x, i);
                         _grid.SetValue(x, y, tile);
-                        tile.transform.DOLocalMove(_grid.GridToWorld(x, y), 0.2f).SetEase(Ease.InBack); 
+                        _animation.MoveTile(tile, _grid.GridToWorld(x, y), Ease.InBack);
                         _grid.SetValue(x, i, null);
                         _tilesToRefill.Add(new Vector2Int(x,i));
                         break;
@@ -100,8 +92,7 @@ namespace Game.GameStateMachine.States
                     var tileFromPool = _tilePool.GetTileFromPool(_grid.GridToWorld(x, y), _parent);
                     tileFromPool.GameObject().SetActive(true);
                     _grid.SetValue(x, y, tileFromPool);
-                    tileFromPool.transform.localScale = Vector3.one * 0.1f;
-                    tileFromPool.transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutCubic);
+                    _animation.Reveal(tileFromPool.GameObject(), 0.2f);
                     _audioManager.PlayPop();
                     await UniTask.Delay(TimeSpan.FromSeconds(0.1f), _cts.IsCancellationRequested);
                 }

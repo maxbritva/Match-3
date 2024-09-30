@@ -1,7 +1,6 @@
 ﻿using Animations;
 using Game.Board;
 using Game.Tiles;
-using Game.Utils;
 using Level;
 using UnityEngine;
 
@@ -9,13 +8,12 @@ namespace Game.GameStateMachine.States
 {
     public class PrepareState: IState
     {
-        private IStateSwitcher _stateSwitcher;
-        private GameBoard _gameBoard;
-        private IAnimation _animationManager;
-        private SetupCamera _setupCamera;
-        private LevelConfiguration _levelConfiguration;
-        private BlankTilesSetup _blankTilesSetup;
-        private BackgroundTilesSetup _backgroundTilesSetup;
+        private readonly IStateSwitcher _stateSwitcher;
+        private readonly GameBoard _gameBoard;
+        private readonly IAnimation _animationManager;
+        private readonly LevelConfiguration _levelConfiguration;
+        private readonly BlankTilesSetup _blankTilesSetup;
+        private readonly BackgroundTilesSetup _backgroundTilesSetup;
         
         public PrepareState(IStateSwitcher stateSwitcher, GameBoard gameBoard, LevelConfiguration levelConfiguration, 
             BlankTilesSetup blankTilesSetup, BackgroundTilesSetup backgroundTilesSetup, IAnimation animationManager)

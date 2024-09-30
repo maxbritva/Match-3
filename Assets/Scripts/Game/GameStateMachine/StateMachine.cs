@@ -50,10 +50,10 @@ namespace Game.GameStateMachine
             _states = new List<IState>()
             {
                 new PrepareState( this,_gameBoard, _levelConfiguration, _blankTilesSetup, _backgroundTilesSetup, _animation),
-                new PlayerTurnState(_grid, this, _audioManager),
-                new RemoveTilesState(_grid, _matchFinder,this, _scoreCalculator, _audioManager, _fxPool, gameBoard.transform),
-                new SwapTilesState(_grid, this, _matchFinder, _gameProgress, _audioManager),
-                new RefillGridState(_grid, this, _matchFinder, _tilePool, _gameBoard.transform, _audioManager, _gameProgress),
+                new PlayerTurnState(_grid, this, _audioManager, _animation),
+                new RemoveTilesState(_grid, _matchFinder,this, _scoreCalculator, _audioManager, _fxPool, gameBoard.transform, _animation),
+                new SwapTilesState(_grid, this, _matchFinder, _gameProgress, _audioManager, _animation),
+                new RefillGridState(_grid, this, _matchFinder, _tilePool, _gameBoard.transform, _audioManager, _gameProgress, _animation),
                 new WinState(_endGamePanelView),
                 new LooseState(_endGamePanelView)
             };

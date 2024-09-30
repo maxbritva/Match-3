@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
+using Animations;
 using Audio;
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
 using Game.FX;
 using Game.Grid;
 using Game.MatchTiles;
@@ -15,17 +15,18 @@ namespace Game.GameStateMachine.States
 {
     public class RemoveTilesState: IState
     {
-        private GridSystem _grid;
-        private MatchFinder _matchFinder;
-        private ScoreCalculator _scoreCalculator;
-        private IStateSwitcher _stateSwitcher;
+        private readonly GridSystem _grid;
+        private readonly MatchFinder _matchFinder;
+        private readonly ScoreCalculator _scoreCalculator;
+        private readonly IStateSwitcher _stateSwitcher;
+        private readonly AudioManager _audioManager;
+        private readonly Transform _parent;
+        private readonly FXPool _fxPool;
+        private readonly IAnimation _animation;
         private CancellationTokenSource _cts;
-        private AudioManager _audioManager;
-        private Transform _parent;
-        private FXPool _fxPool;
 
         public RemoveTilesState(GridSystem grid, MatchFinder matchFinder, IStateSwitcher stateSwitcher, 
-            ScoreCalculator scoreCalculator, AudioManager audioManager, FXPool fxPool, Transform parent)
+            ScoreCalculator scoreCalculator, AudioManager audioManager, FXPool fxPool, Transform parent, IAnimation animation)
         {
             _grid = grid;
             _fxPool = fxPool;
@@ -34,6 +35,7 @@ namespace Game.GameStateMachine.States
             _stateSwitcher = stateSwitcher;
             _scoreCalculator = scoreCalculator;
             _parent = parent;
+            _animation = animation;
         }
 
         public async void Enter()
@@ -57,10 +59,8 @@ namespace Game.GameStateMachine.States
                 _audioManager.PlayRemove();
                 Vector2Int position = grid.WorldToGrid(tile.transform.position);
                 grid.SetValue(position.x, position.y, null);
-                await tile.transform.DOScale(Vector3.zero, 0.05f).SetEase(Ease.OutBounce);
+                await _animation.HideTile(tile.GameObject());
                 _fxPool.GetFXFromPool(tile.GameObject().transform.position, _parent);
-                tile.GameObject().SetActive(false);
-                tile.transform.localScale = Vector3.one;
             }
             _cts.Cancel();
         }

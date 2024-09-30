@@ -4,7 +4,7 @@ namespace Game.GameStateMachine.States
 {
     public class LooseState : IState
     {
-        private EndGamePanelView _endGamePanelView;
+        private readonly EndGamePanelView _endGamePanelView;
 
         public LooseState(EndGamePanelView endGamePanelView) => _endGamePanelView = endGamePanelView;
 

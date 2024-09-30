@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using Animations;
 using Audio;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
@@ -13,20 +14,22 @@ namespace Game.GameStateMachine.States
     public class SwapTilesState: IState
     {
         private readonly GridSystem _grid;
-        private AudioManager _audioManager;
+        private readonly AudioManager _audioManager;
         private readonly GameProgress.GameProgress _gameProgress;
         private readonly MatchFinder _matchFinder;
         private readonly IStateSwitcher _stateSwitcher;
+        private readonly IAnimation _animation;
         private CancellationTokenSource _cts;
 
         public SwapTilesState(GridSystem grid, IStateSwitcher stateSwitcher, MatchFinder matchFinder, 
-            GameProgress.GameProgress gameProgress, AudioManager audioManager)
+            GameProgress.GameProgress gameProgress, AudioManager audioManager, IAnimation animation)
         {
             _grid = grid;
             _stateSwitcher = stateSwitcher;
             _matchFinder = matchFinder;
             _gameProgress = gameProgress;
             _audioManager = audioManager;
+            _animation = animation;
         }
 
         public async void Enter()
@@ -64,7 +67,9 @@ namespace Game.GameStateMachine.States
          
              await UniTask.Delay(TimeSpan.FromSeconds(0.5f), _cts.IsCancellationRequested);
          }
+
         private void MoveAnimation(Tile tileToMove, Vector2Int position) =>
-            tileToMove.transform.DOLocalMove(_grid.GridToWorld(position.x, position.y),0.4f).SetEase(Ease.OutCubic);
+            _animation.MoveTile(tileToMove, _grid.GridToWorld(position.x, position.y), Ease.OutCubic);
+
     }
 }

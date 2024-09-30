@@ -1,6 +1,6 @@
 ﻿using System;
+using Animations;
 using Audio;
-using DG.Tweening;
 using Game.Grid;
 using Game.Tiles;
 using Input;
@@ -11,17 +11,19 @@ namespace Game.GameStateMachine.States
     public class PlayerTurnState: IState, IDisposable
     {
         private readonly Vector2Int _emptyPosition = Vector2Int.one * -1;
-        private InputReader _inputReader;
-        private GridSystem _grid;
-        private IStateSwitcher _stateSwitcher;
-        private Camera _camera;
-        private AudioManager _audioManager;
+        private readonly InputReader _inputReader;
+        private readonly GridSystem _grid;
+        private readonly IStateSwitcher _stateSwitcher;
+        private readonly Camera _camera;
+        private readonly AudioManager _audioManager;
+        private readonly IAnimation _animation;
 
-        public PlayerTurnState(GridSystem grid, IStateSwitcher stateSwitcher, AudioManager audioManager)
+        public PlayerTurnState(GridSystem grid, IStateSwitcher stateSwitcher, AudioManager audioManager, IAnimation animation)
         {
             _grid = grid;
             _stateSwitcher = stateSwitcher;
             _audioManager = audioManager;
+            _animation = animation;
             _camera = Camera.main;
             _inputReader = new InputReader();
             _inputReader.Click += OnTileClick;
@@ -48,7 +50,7 @@ namespace Game.GameStateMachine.States
             {
                 _audioManager.PlayClick();
                 _grid.SetCurrentPosition(clickPosition);
-                AnimateSelectionTile( _grid.GetValue(_grid.CurrentPosition.x, _grid.CurrentPosition.y), 1.2f);
+                _animation.AnimateTile(_grid.GetValue(_grid.CurrentPosition.x, _grid.CurrentPosition.y), 1.2f);
             }
 
             else if (_grid.CurrentPosition == clickPosition)
@@ -60,19 +62,17 @@ namespace Game.GameStateMachine.States
             else if(_grid.CurrentPosition  != clickPosition  && IsSwappable(_grid.CurrentPosition, clickPosition))
             {
                 _grid.SetTargetPosition(clickPosition);
-                AnimateSelectionTile( _grid.GetValue(_grid.CurrentPosition.x, _grid.CurrentPosition.y), 1f);
+                _animation.AnimateTile(_grid.GetValue(_grid.CurrentPosition.x, _grid.CurrentPosition.y), 1f);
                 _stateSwitcher.SwitchState<SwapTilesState>();
             }
         }
-        
-        private void AnimateSelectionTile(Tile tile, float value) => tile.transform.DOScale(value, 0.3f).SetEase(Ease.OutCubic);
 
         private bool IsSwappable(Vector2Int currentTile, Vector2Int targetTile) => 
             Mathf.Abs(currentTile.x - targetTile.x) + Mathf.Abs(currentTile.y - targetTile.y) == 1;
 
         private void DeselectTile()
         {
-            AnimateSelectionTile( _grid.GetValue(_grid.CurrentPosition.x, _grid.CurrentPosition.y), 1f);
+            _animation.AnimateTile(_grid.GetValue(_grid.CurrentPosition.x, _grid.CurrentPosition.y), 1f);
             _grid.SetCurrentPosition(_emptyPosition);
             _grid.SetTargetPosition(_emptyPosition);
         }
