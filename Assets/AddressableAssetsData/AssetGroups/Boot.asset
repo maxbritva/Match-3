@@ -35,13 +35,43 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 54ce3952ff0984b3b8e518b70e568e28
+    m_Address: Assets/Input/PlayerInputs.inputactions
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 70956447234d33b40b396b67314a5843
     m_Address: Assets/Font/TMP/gomarice_rocks_yellow_outline_big.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b0c37fe2d2cece340a45e7faf4622b32
+    m_Address: Assets/Sprites/ui/Logo.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b3453e84aa7d88a47a6b80b04864177c
+    m_Address: Assets/Sprites/Sky_LowPoly_01_Day_a.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bbf884f0eacc43b4d8ce307633d6449e
     m_Address: Assets/Audio/Sound/StopMusic.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d875e390b70304bb7b367202ebb2d5b9
+    m_Address: Assets/Prefabs/LoadingScreenUI.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ee83818d8265682469b8172945a875c2
+    m_Address: Assets/Input
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f552f85dd96bb954b9ec510443a05f12
+    m_Address: Assets/Sprites/ui/Tower.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

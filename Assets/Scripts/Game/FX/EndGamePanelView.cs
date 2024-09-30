@@ -1,4 +1,6 @@
-﻿using Animations;
+﻿using System;
+using System.Threading;
+using Animations;
 using Audio;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
@@ -19,6 +21,7 @@ namespace Game.FX
         private IAnimation _animationManager;
         private AudioManager _audioManager;
         private EndGame _endGame;
+        private CancellationTokenSource _сts;
         private bool _isWinCondition;
 
         private readonly string _win = "You have won!";
@@ -27,9 +30,11 @@ namespace Game.FX
         private void OnDisable() => _closeButton.onClick.RemoveListener(ExitGame);
         private async UniTask StartAnimation()
         {
+            _сts = new CancellationTokenSource();
             _audioManager.PlayWhoosh();
-            _panel.SetActive(true);
-            await _animationManager.MoveUI(_window, new Vector3(0f, -115f, 0), 0.5f, Ease.InOutBack);
+            _panel.SetActive(true); 
+            _animationManager.MoveUI(_window, new Vector3(0f, -115f, 0), 0.5f, Ease.InOutBack);
+            await UniTask.Delay(TimeSpan.FromSeconds(0.5f), _сts.IsCancellationRequested);
             _audioManager.StopMusic();
             if (_isWinCondition)
                 _audioManager.PlayWin();

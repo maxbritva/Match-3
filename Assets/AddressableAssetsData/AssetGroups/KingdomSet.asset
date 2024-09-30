@@ -65,11 +65,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f312af13e0799cb40952d8566c9610a4
-    m_Address: KingdomSet
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: ed31aca557b1ff943915a0d83d7fc5ae, type: 2}
   m_SchemaSet:

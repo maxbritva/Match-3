@@ -85,6 +85,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c12ead12dd4b81b40a67f17dcaf047e3
+    m_Address: GemSet
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d0af27e493b7b4e13a636d71aa54cfa4
     m_Address: Assets/Audio/Music/GameMusic.wav
     m_ReadOnly: 0
@@ -102,6 +107,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ec6bbe7137ac8154781fcab1a7ff842f
     m_Address: Assets/Sprites/ui/window.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f312af13e0799cb40952d8566c9610a4
+    m_Address: KingdomSet
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
