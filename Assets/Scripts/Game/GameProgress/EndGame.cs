@@ -19,7 +19,7 @@ namespace Game.GameProgress
 
         public async void End(bool success)
         {
-            if(success)
+            if(success && _gameData.CurrentLevel.Number == _gameData.CurrentLevelIndex)
                 _gameData.OpenNextLevel();
             await _sceneLoader.UnloadAsync(Scenes.GAME);
             await _sceneLoader.LoadAsync(Scenes.MENU);

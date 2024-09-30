@@ -12,7 +12,7 @@ namespace Data
         public GameData()
         {
             IsEnabledSound = true;
-            CurrentLevelIndex = 2;
+            CurrentLevelIndex = 1;
         }
         public void SetCurrentLevelIndex(int value)
         {

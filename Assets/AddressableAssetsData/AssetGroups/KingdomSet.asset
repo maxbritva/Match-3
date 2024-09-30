@@ -15,8 +15,18 @@ MonoBehaviour:
   m_GroupName: KingdomSet
   m_GUID: c1b95cac941508041ab34b4ff36d06f8
   m_SerializeEntries:
+  - m_GUID: 15f1a859835ac4815b90fb17e048c246
+    m_Address: Assets/Configs/Sets/KingdomSet/Shield.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2664ca33f723cb84d8fdf183fe73baaf
     m_Address: Book
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2c753d5e1827448b8a5ad1d675fbf0df
+    m_Address: Assets/Configs/Sets/KingdomSet/Book.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -30,8 +40,23 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9e219eb4af93c49318d7e9aec127da31
+    m_Address: Assets/Configs/Sets/KingdomSet/Potion.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9efff13a093ea48f29205748b3eb8613
+    m_Address: Assets/Configs/Sets/KingdomSet/Sword.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bc0a184b0c7c0604db6cc2af3432ba13
     m_Address: Shield
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c76e48bb6d42843c28269a94d72b5a50
+    m_Address: Assets/Configs/Sets/KingdomSet/Coin.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

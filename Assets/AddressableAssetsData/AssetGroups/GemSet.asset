@@ -15,13 +15,38 @@ MonoBehaviour:
   m_GroupName: GemSet
   m_GUID: 3f6d0d0b5fc6932408012f8db43fecce
   m_SerializeEntries:
+  - m_GUID: 009a6ac519a54564e9e0e68df4172bfe
+    m_Address: Assets/Configs/Sets/GemSet/YellowGem.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 080cd45be8135554a9a2179873383402
+    m_Address: Assets/Configs/Sets/GemSet/OrangeGem.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0b34d9eb3f7617845bd142770e07258b
+    m_Address: Assets/Configs/Sets/GemSet/PurpleGem.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3804f030e38fa274284a97ad122d6851
     m_Address: PurpleGem
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6de86b1c31e2e744baee82a9a91055b1
+    m_Address: Assets/Configs/Sets/GemSet/BlueGem.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 77b5d8a2ee1a68848a3ef2952eaae2f4
     m_Address: YellowGem
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7c7e71d62b25aa84ba34cc469dd5d87e
+    m_Address: Assets/Configs/Sets/GemSet/RedGem.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
