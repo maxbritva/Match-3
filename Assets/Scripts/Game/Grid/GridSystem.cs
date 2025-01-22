@@ -25,7 +25,7 @@ namespace Game.Grid
         public Vector2Int SetTargetPosition(Vector2Int value) => TargetPosition = value;
         
         public Vector3 GridToWorld(int x, int y) => 
-            new Vector3(x + 0.5f, y  + 0.5f, 0);
+            new Vector3(x, y, 0);
 
         public Vector2Int WorldToGrid(Vector3 worldPosition)
         {
@@ -47,12 +47,6 @@ namespace Game.Grid
             SetValue(position.x,position.y,value);
         }
 
-        public Tile GetValue(Vector3 worldPosition)
-        {
-            Vector2Int position = WorldToGrid(worldPosition);
-            return GetValue(position.x, position.y);
-        }
-        
         public Tile GetValue(int x, int y) => IsValid(x, y) ? Grid[x, y] : default;
         
         public bool IsValid(int x, int y) => x >= 0 && y >= 0 && x < Width && y < Height;

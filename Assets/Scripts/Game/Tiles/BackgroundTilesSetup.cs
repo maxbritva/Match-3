@@ -28,7 +28,7 @@ namespace Game.Tiles
                 {
                     if (blanks[x, y]) continue;
                     var backgroundTile = CreateBackgroundTile(
-                        new Vector3(x + 0.5f, y + 0.5f, 0.1f), parent);
+                        new Vector3(x , y , 0.1f), parent);
                     if (x % 2 == 0 && y % 2 == 0 || x % 2 != 0 && y % 2 != 0)
                         backgroundTile.GetComponent<SpriteRenderer>().sprite = _gameResourcesLoader.DarkTile;
                     else
